@@ -5,11 +5,9 @@ from pylabrobot.pylabrobot.resources.opentrons.deck import OTDeck
 from pylabrobot.pylabrobot.resources import set_tip_tracking, set_volume_tracking
 from pylabrobot.pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul
 from pylabrobot.pylabrobot.resources import ( PLT_CAR_L5AC_A00, Cos_96_DW_1mL, HTF_L)
-#from pylabrobot.pylabrobot.resources.opentrons import opentrons_96_tiprack_300ul
 from pylabrobot.pylabrobot.resources.opentrons import corning_96_wellplate_360ul_flat
 import asyncio
 import os
-
 
 backend=ChatterBoxBackend()
 lh = LiquidHandler(backend, deck=OTDeck())
