@@ -1,13 +1,13 @@
-from pylabrobot.liquid_handling import LiquidHandler
-from pylabrobot.liquid_handling.backends import ChatterBoxBackend
-from pylabrobot.visualizer.visualizer import Visualizer
-from pylabrobot.resources.opentrons.deck import OTDeck
-from pylabrobot.resources import set_tip_tracking, set_volume_tracking
-from pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul
-from pylabrobot.resources import ( PLT_CAR_L5AC_A00, Cos_96_DW_1mL, HTF_L)
-import asyncio
-from pylabrobot.resources.opentrons import opentrons_96_tiprack_300ul
+from pylabrobot.pylabrobot.liquid_handling import LiquidHandler
+from pylabrobot.pylabrobot.liquid_handling.backends import ChatterBoxBackend
+from pylabrobot.pylabrobot.visualizer.visualizer import Visualizer
+from pylabrobot.pylabrobot.resources.opentrons.deck import OTDeck
+from pylabrobot.pylabrobot.resources import set_tip_tracking, set_volume_tracking
+from pylabrobot.pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul
+from pylabrobot.pylabrobot.resources import ( PLT_CAR_L5AC_A00, Cos_96_DW_1mL, HTF_L)
+from pylabrobot.pylabrobot.resources.opentrons import opentrons_96_tiprack_300ul
 
+import asyncio
 
 lh = LiquidHandler(backend=ChatterBoxBackend(), deck=OTDeck())
 
