@@ -39,8 +39,8 @@ async def main():
 
     tips20 = opentrons_96_tiprack_20ul(name="tip_rack_20")
     lh.deck.assign_child_resource(tips20,5) 
-    adUtil.printl(lh.deck)
-    #pprint(inspect.getmembers(lh.deck))
+    #adUtil.printl(lh.deck)
+    # #pprint(inspect.getmembers(lh.deck))
     tips20.fill()
 
     sourceSlot=2 # label not the 0 indexed
@@ -67,8 +67,8 @@ async def main():
 
     # await lh.return_tips()
     lh.summary()
-    await lh.stop()
     adUtil.printGCode()
+    await lh.stop()
     #await asyncio.sleep(60)
 
 asyncio.run(main())
