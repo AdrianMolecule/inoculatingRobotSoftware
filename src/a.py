@@ -1,18 +1,23 @@
-from pylabrobot.pylabrobot.liquid_handling import LiquidHandler
-from pylabrobot.pylabrobot.visualizer.visualizer import Visualizer
-from pylabrobot.pylabrobot.resources.opentrons.deck import OTDeck
-from pylabrobot.pylabrobot.resources import set_tip_tracking, set_volume_tracking
-from pylabrobot.pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul
-from pylabrobot.pylabrobot.resources import ( PLT_CAR_L5AC_A00, Cos_96_DW_1mL, HTF_L)
-from pylabrobot.pylabrobot.resources.opentrons import corning_96_wellplate_360ul_flat
-from pylabrobot.pylabrobot.resources.coordinate import Coordinate
-from pylabrobot.pylabrobot.resources.plate import Plate
-from pylabrobot.pylabrobot.resources.resource import Resource
-from pylabrobot.pylabrobot.resources.well import Well
-from pylabrobot.pylabrobot.resources.tip_rack import TipSpot, TipRack
+import sys
+import os
+
+from pylabrobot.liquid_handling import LiquidHandler
+from pylabrobot.visualizer.visualizer import Visualizer
+from pylabrobot.liquid_handling import LiquidHandler
+from pylabrobot.resources.opentrons.deck import OTDeck
+from pylabrobot.resources import set_tip_tracking, set_volume_tracking
+from pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul, opentrons_96_tiprack_1000ul
+from pylabrobot.resources import ( PLT_CAR_L5AC_A00, Cos_96_DW_1mL, HTF_L)
+from pylabrobot.resources.opentrons import corning_96_wellplate_360ul_flat
+from pylabrobot.resources.coordinate import Coordinate
+from pylabrobot.resources.plate import Plate
+from pylabrobot.resources.resource import Resource
+from pylabrobot.resources.liquid import Liquid
+from pylabrobot.resources.well import Well
+from pylabrobot.resources.tip_rack import TipSpot, TipRack
 
 #from opentrons import robot, labware, instruments
-from pylabrobot.pylabrobot.liquid_handling.backends import ChatterBoxBackend
+from pylabrobot.liquid_handling.backends import ChatterBoxBackend
 from cncLabBackend import CncLabBackend
 import inspect
 import adUtil, cncLabBackend
@@ -20,8 +25,8 @@ import asyncio
 import os
 from pprint import pprint
 
-#backend=CncLabBackend()
-backend=ChatterBoxBackend()
+backend=CncLabBackend()
+#backend=ChatterBoxBackend()
 deck:OTDeck=OTDeck()
 lh = LiquidHandler(backend, deck)
 
@@ -33,54 +38,46 @@ async def main():
     vis = Visualizer(resource=lh)
     await asyncio.sleep(1)
     await vis.setup()
-    await asyncio.sleep(1)
+    await asyncio.sleep(1)      
+    
 
-    # backend = AgarSimulatingBackend()
     set_tip_tracking(True), set_volume_tracking(True)
     tipsSlot=4
-    #tips20 = opentrons_96_tiprack_20ul(name="tip_rack_20")
-    tips20:TipRack = HTF_L(name='tips_01', with_tips=False)
-    tips20.fill()
-    deck.assign_child_at_slot(tips20, tipsSlot)
-    #tips20.
+    tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
+    tips.fill()
+    deck.assign_child_at_slot(tips, tipsSlot)
+    #tips.
     adUtil.printl(lh.deck)
-    # #pprint(inspect.getmembers(lh.deck))
-    # await lh.pick_up_tips(tips20["A1"])# that does put a tip in tips20
-    # await lh.pick_up_tips(tips20["A3"])
-    # await asyncio.sleep(3)
-    #await lh.drop_tips(tips20["A3"])
-    # await asyncio.sleep(1)
-    # return
+
     #source 96wells     #destination 96 wells
     sourceSlot=2 # label not the 0 indexed
     sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
+    liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
+    sourceWells.set_well_liquids((Liquid.WATER, 200))
     adUtil.printl(lh.deck.slots[sourceSlot-1])
     adUtil.printl(sourceWells)
     
     # plate = lh.deck.get_resource("source_plate")
     sourceA1:Well = sourceWells["A1"][0]
     adUtil.printl(sourceA1)
-    sourceA2:Well = sourceWells["A2"][0]
-    adUtil.printl(sourceA2)
-    sourceA3:Well = sourceWells["A3"][0]
-    adUtil.printl(sourceA3)    
 
     destinationSlot=1
     destinationWells = corning_96_wellplate_360ul_flat(name='destination_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
-    lh.deck.assign_child_at_slot(destinationWells, slot=destinationSlot)
+    deck.assign_child_at_slot(destinationWells, slot=destinationSlot)
 
-    adUtil.printl(sourceA1)
-    await lh.pick_up_tips(tips20["A1"])
+    await lh.pick_up_tips(tips["A1"])
+    #after this I would expect to see a missing tip in the tipRack
     await lh.aspirate(sourceA1, vols=[100.0])
-    #await asyncio.sleep(3)
-    await lh.dispense(sourceA3, vols=[100.0])    
-    #await lh.drop_tips() this creates error Adrian
+    await lh.dispense(sourceWells["A3"][0], vols=[100.0])    
+    await lh.drop_tips(tips["A1"])
+    await lh.pick_up_tips(tips["A3"])  
+
     await lh.aspirate(sourceA1, vols=[100.0])
-    await asyncio.sleep(5)
-    await lh.aspirate(sourceWells["H3"][0], vols=[100.0])
+    await lh.dispense(sourceWells["B3"][0], vols=[10.0])    
+    await lh.aspirate(sourceWells["H3"][0], vols=[10.0])
+    await lh.dispense(sourceWells["H12"][0], vols=[10.0])    
     await asyncio.sleep(3)
-    await lh.dispense(sourceWells["H12"][0], vols=[100.0])    
 
     # destinationA5 = destinationWells["A5"][0]
     # adUtil.printl(destinationA5)
@@ -89,7 +86,7 @@ async def main():
     adUtil.printGCode()
     # I can get pylabrobot.machine.Machine and then get all children
     await lh.stop()
-    await asyncio.sleep(5)
+    await asyncio.sleep(50)
 
 asyncio.run(main())
 
@@ -105,3 +102,6 @@ asyncio.run(main())
 #https://colab.research.google.com/drive/1PoEZYIjggdnXQNGiKdnMmrJGTUg9xrPY#scrollTo=1cp3Mp8C4tQt HTGAA Ricks big code
 
     #my cnc max y160 x=285
+# SCRIPT_DIR = os.path.dirname(os.path.abspath("C:/a/diy/pythonProjects/pylabrobot/pylabrobot/gui"))
+# print("SCRIPT_DIR:",SCRIPT_DIR,sys.path)
+# sys.path.append(os.path.dirname(SCRIPT_DIR))

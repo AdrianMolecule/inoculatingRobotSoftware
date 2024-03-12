@@ -2,9 +2,9 @@
 
 from typing import List
 
-from pylabrobot.pylabrobot.liquid_handling.backends.backend import LiquidHandlerBackend
-from pylabrobot.pylabrobot.resources import Resource
-from pylabrobot.pylabrobot.liquid_handling.standard import (  Pickup,  PickupTipRack,  Drop,  DropTipRack,  Aspiration,  AspirationPlate,  Dispense,  DispensePlate,  Move)
+from pylabrobot.liquid_handling.backends.backend import LiquidHandlerBackend
+from pylabrobot.resources import Resource
+from pylabrobot.liquid_handling.standard import (  Pickup,  PickupTipRack,  Drop,  DropTipRack,  Aspiration,  AspirationPlate,  Dispense,  DispensePlate,  Move)
 
 import adUtil
 
