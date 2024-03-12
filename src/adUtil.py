@@ -14,7 +14,7 @@ def appendGCode(operationName, resource:Resource):
     gCode.append("Z"+str(resource.get_size_z()+Z_PROTECTION)+"; "+"lift for move to go to "+resource.name)
     coordinate:Coordinate=resource.get_absolute_location()
     gCode.append("X"+str(coordinate.x)+ " "+"Y"+str(coordinate.y)+" using "+operationName+", "+resource.name)
-    gCode.append("Z"+str(coordinate.z)+";"+operationName+" plunge to tube")
+    gCode.append("Z"+str(coordinate.z)+"; "+operationName+" plunge to tube")
     
 def printGCode():
     for i in range(len(gCode)):

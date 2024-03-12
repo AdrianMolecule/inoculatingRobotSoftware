@@ -44,6 +44,7 @@ class CncLabBackend(LiquidHandlerBackend):
   async def aspirate(self, ops: List[Aspiration], use_channels: List[int], **backend_kwargs):
     print(f"Aspirating {ops}.")
     adUtil.printl(ops[0].resource)
+    # todo add the volume
     adUtil.appendGCode("aspirate", ops[0].resource)
     
 

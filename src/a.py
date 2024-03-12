@@ -65,12 +65,12 @@ async def main():
     destinationSlot=1
     destinationWells = corning_96_wellplate_360ul_flat(name='destination_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
     deck.assign_child_at_slot(destinationWells, slot=destinationSlot)
-
+    #movement starts
     await lh.pick_up_tips(tips["A1"])
-    #after this I would expect to see a missing tip in the tipRack
+
     await lh.aspirate(sourceA1, vols=[100.0])
-    await lh.dispense(sourceWells["A3"][0], vols=[100.0])    
-    await lh.drop_tips(tips["A1"])
+    await lh.dispense(sourceWells["C1"][0], vols=[100.0])    
+    await lh.drop_tips() #trash
     await lh.pick_up_tips(tips["A3"])  
 
     await lh.aspirate(sourceA1, vols=[100.0])
