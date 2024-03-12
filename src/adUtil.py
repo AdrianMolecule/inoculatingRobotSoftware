@@ -3,14 +3,19 @@ from pylabrobot.pylabrobot.resources.resource import Resource
 from pprint import pprint
 import inspect
 
+Z_PROTECTION=10
 
 gCode=list()
 gCode.append("G90 G21; G90 means absolute")
-gCode.append("G00 X0 Y0; go to origin")
+gCode.append("G Z15; go higher")
+gCode.append("G00 X0 Y0; go to X Yorigin")
+gCode.append("G Z0; go to origin")
 
 def appendGCode(message, resource:Resource):
+    gCode.append("G90 "+"Z"+str(resource.get_size_z()+Z_PROTECTION)+";"+message+" lift for move")
     coordinate:Coordinate=resource.get_absolute_location()
-    gCode.append("G00 X"+str(coordinate.x)+ " "+"Y"+str(coordinate.y)+";"+message)
+    gCode.append("G90 X"+str(coordinate.x)+ " "+"Y"+str(coordinate.y)+";"+message)
+    gCode.append("G90 Z"+str(coordinate.z)+";"+message+" plunge to tube")
     
 
 def printGCode():
