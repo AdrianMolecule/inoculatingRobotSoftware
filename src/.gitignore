@@ -161,3 +161,4 @@ cython_debug/
 
 #adrian added
 *.log
+*.txt
