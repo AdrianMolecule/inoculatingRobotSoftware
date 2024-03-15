@@ -127,7 +127,7 @@ class UiWindow:
         self.slotPocketSizeX=justTempVariableToDetermineSlotSize.get_size_x()
         self.slotPocketSizeY=justTempVariableToDetermineSlotSize.get_size_y()
         self.firstDraw:bool=True
-        self.screenElements:list[TwoPointCoordinates]=list()
+        self.screenElements:list[ResourceCoordinates]=list()
         # UI
         self.xyLabel:Label = Label(self.mainFrame, text = "Coordinates")
         self.elementNameLabel:Label = Label(self.mainFrame, text = "Element Name")
