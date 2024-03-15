@@ -16,9 +16,9 @@ from pylabrobot.resources.liquid import Liquid
 from pylabrobot.resources.well import Well
 from pylabrobot.resources.tip_rack import TipSpot, TipRack
 from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
-
-from g import UiBootUp
-
+#
+from uiBootUp import UiBootUp
+#
 #from opentrons import robot, labware, instruments
 from pylabrobot.liquid_handling.backends import ChatterBoxBackend
 from cncLabBackend import CncLabBackend
@@ -58,10 +58,10 @@ async def main():
     tipsSlot=4
     petriSlot=1
     tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
-    tips.fill()
+    #tips.fill()
     deck.assign_child_at_slot(tips, tipsSlot)
     await liquidHandler.pick_up_tips(tips["A1"])
-    #adUtil.printl(liquidHandler.deck)
+    return
     sourceSlot=3 # label not the 0 indexed
     sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
@@ -78,7 +78,6 @@ async def main():
     for i in range(5):
         await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=-5+i*2, z=dish_z_offset)])
 
-    return
 
     #source 96wells     #destination 96 wells
     sourceSlot=2 # label not the 0 indexed
