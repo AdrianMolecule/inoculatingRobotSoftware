@@ -57,11 +57,11 @@ async def main():
     set_tip_tracking(True), set_volume_tracking(True)
     tipsSlot=4
     petriSlot=1
+    return
     tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
     #tips.fill()
     deck.assign_child_at_slot(tips, tipsSlot)
     await liquidHandler.pick_up_tips(tips["A1"])
-    return
     sourceSlot=3 # label not the 0 indexed
     sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
