@@ -5,6 +5,7 @@ from typing import List
 from pylabrobot.liquid_handling.backends.backend import LiquidHandlerBackend
 from pylabrobot.resources import Resource
 from pylabrobot.liquid_handling.standard import (  Pickup,  PickupTipRack,  Drop,  DropTipRack,  Aspiration,  AspirationPlate,  Dispense,  DispensePlate,  Move)
+from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
 
 import adUtil
 
@@ -50,7 +51,13 @@ class CncLabBackend(LiquidHandlerBackend):
 
   async def dispense(self, ops: List[Dispense], use_channels: List[int], **backend_kwargs):
     print(f"Dispensing {ops}.")
-    adUtil.printl(ops[0].resource)
+    if isinstance(ops[0].resource, PetriDish):
+      print("Found Petri dish in holder")
+      adUtil.printl(ops[0].resource.parent)
+      offset_from_center = ops[0].offset - ops[0].resource.center()
+      print("operation offset op[0].offset",ops[0].offset)
+      print("offset_from_center.x, offset_from_center.y, self.color",offset_from_center.x, offset_from_center.y)
+      #self.drops.append((offset_from_center.x, offset_from_center.y, self.color))
     adUtil.appendGCode("dispense",ops[0].resource)
 
   async def pick_up_tips96(self, pickup: PickupTipRack, **backend_kwargs):

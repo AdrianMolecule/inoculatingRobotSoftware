@@ -5,11 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python Debugger: Module",
+            "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
-            "module": "aSimple",
-            pylabrobot
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python Debugger: Adrian Module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "a",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Adrian File",
+            "type": "python",
+            "request": "launch",
+            "program": "./a.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
     ]
 }

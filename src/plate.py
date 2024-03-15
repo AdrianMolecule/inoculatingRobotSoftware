@@ -6,7 +6,7 @@ from pylabrobot.liquid_handling.backends import OpentronsBackend
 
 from pylabrobot.resources import OTDeck
 from pylabrobot.resources.coordinate import Coordinate
-from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
+from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder, ot_petri_dish_holder
 from pylabrobot.resources.opentrons import (
     opentrons_96_filtertiprack_20ul,
     opentrons_6_tuberack_falcon_50ml_conical

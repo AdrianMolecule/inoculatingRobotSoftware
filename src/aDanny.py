@@ -1,14 +1,14 @@
-from pylabrobot.pylabrobot.liquid_handling import LiquidHandler
-from pylabrobot.pylabrobot.visualizer.visualizer import Visualizer
-from pylabrobot.pylabrobot.resources.opentrons.deck import OTDeck
-from pylabrobot.pylabrobot.resources import set_tip_tracking, set_volume_tracking
-from pylabrobot.pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul
-from pylabrobot.pylabrobot.resources import ( PLT_CAR_L5AC_A00, Cos_96_DW_1mL, HTF_L)
-from pylabrobot.pylabrobot.resources.opentrons import corning_96_wellplate_360ul_flat
-from pylabrobot.pylabrobot.resources.coordinate import Coordinate
-from pylabrobot.pylabrobot.resources.plate import Plate
-from pylabrobot.pylabrobot.resources.resource import Resource
-from pylabrobot.pylabrobot.resources.well import Well
+from pylabrobot.liquid_handling import LiquidHandler
+from pylabrobot.visualizer.visualizer import Visualizer
+from pylabrobot.resources.opentrons.deck import OTDeck
+from pylabrobot.resources import set_tip_tracking, set_volume_tracking
+from pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul
+from pylabrobot.resources import ( PLT_CAR_L5AC_A00, Cos_96_DW_1mL, HTF_L)
+from pylabrobot.resources.opentrons import corning_96_wellplate_360ul_flat
+from pylabrobot.resources.coordinate import Coordinate
+from pylabrobot.resources.plate import Plate
+from pylabrobot.resources.resource import Resource
+from pylabrobot.resources.well import Well
 
 #from opentrons import robot, labware, instruments
 from cncLabBackend import CncLabBackend
