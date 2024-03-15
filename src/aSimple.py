@@ -15,9 +15,6 @@ from pylabrobot.resources.resource import Resource
 from pylabrobot.resources.liquid import Liquid
 from pylabrobot.resources.well import Well
 from pylabrobot.resources.tip_rack import TipSpot, TipRack
-from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
-
-from g import UiBootUp
 
 #from opentrons import robot, labware, instruments
 from pylabrobot.liquid_handling.backends import ChatterBoxBackend
@@ -31,54 +28,25 @@ from pprint import pprint
 backend=CncLabBackend()
 #backend=ChatterBoxBackend()
 deck:OTDeck=OTDeck()
-liquidHandler = LiquidHandler(backend, deck)
-
-tube_z_offset = -50
-dish_z_offset = -6
-tip_z_offset = -5
-
-def ot_petri_dish_petriHolder(name: str) -> PetriDishHolder:
-  plate_width = 127.0
-  petriHolder = PetriDishHolder(name=name, size_x=plate_width, size_y=86.0, size_z=14.5)
-  diameter = 86.0
-  dish = PetriDish(name=f"{name}_dish", diameter=diameter, height=14.5)
-  petriHolder.assign_child_resource(dish, location=Coordinate( x=plate_width/2 - diameter/2,  y=0, z=0))
-  return petriHolder
+lh = LiquidHandler(backend, deck)
 
 async def main():
     print("current execution directory",os.getcwd())   # Create a new file path new_file_path = os.path.join(current_directory, 'new_file.txt')
-    await liquidHandler.setup()
+
+    await lh.setup()
     await asyncio.sleep(1)
-    # vis = Visualizer(resource=liquidHandler)
-    # await asyncio.sleep(1)
-    # await vis.setup()
-    # await asyncio.sleep(1)    
+    vis = Visualizer(resource=lh)
+    #await asyncio.sleep(1)
+    await vis.setup()
+    await asyncio.sleep(1)      
 
     set_tip_tracking(True), set_volume_tracking(True)
     tipsSlot=4
-    petriSlot=1
     tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
     tips.fill()
     deck.assign_child_at_slot(tips, tipsSlot)
-    await liquidHandler.pick_up_tips(tips["A1"])
-    #adUtil.printl(liquidHandler.deck)
-    sourceSlot=3 # label not the 0 indexed
-    sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
-    deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
-    #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
-    sourceWells.set_well_liquids((Liquid.WATER, 200))
-    adUtil.printl(liquidHandler.deck.slots[sourceSlot-1])
-    await liquidHandler.aspirate(sourceWells["A1"][0], vols=[100.0])
-    #adUtil.printl(sourceWells)
-
-    print("loading petriHolder")
-    petriHolder = ot_petri_dish_petriHolder("petri_holder")
-    dish = petriHolder.dish
-    liquidHandler.deck.assign_child_at_slot(petriHolder, petriSlot)
-    for i in range(5):
-        await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=-5+i*2, z=dish_z_offset)])
-
-    return
+    #tips.
+    adUtil.printl(lh.deck)
 
     #source 96wells     #destination 96 wells
     sourceSlot=2 # label not the 0 indexed
@@ -86,10 +54,10 @@ async def main():
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
     #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
     sourceWells.set_well_liquids((Liquid.WATER, 200))
-    adUtil.printl(liquidHandler.deck.slots[sourceSlot-1])
+    adUtil.printl(lh.deck.slots[sourceSlot-1])
     adUtil.printl(sourceWells)
     
-    # plate = liquidHandler.deck.get_resource("source_plate")
+    # plate = lh.deck.get_resource("source_plate")
     sourceA1:Well = sourceWells["A1"][0]
     adUtil.printl(sourceA1)
 
@@ -97,31 +65,30 @@ async def main():
     destinationWells = corning_96_wellplate_360ul_flat(name='destination_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
     deck.assign_child_at_slot(destinationWells, slot=destinationSlot)
     #movement starts
-    await liquidHandler.pick_up_tips(tips["A1"])
+    await lh.pick_up_tips(tips["A1"])
 
-    await liquidHandler.aspirate(sourceA1, vols=[100.0])
-    await liquidHandler.dispense(sourceWells["C1"][0], vols=[100.0])   
-    await  liquidHandler.discard_tips()
-    #await liquidHandler.drop_tips(tips["A1"]) will put them back
-    await liquidHandler.pick_up_tips(tips["A3"])  
+    await lh.aspirate(sourceA1, vols=[100.0])
+    await lh.dispense(sourceWells["C1"][0], vols=[100.0])   
+    await  lh.discard_tips()
+    #await lh.drop_tips(tips["A1"]) will put them back
+    await lh.pick_up_tips(tips["A3"])  
 
-    await liquidHandler.aspirate(sourceA1, vols=[100.0])
-    await liquidHandler.dispense(sourceWells["B3"][0], vols=[10.0])    
-    await liquidHandler.aspirate(sourceWells["H3"][0], vols=[10.0])
-    await liquidHandler.dispense(sourceWells["H12"][0], vols=[10.0])    
+    await lh.aspirate(sourceA1, vols=[100.0])
+    await lh.dispense(sourceWells["B3"][0], vols=[10.0])    
+    await lh.aspirate(sourceWells["H3"][0], vols=[10.0])
+    await lh.dispense(sourceWells["H12"][0], vols=[10.0])    
     await asyncio.sleep(3)
 
     # destinationA5 = destinationWells["A5"][0]
     # adUtil.printl(destinationA5)
-    # await liquidHandler.dispense(destinationA5, vols=[100.0])    # await liquidHandler.return_tips()
-    liquidHandler.summary()
+    # await lh.dispense(destinationA5, vols=[100.0])    # await lh.return_tips()
+    lh.summary()
     adUtil.saveGCode()
     # I can get pylabrobot.machine.Machine and then get all children
-    await liquidHandler.stop()
+    await lh.stop()
     await asyncio.sleep(50)
 
 asyncio.run(main())
-UiBootUp(liquidHandler)
 
     # https://docs.pylabrobot.org/installation.html change pip install -e ".[dev]"
     # https://docs.pylabrobot.org/basic.html
@@ -133,6 +100,9 @@ UiBootUp(liquidHandler)
 
 
 #https://colab.research.google.com/drive/1PoEZYIjggdnXQNGiKdnMmrJGTUg9xrPY#scrollTo=1cp3Mp8C4tQt HTGAA Ricks big code
+# London and GenSpace code https://colab.research.google.com/drive/13lk-YYfLgpdBRQvWxMNFkGmr1ZVi5OZ_?usp=sharing#scrollTo=nIXUYCL4hbdn
+
+#https://dafarry.github.io/tkinterbook/widget.htm for registering callbacks with the tkinter UI
 
     #my cnc max y160 x=285
 # SCRIPT_DIR = os.path.dirname(os.path.abspath("C:/a/diy/pythonProjects/pylabrobot/pylabrobot/gui"))
