@@ -41,12 +41,17 @@ class UiWindow:
         self.elementNameLabel.config(text=self.getRectangleName(event.x,event.y))
         self.drawAll()
 
+    def clear(self, event):
+        self.xyLabel.config(text = "")
+        self.elementNameLabel.config(text="")
+        self.drawAll()
+
     def drawAll(self):
         self.drawResourceAndChildrenImages(self.liquidHandler.deck)
-        if self.firstDraw:
-            print("dump stored screen elements")
-            for screenElement in self.screenElements:
-                print("Stored screen element",screenElement.resource.name, " with x0=", screenElement.x0)
+        # if self.firstDraw:
+        #     print("dump stored screen elements")
+        #     for screenElement in self.screenElements:
+        #         print("Stored screen element",screenElement.resource.name, " with x0=", screenElement.x0)
 
     # this takes the deck which is the top resource and visualize it and children on the screen  
     def drawResourceAndChildrenImages(self, r:Resource):
@@ -59,8 +64,8 @@ class UiWindow:
                     self.drawResourceAndChildrenImages(child)
 
     def createResourceImage(self, r:Resource):
-        if self.firstDraw:
-            print ("child:",r.name)
+        # if self.firstDraw:
+        #     print ("child:",r.name)
         #print(r.category)
         if isinstance(r,Deck):
             self.createResourceShapes(r, theFillCol="orange")            
@@ -71,13 +76,13 @@ class UiWindow:
                 self.createRectangle(slot.x, slot.y, self.slotPocketSizeX, self.slotPocketSizeY, fillCol="light grey", outlineCol="light grey")
                 self.canvas.create_text(slot.x+8, self.ym(slot.y)-8, text=str(i+1), fill="black", font=('Helvetica 10'))            
         elif isinstance(r,Trash):
-            self.createResourceShapes(r, theFillCol="brown")                      
+            self.createResourceShapes(r, theFillCol="gray40")                      
         elif isinstance(r,TipRack):
-            self.createResourceShapes(r, theFillCol="red")            
+            self.createResourceShapes(r, theFillCol="aquamarine")            
         elif isinstance(r,TipSpot):
-            self.createResourceShapes(r, addCircle=True,theFillCol="blue")            
+            self.createResourceShapes(r, addCircle=True,theFillCol="white")            
         elif isinstance(r,Plate):
-            self.createResourceShapes(r, theFillCol="red")            
+            self.createResourceShapes(r, theFillCol="cyan4")            
         elif isinstance(r,Well):
             self.createResourceShapes(r, addCircle=True,theFillCol="blue")          
         elif isinstance(r,TubeRack):
@@ -93,15 +98,21 @@ class UiWindow:
         else:
             print("!!!!!!!!!!!!!!!!!!! found unknown type", type(r), r)
 
-
     def createResourceShapes(self,r:Resource, addCircle=False, theFillCol="peach puff",theOutlineCol="peach puff"):
-        self.createRectangle(r.get_absolute_location().x, r.get_absolute_location().y, r.get_size_x(), r.get_size_y(), fillCol=theFillCol, outlineCol=theOutlineCol)
+        absX=r.get_absolute_location().x;
+        absY=r.get_absolute_location().y;
         if addCircle:
-            self.canvas.create_oval(r.get_absolute_location().x, self.ym(r.get_absolute_location().y), r.get_absolute_location().x+r.get_size_x(), self.ym(r.get_absolute_location().y)-r.get_size_y(), fill="white", outline=theOutlineCol)
+            self.canvas.create_oval(absX, self.ym(absY), r.get_absolute_location().x+r.get_size_x(), self.ym(absY)-r.get_size_y(), fill="white", outline=theOutlineCol)
+        else:
+            self.createRectangle(absX, absY, r.get_size_x(), r.get_size_y(), fillCol=theFillCol, outlineCol=theOutlineCol)
         if(self.firstDraw):
-            self.screenElements.insert(0,ResourceCoordinates(r.get_absolute_location().x,r.get_absolute_location().y, r.get_size_x(), r.get_size_y(),r))
-        #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name, fill="red", font=('Helvetica 10'))
-        #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 10'))
+            self.screenElements.insert(0,ResourceCoordinates(absX,absY, r.get_size_x(), r.get_size_y(),r))
+        if isinstance(r,Plate) or isinstance(r,Plate) or isinstance(r,TipRack) or isinstance(r,Trash):
+            self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+6), text=r.name, fill="black", font=('Arial 8'))
+        #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))
+        if isinstance(r,PetriDishHolder):
+            self.canvas.create_text(r.get_absolute_location().x+2, self.ym( r.get_absolute_location().y+6), text=r.name, fill="black", font=('Arial 8'))
+        #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))
                 
     def createRectangle(self, x0,y0,xSize,ySize, fillCol, outlineCol, widthBorder=0):
         #print("create rectangle at",x0, self.ym(y0), x0+xSize, self.ym(y0)-ySize,"of sizes:",xSize,ySize)
@@ -115,9 +126,6 @@ class UiWindow:
          
 
     def __init__(self, rootWindow, liquidHandler):
-        self.master = rootWindow
-        self.mainFrame = Frame(self.master)
-        self.mainFrame.grid(row=0, column=0)
         self.stack = deque(maxlen = 10)
         self.stackcursor = 0
         self.liquidHandler:LiquidHandler=liquidHandler
@@ -133,30 +141,37 @@ class UiWindow:
         self.firstDraw:bool=True
         self.screenElements:list[ResourceCoordinates]=list()
         # UI
-        self.xyLabel:Label = Label(self.mainFrame, text = "Coordinates")
-        self.elementNameLabel:Label = Label(self.mainFrame, text = "Element Name")
-        self.xyLabel.pack(padx = 5, pady = 5)
-        self.elementNameLabel.pack(padx = 5, pady = 5)
+        self.root = rootWindow
+        self.frameLabelHolder = Frame(self.root)
+        self.frameLabelHolder.place(relx=0.5, rely=0.05, anchor=CENTER, bordermode =OUTSIDE)        
+        self.xyLabel:Label = Label(self.frameLabelHolder, text = "Coordinates")
+        self.xyLabel.grid(row=0, column=0)             
+        self.elementNameLabel:Label = Label(self.frameLabelHolder, text = "Element Name")
+        self.elementNameLabel.grid(row=1, column=0)             
+        # self.xyLabel.pack(padx = 5, pady = 5)
+        # self.elementNameLabel.pack(padx = 5, pady = 5)
          # Add a Scrollbar (horizontal)
-        scrollbar=Scrollbar(self.mainFrame, orient='horizontal')
-        self.menu = Menu(self.mainFrame)
-        self.menu.add_command(label = "Debug", command = self.debug)
-        #self.mainFrame.config(menu = self.menu)
+        # scrollbar=Scrollbar(self.frameLabelHolder, orient='horizontal')
+        # self.menu = Menu(self.frameLabelHolder)-
+        # self.menu.add_command(label = "Debug", command = self.debug)
+        # CANVAS
+        # self.canvasFrameHolder = Frame(self.root)
 
+        # self.canvasFrameHolder.grid(row=1, column=1, sticky="NESW")
+        # self.canvasFrameHolder.grid_rowconfigure(0, weight=1)
         # Making a Canvas https://www.tutorialspoint.com/python/tk_place.htm
-        self.canvas = Canvas(self.master, width= liquidHandler.deck._size_x,
-                              height= liquidHandler.deck._size_y, bd=0,bg="white", cursor="crosshair",
+        self.canvas = Canvas(self.root, width= liquidHandler.deck._size_x, height= liquidHandler.deck._size_y, bd=0,bg="white", cursor="crosshair",
                               highlightthickness=0, highlightbackground="blue")
-        self.canvas.grid(row=0, column=0)
-        self.canvas.grid(row=0, column=0)
+        #self.canvas.grid(row=1, column=1,sticky='')
         self.canvas.place(relx=0.5, rely=0.5, anchor=CENTER, bordermode =OUTSIDE)
         self.canvas.config()#cursor="pencil")
-
+        # END UI
         # Event Binding
         self.canvas.bind("<Motion>", self.paint)
-        self.canvas.bind("<ButtonRelease-1>", self.paint)
-        self.canvas.bind("<Button-1>", self.paint)        
-        self.mainFrame.pack(padx = 5, pady = 5, fill= BOTH)
+        self.frameLabelHolder.bind("<Motion>", self.clear)
+        # self.canvas.bind("<ButtonRelease-1>", self.paint)
+        # self.canvas.bind("<Button-1>", self.paint)        
+        # self.frameLabelHolder.pack(padx = 5, pady = 5, fill= BOTH)
         self.drawAll()
         self.firstDraw=False # so we don't over collect screenElements
    
@@ -164,9 +179,6 @@ class UiWindow:
     def display(self):
         print(self.sequenceTextBox.get("1.0", "end"))     
 
-    def clear(self):
-        self.sequenceTextBox.delete("1.0", "end")
- 
     def stackify(self):
         None
  
@@ -264,4 +276,4 @@ class UiBootUp:
 
 # print("\n width x height = %d x %d (in pixels)\n" %(width, height))
 # # infinite loop
-# mainFrameloop()
+# frameLabelHolderloop()
