@@ -17,7 +17,7 @@ from pylabrobot.resources.well import Well
 from pylabrobot.resources.tip_rack import TipSpot, TipRack
 from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
 #
-from uiBootUp import UiBootUp
+from uiBootUp import UiBootUp, UiWindow
 #
 #from opentrons import robot, labware, instruments
 from pylabrobot.liquid_handling.backends import ChatterBoxBackend
@@ -38,11 +38,12 @@ dish_z_offset = -6
 tip_z_offset = -5
 
 def ot_petri_dish_petriHolder(name: str) -> PetriDishHolder:
-  plate_width = 127.0
-  petriHolder = PetriDishHolder(name=name, size_x=plate_width, size_y=86.0, size_z=14.5)
-  diameter = 86.0
+  slotSizeX, slotSizeY=UiWindow.getSlotPocketDimensions()
+  petriHolder = PetriDishHolder(name=name, size_x=slotSizeX, size_y=slotSizeY, size_z=14.5)
+  diameter = 85.6
   dish = PetriDish(name=f"{name}_dish", diameter=diameter, height=14.5)
-  petriHolder.assign_child_resource(dish, location=Coordinate( x=plate_width/2 - diameter/2,  y=0, z=0))
+  #lower left corner
+  petriHolder.assign_child_resource(dish, location=Coordinate( x=slotSizeX/2 - diameter/2,  y=slotSizeY/2 - diameter/2, z=0))
   return petriHolder
 
 async def main():
@@ -137,3 +138,17 @@ UiBootUp(liquidHandler)
 # SCRIPT_DIR = os.path.dirname(os.path.abspath("C:/a/diy/pythonProjects/pylabrobot/pylabrobot/gui"))
 # print("SCRIPT_DIR:",SCRIPT_DIR,sys.path)
 # sys.path.append(os.path.dirname(SCRIPT_DIR))
+
+
+# custom_plate_name = "custom_18_wellplate_200ul"
+
+# if plate_name not in labware.list():
+#     labware.create(
+#         custom_plate_name,  # name of you labware
+#         grid=(3, 6),        # number of (columns, rows)
+#         spacing=(12, 12),   # distances (mm) between each (column, row)
+#         diameter=5,         # diameter (mm) of each well
+#         depth=10,           # depth (mm) of each well
+#         volume=200)         # volume (µL) of each well
+
+# custom_plate = labware.load(custom_plate_name, slot="3")

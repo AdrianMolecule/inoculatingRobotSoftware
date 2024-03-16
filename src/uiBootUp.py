@@ -107,7 +107,7 @@ class UiWindow:
             self.createRectangle(absX, absY, r.get_size_x(), r.get_size_y(), fillCol=theFillCol, outlineCol=theOutlineCol)
         if(self.firstDraw):
             self.screenElements.insert(0,ResourceCoordinates(absX,absY, r.get_size_x(), r.get_size_y(),r))
-        if isinstance(r,Plate) or isinstance(r,Plate) or isinstance(r,TipRack) or isinstance(r,Trash):
+        if  isinstance(r,Plate) or isinstance(r,TipRack) or isinstance(r,Trash):
             self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+6), text=r.name, fill="black", font=('Arial 8'))
         #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))
         if isinstance(r,PetriDishHolder):
@@ -124,7 +124,11 @@ class UiWindow:
                 return screenElement.resource
         return "empty"
          
-
+    @staticmethod
+    def getSlotPocketDimensions(): 
+        justTempVariableToDetermineSlotSize = opentrons_96_tiprack_1000ul(name="testIgnore") # needed for calculation slot sizes
+        return justTempVariableToDetermineSlotSize.get_size_x(),justTempVariableToDetermineSlotSize.get_size_y()
+    
     def __init__(self, rootWindow, liquidHandler):
         self.stack = deque(maxlen = 10)
         self.stackcursor = 0
@@ -136,8 +140,7 @@ class UiWindow:
         self.slotSizeX=self.liquidHandler.deck.slot_locations[1].x # assume slots go  right first and then up
         self.slotSizeY=self.liquidHandler.deck.slot_locations[col+1].y
         justTempVariableToDetermineSlotSize = opentrons_96_tiprack_1000ul(name="testIgnore") # needed for calculation slot sizes
-        self.slotPocketSizeX=justTempVariableToDetermineSlotSize.get_size_x()
-        self.slotPocketSizeY=justTempVariableToDetermineSlotSize.get_size_y()
+        self.slotPocketSizeX, self.slotPocketSizeY=UiWindow.getSlotPocketDimensions()
         self.firstDraw:bool=True
         self.screenElements:list[ResourceCoordinates]=list()
         # UI
