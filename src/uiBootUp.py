@@ -37,15 +37,16 @@ class UiWindow:
          return -y+self.liquidHandler.deck._size_y
 
     def paint(self, event):
-        self.xyLabel.config(text = "x="+str(event.x)+" y="+str(self.yGcode(event.y))+" Ty="+str(event.y))
+        self.xyLabel.config(text = "x="+str(round((event.x),2))+" y="+str(round(self.yGcode(event.y),2))+" Ty="+str(round((event.y),2)))
         self.elementNameLabel.config(text=self.getRectangleName(event.x,event.y))
         self.drawAll()
 
     def drawAll(self):
         self.drawResourceAndChildrenImages(self.liquidHandler.deck)
-        print("dump stored screen elements")
-        for screenElement in self.screenElements:
-            print("Stored screen element",screenElement.resource.name, " with x0=", screenElement.x0)
+        if self.firstDraw:
+            print("dump stored screen elements")
+            for screenElement in self.screenElements:
+                print("Stored screen element",screenElement.resource.name, " with x0=", screenElement.x0)
 
     # this takes the deck which is the top resource and visualize it and children on the screen  
     def drawResourceAndChildrenImages(self, r:Resource):
@@ -54,52 +55,57 @@ class UiWindow:
             for child in r.children:
                 if not isinstance(child,Resource):
                      print("!!!!!!!!!!!!!!!!WARNING child is not a resource", child.name)
-            self.drawResourceAndChildrenImages(child)
+                else:
+                    self.drawResourceAndChildrenImages(child)
 
     def createResourceImage(self, r:Resource):
+        if self.firstDraw:
+            print ("child:",r.name)
         #print(r.category)
         if isinstance(r,Deck):
+            self.createResourceShapes(r, theFillCol="orange")            
             # draw deck and slots
             for i in range(len(self.liquidHandler.deck.slot_locations)):
                 slot=self.liquidHandler.deck.slot_locations[i]
-                self.createRectangle(slot.x, slot.y, self.slotSizeX, self.slotSizeY, fillCol="slate grey", outlineCol="black", widthLine=1)
-                self.createRectangle(slot.x, slot.y, self.slotPocketSizeX, self.slotPocketSizeY, fillCol="light grey", outlineCol="light grey", widthLine=1)
+                self.createRectangle(slot.x, slot.y, self.slotSizeX, self.slotSizeY, fillCol="slate grey", outlineCol="black")
+                self.createRectangle(slot.x, slot.y, self.slotPocketSizeX, self.slotPocketSizeY, fillCol="light grey", outlineCol="light grey")
                 self.canvas.create_text(slot.x+8, self.ym(slot.y)-8, text=str(i+1), fill="black", font=('Helvetica 10'))            
         elif isinstance(r,Trash):
-            self.createResourceRectangle(r, theFillCol="brown")                      
+            self.createResourceShapes(r, theFillCol="brown")                      
         elif isinstance(r,TipRack):
-            self.createResourceRectangle(r, theFillCol="red")            
+            self.createResourceShapes(r, theFillCol="red")            
         elif isinstance(r,TipSpot):
-            self.createResourceRectangle(r, theFillCol="blue")            
+            self.createResourceShapes(r, addCircle=True,theFillCol="blue")            
         elif isinstance(r,Plate):
-            self.createResourceRectangle(r, theFillCol="blue")            
+            self.createResourceShapes(r, theFillCol="red")            
         elif isinstance(r,Well):
-            self.createResourceRectangle(r, theFillCol="blue")            
+            self.createResourceShapes(r, addCircle=True,theFillCol="blue")          
         elif isinstance(r,TubeRack):
-            self.createResourceRectangle(r, theFillCol="blue")    
+            self.createResourceShapes(r, theFillCol="red")    
         elif isinstance(r,Tube):
-            self.createResourceRectangle(r, theFillCol="blue")    
+            self.createResourceShapes(r, addCircle=True,theFillCol="blue")    
         elif isinstance(r,PetriDishHolder):
-            self.createResourceRectangle(r, theFillCol="blue")    
+            self.createResourceShapes(r, theFillCol="red")    
         elif isinstance(r,PetriDish):
-            self.createResourceRectangle(r, theFillCol="blue")    
+            self.createResourceShapes(r, addCircle=True,theFillCol="blue") 
         elif isinstance(r,Resource) and r.name=="trash_container":
-                self.createResourceRectangle(r, theFillCol="black")     
+                self.createResourceShapes(r, theFillCol="black")     
         else:
             print("!!!!!!!!!!!!!!!!!!! found unknown type", type(r), r)
 
 
-    def createResourceRectangle(self,r:Resource,theFillCol="peach puff",theOutlineCol="peach puff"):
-        self.createRectangle(r.get_absolute_location().x, r.get_absolute_location().y, r.get_size_x(), r.get_size_y(), fillCol=theFillCol, outlineCol=theOutlineCol, widthLine=1)
+    def createResourceShapes(self,r:Resource, addCircle=False, theFillCol="peach puff",theOutlineCol="peach puff"):
+        self.createRectangle(r.get_absolute_location().x, r.get_absolute_location().y, r.get_size_x(), r.get_size_y(), fillCol=theFillCol, outlineCol=theOutlineCol)
+        if addCircle:
+            self.canvas.create_oval(r.get_absolute_location().x, self.ym(r.get_absolute_location().y), r.get_absolute_location().x+r.get_size_x(), self.ym(r.get_absolute_location().y)-r.get_size_y(), fill="white", outline=theOutlineCol)
         if(self.firstDraw):
-            print("ADDING screen element ",r.name, r.get_absolute_location().x,r.get_absolute_location().y, r.get_size_x(), r.get_size_y())
             self.screenElements.insert(0,ResourceCoordinates(r.get_absolute_location().x,r.get_absolute_location().y, r.get_size_x(), r.get_size_y(),r))
         #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name, fill="red", font=('Helvetica 10'))
         #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 10'))
                 
-    def createRectangle(self, x0,y0,xSize,ySize, fillCol, outlineCol, widthLine=1):
+    def createRectangle(self, x0,y0,xSize,ySize, fillCol, outlineCol, widthBorder=0):
         #print("create rectangle at",x0, self.ym(y0), x0+xSize, self.ym(y0)-ySize,"of sizes:",xSize,ySize)
-        self.canvas.create_rectangle(x0, self.ym(y0), x0+xSize, self.ym(y0)-ySize, fill=fillCol, outline=outlineCol, width=widthLine)
+        self.canvas.create_rectangle(x0, self.ym(y0), x0+xSize, self.ym(y0)-ySize, fill=fillCol, outline=outlineCol, width=widthBorder)
 
     def getRectangleName(self, x, y):# y is tk style and so are the elements
         for screenElement in self.screenElements:
@@ -108,8 +114,8 @@ class UiWindow:
         return "empty"
          
 
-    def __init__(self, master, liquidHandler):
-        self.master = master
+    def __init__(self, rootWindow, liquidHandler):
+        self.master = rootWindow
         self.mainFrame = Frame(self.master)
         self.mainFrame.grid(row=0, column=0)
         self.stack = deque(maxlen = 10)
@@ -153,6 +159,7 @@ class UiWindow:
         self.mainFrame.pack(padx = 5, pady = 5, fill= BOTH)
         self.drawAll()
         self.firstDraw=False # so we don't over collect screenElements
+   
  
     def display(self):
         print(self.sequenceTextBox.get("1.0", "end"))     

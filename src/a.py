@@ -57,12 +57,11 @@ async def main():
     set_tip_tracking(True), set_volume_tracking(True)
     tipsSlot=4
     petriSlot=1
-    return
+    sourceSlot=3 # label not the 0 indexed
     tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
     #tips.fill()
     deck.assign_child_at_slot(tips, tipsSlot)
     await liquidHandler.pick_up_tips(tips["A1"])
-    sourceSlot=3 # label not the 0 indexed
     sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
     #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
@@ -75,6 +74,7 @@ async def main():
     petriHolder = ot_petri_dish_petriHolder("petri_holder")
     dish = petriHolder.dish
     liquidHandler.deck.assign_child_at_slot(petriHolder, petriSlot)
+    return
     for i in range(5):
         await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=-5+i*2, z=dish_z_offset)])
 
@@ -128,7 +128,7 @@ UiBootUp(liquidHandler)
     # https://colab.research.google.com/drive/1ljiMtb2jrh7-a-ZpjeO7i92d1sQY8KIP?usp=sharing#scrollTo=0gmcxpe-5Qu9
     # https://github.com/Opentrons/opentrons/blob/8fd8a190467708e5b98fc9a0f85163c757fe8272/api/docs/v1/labware.rst
     # for JIM use the workout https://opentrons.com/resource/using-your-multi-channel-e-pipette/
-    # https://docs.opentrons.com/v1/hardware_control.html from Jupiter
+    # https://docs.opentrons.com/v1/hardware_control.html from Jupiter#monkey https://stackoverflow.com/questions/17985216/simpler-way-to-draw-a-circle-with-tkinter
 
 
 #https://colab.research.google.com/drive/1PoEZYIjggdnXQNGiKdnMmrJGTUg9xrPY#scrollTo=1cp3Mp8C4tQt HTGAA Ricks big code
