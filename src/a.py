@@ -27,24 +27,12 @@ import adUtil, cncLabBackend
 import asyncio
 import os
 from pprint import pprint
+from adUtil import createOtPetriDishPetriHolder
 
 backend=CncLabBackend()
 #backend=ChatterBoxBackend()
 deck:OTDeck=OTDeck()
 liquidHandler = LiquidHandler(backend, deck)
-
-tube_z_offset = -50
-dish_z_offset = -6
-tip_z_offset = -5
-
-def ot_petri_dish_petriHolder(name: str) -> PetriDishHolder:
-  slotSizeX, slotSizeY=UiWindow.getSlotPocketDimensions()
-  petriHolder = PetriDishHolder(name=name, size_x=slotSizeX, size_y=slotSizeY, size_z=14.5)
-  diameter = 85.6
-  dish = PetriDish(name=f"{name}_dish", diameter=diameter, height=14.5)
-  #lower left corner
-  petriHolder.assign_child_resource(dish, location=Coordinate( x=slotSizeX/2 - diameter/2,  y=slotSizeY/2 - diameter/2, z=0))
-  return petriHolder
 
 async def main():
     print("current execution directory",os.getcwd())   # Create a new file path new_file_path = os.path.join(current_directory, 'new_file.txt')
@@ -55,10 +43,13 @@ async def main():
     # await vis.setup()
     # await asyncio.sleep(1)    
 
-    set_tip_tracking(True), set_volume_tracking(True)
+    set_tip_tracking(True)
+    #set_volume_tracking(True)
     tipsSlot=4
     petriSlot=1
     sourceSlot=3 # label not the 0 indexed
+    destinationSlot=2    
+    
     tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
     #tips.fill()
     deck.assign_child_at_slot(tips, tipsSlot)
@@ -67,61 +58,52 @@ async def main():
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
     #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
     sourceWells.set_well_liquids((Liquid.WATER, 200))
-    adUtil.printl(liquidHandler.deck.slots[sourceSlot-1])
     await liquidHandler.aspirate(sourceWells["A1"][0], vols=[100.0])
-    #adUtil.printl(sourceWells)
-
     print("loading petriHolder")
-    petriHolder = ot_petri_dish_petriHolder("petri_holder")
+    petriHolder = createOtPetriDishPetriHolder("petri_holder")
     dish = petriHolder.dish
     liquidHandler.deck.assign_child_at_slot(petriHolder, petriSlot)
-    return
-    for i in range(5):
-        await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=-5+i*2, z=dish_z_offset)])
-
-
-    #source 96wells     #destination 96 wells
-    sourceSlot=2 # label not the 0 indexed
-    sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
-    deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
+    # for x in range(-40, 41, 40): # 3 dots from -40 to 40 incrementing by 10
+    #     print("x",x)
+    #    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=x, y=0, z=0))
+    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=0, z=0))
+    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=-33, y=0, z=0))
+    # for y in range(-40, 40, 10): # 8 dots
+    #     await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=y, z=0))
     #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
-    sourceWells.set_well_liquids((Liquid.WATER, 200))
-    adUtil.printl(liquidHandler.deck.slots[sourceSlot-1])
-    adUtil.printl(sourceWells)
-    
-    # plate = liquidHandler.deck.get_resource("source_plate")
-    sourceA1:Well = sourceWells["A1"][0]
-    adUtil.printl(sourceA1)
 
-    destinationSlot=1
-    destinationWells = corning_96_wellplate_360ul_flat(name='destination_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
-    deck.assign_child_at_slot(destinationWells, slot=destinationSlot)
-    #movement starts
-    await liquidHandler.pick_up_tips(tips["A1"])
+    # # plate = liquidHandler.deck.get_resource("source_plate")
+    # sourceA1:Well = sourceWells["A1"][0]
+    # adUtil.printl(sourceA1)
 
-    await liquidHandler.aspirate(sourceA1, vols=[100.0])
-    await liquidHandler.dispense(sourceWells["C1"][0], vols=[100.0])   
-    await  liquidHandler.discard_tips()
-    #await liquidHandler.drop_tips(tips["A1"]) will put them back
-    await liquidHandler.pick_up_tips(tips["A3"])  
+    # destinationWells = corning_96_wellplate_360ul_flat(name='destination_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
+    # deck.assign_child_at_slot(destinationWells, slot=destinationSlot)
+    # #movement starts
 
-    await liquidHandler.aspirate(sourceA1, vols=[100.0])
-    await liquidHandler.dispense(sourceWells["B3"][0], vols=[10.0])    
-    await liquidHandler.aspirate(sourceWells["H3"][0], vols=[10.0])
-    await liquidHandler.dispense(sourceWells["H12"][0], vols=[10.0])    
-    await asyncio.sleep(3)
+    # await liquidHandler.aspirate(sourceA1, vols=[100.0])
+    # await liquidHandler.dispense(sourceWells["C1"][0], vols=[100.0])   
+    # await  liquidHandler.discard_tips()
+    # #await liquidHandler.drop_tips(tips["A1"]) will put them back
+    # await liquidHandler.pick_up_tips(tips["A3"])  
 
-    # destinationA5 = destinationWells["A5"][0]
-    # adUtil.printl(destinationA5)
-    # await liquidHandler.dispense(destinationA5, vols=[100.0])    # await liquidHandler.return_tips()
-    liquidHandler.summary()
+    # await liquidHandler.aspirate(sourceA1, vols=[100.0])
+    # await liquidHandler.dispense(sourceWells["B3"][0], vols=[10.0])    
+    # await liquidHandler.aspirate(sourceWells["H3"][0], vols=[10.0])
+    # await liquidHandler.dispense(sourceWells["H12"][0], vols=[10.0])    
+    # #await asyncio.sleep(3)
+
+    # # destinationA5 = destinationWells["A5"][0]
+    # # adUtil.printl(destinationA5)
+    # # await liquidHandler.dispense(destinationA5, vols=[100.0])    # await liquidHandler.return_tips()
+    # #liquidHandler.summary()
     adUtil.saveGCode()
     # I can get pylabrobot.machine.Machine and then get all children
     await liquidHandler.stop()
-    await asyncio.sleep(50)
+    #await asyncio.sleep(3)
 
 asyncio.run(main())
 UiBootUp(liquidHandler)
+
 
     # https://docs.pylabrobot.org/installation.html change pip install -e ".[dev]"
     # https://docs.pylabrobot.org/basic.html

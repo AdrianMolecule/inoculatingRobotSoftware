@@ -2,20 +2,11 @@ G90 G21; G90 means absolute
 Z10; go higher
 X0 Y0; go to X Y origin
 Z20.67; lift for move to go to source_plate_A1
-X146.88 Y74.24; using aspirate, source_plate_A1
-Z3.55; aspirate plunge to tube
-Z20.67; lift for move to go to source_plate_C1
-X146.88 Y56.24; using dispense, source_plate_C1
-Z3.55; dispense plunge to tube
-Z20.67; lift for move to go to source_plate_A1
-X146.88 Y74.24; using aspirate, source_plate_A1
-Z3.55; aspirate plunge to tube
-Z20.67; lift for move to go to source_plate_B3
-X164.88 Y65.24; using dispense, source_plate_B3
-Z3.55; dispense plunge to tube
-Z20.67; lift for move to go to source_plate_H3
-X164.88 Y11.24; using aspirate, source_plate_H3
-Z3.55; aspirate plunge to tube
-Z20.67; lift for move to go to source_plate_H12
-X245.88 Y11.24; using dispense, source_plate_H12
-Z3.55; dispense plunge to tube
+X281.81 Y76.67; using Aspiration, source_plate_A1
+Z3.55; Aspiration, plunge to tube
+Z24.5; lift for move to go to petri_holder_dish
+X63.88 Y42.74; using Dispense, petri_holder_dish
+Z0; Dispense, plunge to tube
+Z24.5; lift for move to go to petri_holder_dish
+X63.88 Y42.74; using Dispense, petri_holder_dish
+Z0; Dispense, plunge to tube

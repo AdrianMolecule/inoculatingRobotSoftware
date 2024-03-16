@@ -43,22 +43,21 @@ class CncLabBackend(LiquidHandlerBackend):
     print(f"Dropping tips {ops}.")
 
   async def aspirate(self, ops: List[Aspiration], use_channels: List[int], **backend_kwargs):
-    print(f"Aspirating {ops}.")
+    #print(f"Aspirating {ops}.")
     adUtil.printl(ops[0].resource)
     # todo add the volume
-    adUtil.appendGCode("aspirate", ops[0].resource)
-    
+    adUtil.appendGCode(ops[0])
 
   async def dispense(self, ops: List[Dispense], use_channels: List[int], **backend_kwargs):
-    print(f"Dispensing {ops}.")
-    if isinstance(ops[0].resource, PetriDish):
-      print("Found Petri dish in holder")
-      adUtil.printl(ops[0].resource.parent)
-      offset_from_center = ops[0].offset - ops[0].resource.center()
-      print("operation offset op[0].offset",ops[0].offset)
-      print("offset_from_center.x, offset_from_center.y, self.color",offset_from_center.x, offset_from_center.y)
-      #self.drops.append((offset_from_center.x, offset_from_center.y, self.color))
-    adUtil.appendGCode("dispense",ops[0].resource)
+    #print(f"Dispensing {ops}.")
+    # if isinstance(ops[0].resource, PetriDish):
+    #   print("Found Petri dish in holder")
+    #   adUtil.printl(ops[0].resource.parent)
+    #   offset_from_center = ops[0].offset - ops[0].resource.center()
+    #   print("operation offset op[0].offset",ops[0].offset)
+    #   print("offset_from_center.x, offset_from_center.y, self.color",offset_from_center.x, offset_from_center.y)
+    #   #self.drops.append((offset_from_center.x, offset_from_center.y, self.color))
+    adUtil.appendGCode(ops[0])
 
   async def pick_up_tips96(self, pickup: PickupTipRack, **backend_kwargs):
     print(f"Picking up tips from {pickup.resource.name}.")

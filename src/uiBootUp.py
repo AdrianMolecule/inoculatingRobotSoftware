@@ -121,7 +121,8 @@ class UiWindow:
     def getRectangleName(self, x, y):# y is tk style and so are the elements
         for screenElement in self.screenElements:
             if screenElement.contains(x,self.ym(y)):
-                return screenElement.resource
+                
+                return type(screenElement.resource).__name__
         return "empty"
          
     @staticmethod
