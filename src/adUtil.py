@@ -15,22 +15,27 @@ gCode.append("Z10; go higher")
 gCode.append("X0 Y0; go to X Y origin")
 
 def appendGCode(operation):
-    print("Operation resource", operation.resource, "operation.offset",operation.offset,
-          "operation.offset - operation.resource.center()",operation.offset - operation.resource.center(),"resource center", operation.resource.center())
+    # print("Operation resource", operation.resource, "operation.offset",operation.offset,
+    #       "operation.offset - operation.resource.center()",operation.offset - operation.resource.center(),"resource center",
+    #         operation.resource.center())
     operationType=str(type(operation).__name__)
     resource:Resource=operation.resource
     gCode.append("Z"+str(resource.get_size_z()+Z_PROTECTION)+"; "+"lift for move to go to "+resource.name)
-    coordinate:Coordinate=resource.get_absolute_location()
-    if operation.offset!=None: #offset is changed to middle +sent offset
+    resourceStartCoords:Coordinate=resource.get_absolute_location()
+    # .offset is changed fromthe relative offset to the center to an absolute value from the left corner of the object so we need to add resource.
+    if isinstance(operation, Dispense) and operation.offset!=None: #offset is changed to middle +sent offset TODO check forjust one offfsets
         if(operation.offset.z!=0):
             raise "!!!!!!!!!!!!!!!! offset with Z!=0 is not supported" # NOTE: this is almost equivalent to bare `raise`   
-        else:           
-             gCode.append("X"+str(round(coordinate.x+operation.offset.x,2))+ " "+"Y"+str(round(coordinate.y+operation.offset.y,2))+"; using "+operationType+", "+resource.name)
-    elif operation.offsets!=None: 
-        raise "!!!!!!!!!!!!!!!! offsets are not supported"
+        else:           #todo add teh sizeof drops
+            gCode.append("X"+str(round(resourceStartCoords.x+operation.offset.x,2))+ " "+"Y"+str(round(resourceStartCoords.y+operation.offset.y,2))+"; using "+operationType+" in "+resource.name+
+                          " and an offset:"+str(operation.offset)+" so real coords inside labware:"+str(round(resourceStartCoords.x+operation.offset.x,2)))
+            if not hasattr(resource,"drops"):
+                resource.drops=list()
+            tou=(round(resourceStartCoords.x+operation.offset.x,2)), round(resourceStartCoords.y+operation.offset.y,2)
+            resource.drops.append(tou)
     else:
-        gCode.append("X"+str(round(coordinate.x,2))+ " "+"Y"+str(round(coordinate.y,2))+"; using "+operationType+", "+resource.name)
-    gCode.append("Z"+str(coordinate.z)+"; "+operationType+", plunge to tube")
+        gCode.append("X"+str(round(resourceStartCoords.x,2))+ " "+"Y"+str(round(resourceStartCoords.y,2))+"; using "+operationType+", "+resource.name)
+    gCode.append("Z"+str(resourceStartCoords.z)+"; "+operationType+", plunge to tube")
     
 def printGCode():
     for i in range(len(gCode)):
@@ -56,7 +61,7 @@ def printl(resource:Resource):
 
 def createOtPetriDishPetriHolder(name: str) -> PetriDishHolder:
   slotSizeX, slotSizeY=UiWindow.getSlotPocketDimensions()
-  petriHolder = PetriDishHolder(name=name, size_x=slotSizeX, size_y=slotSizeY, size_z=14.5)
+  petriHolder = PetriDishHolder(name=f"{name}_holder", size_x=slotSizeX, size_y=slotSizeY, size_z=14.5)
   diameter = 85.6
   dish = PetriDish(name=f"{name}_dish", diameter=diameter, height=14.5)
   #lower left corner

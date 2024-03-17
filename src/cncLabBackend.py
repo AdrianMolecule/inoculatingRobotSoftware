@@ -57,6 +57,14 @@ class CncLabBackend(LiquidHandlerBackend):
     #   print("operation offset op[0].offset",ops[0].offset)
     #   print("offset_from_center.x, offset_from_center.y, self.color",offset_from_center.x, offset_from_center.y)
     #   #self.drops.append((offset_from_center.x, offset_from_center.y, self.color))
+    # offset_from_center = ops[0].offset - ops[0].resource.center()
+    # self.drops.append((offset_from_center.x, offset_from_center.y, self.color))
+    # print(ops[0].offsets[0])
+    # print("appended", offset_from_center.x, offset_from_center.y, self.color)
+    # resource:Resource=ops[0].resource
+    # if(resource.drops==None
+    #    resource.drops=list()
+    #    drops.append()
     adUtil.appendGCode(ops[0])
 
   async def pick_up_tips96(self, pickup: PickupTipRack, **backend_kwargs):

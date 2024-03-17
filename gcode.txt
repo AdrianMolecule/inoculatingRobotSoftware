@@ -2,11 +2,11 @@ G90 G21; G90 means absolute
 Z10; go higher
 X0 Y0; go to X Y origin
 Z20.67; lift for move to go to source_plate_A1
-X281.81 Y76.67; using Aspiration, source_plate_A1
+X279.38 Y74.24; using Aspiration, source_plate_A1
 Z3.55; Aspiration, plunge to tube
-Z24.5; lift for move to go to petri_holder_dish
-X63.88 Y42.74; using Dispense, petri_holder_dish
+Z24.5; lift for move to go to petri_dish
+X163.38 Y42.74; using Dispense in petri_dish and an offset:(009.800, 042.800, 000.000) so real coords inside labware:163.38
 Z0; Dispense, plunge to tube
-Z24.5; lift for move to go to petri_holder_dish
-X63.88 Y42.74; using Dispense, petri_holder_dish
+Z24.5; lift for move to go to petri_dish
+X196.38 Y42.74; using Dispense in petri_dish and an offset:(042.800, 042.800, 000.000) so real coords inside labware:196.38
 Z0; Dispense, plunge to tube

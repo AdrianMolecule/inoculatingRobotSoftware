@@ -99,8 +99,9 @@ class UiWindow:
             print("!!!!!!!!!!!!!!!!!!! found unknown type", type(r), r)
 
     def createResourceShapes(self,r:Resource, addCircle=False, theFillCol="peach puff",theOutlineCol="peach puff"):
-        absX=r.get_absolute_location().x;
-        absY=r.get_absolute_location().y;
+        absX=r.get_absolute_location().x
+        absY=r.get_absolute_location().y
+        typeName=type(r).__name__
         if addCircle:
             self.canvas.create_oval(absX, self.ym(absY), r.get_absolute_location().x+r.get_size_x(), self.ym(absY)-r.get_size_y(), fill="white", outline=theOutlineCol)
         else:
@@ -109,10 +110,13 @@ class UiWindow:
             self.screenElements.insert(0,ResourceCoordinates(absX,absY, r.get_size_x(), r.get_size_y(),r))
         if  isinstance(r,Plate) or isinstance(r,TipRack) or isinstance(r,Trash):
             self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+6), text=r.name, fill="black", font=('Arial 8'))
-        #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))
-        if isinstance(r,PetriDishHolder):
+            #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))
+        if isinstance(r,PetriDish):
             self.canvas.create_text(r.get_absolute_location().x+2, self.ym( r.get_absolute_location().y+6), text=r.name, fill="black", font=('Arial 8'))
-        #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))
+            #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))                
+            if hasattr(r,"drops"):
+                for drop in r.drops:
+                    self.canvas.create_oval(drop[0]-1, self.ym(drop[1]-1), drop[0]+1, self.ym(drop[1]+1), fill="green", outline=theOutlineCol)
                 
     def createRectangle(self, x0,y0,xSize,ySize, fillCol, outlineCol, widthBorder=0):
         #print("create rectangle at",x0, self.ym(y0), x0+xSize, self.ym(y0)-ySize,"of sizes:",xSize,ySize)
@@ -121,8 +125,7 @@ class UiWindow:
     def getRectangleName(self, x, y):# y is tk style and so are the elements
         for screenElement in self.screenElements:
             if screenElement.contains(x,self.ym(y)):
-                
-                return type(screenElement.resource).__name__
+                return screenElement.resource.name# todo can also type(resource).__name__
         return "empty"
          
     @staticmethod

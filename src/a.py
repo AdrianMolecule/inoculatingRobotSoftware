@@ -46,7 +46,7 @@ async def main():
     set_tip_tracking(True)
     #set_volume_tracking(True)
     tipsSlot=4
-    petriSlot=1
+    petriSlot=2
     sourceSlot=3 # label not the 0 indexed
     destinationSlot=2    
     
@@ -60,14 +60,16 @@ async def main():
     sourceWells.set_well_liquids((Liquid.WATER, 200))
     await liquidHandler.aspirate(sourceWells["A1"][0], vols=[100.0])
     print("loading petriHolder")
-    petriHolder = createOtPetriDishPetriHolder("petri_holder")
+    petriHolder = createOtPetriDishPetriHolder("petri")
     dish = petriHolder.dish
     liquidHandler.deck.assign_child_at_slot(petriHolder, petriSlot)
     # for x in range(-40, 41, 40): # 3 dots from -40 to 40 incrementing by 10
     #     print("x",x)
     #    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=x, y=0, z=0))
-    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=0, z=0))
-    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=-33, y=0, z=0))
+    #await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=0, z=0))
+    print("calling disperse with offset -33")
+    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=-33, y=0, z=0)])
+    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=0, z=0)])
     # for y in range(-40, 40, 10): # 8 dots
     #     await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=y, z=0))
     #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
