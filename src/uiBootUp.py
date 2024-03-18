@@ -36,22 +36,8 @@ class UiWindow:
     def yGcode(self, y:float)->float:
          return -y+self.liquidHandler.deck._size_y
 
-    def paint(self, event):
-        self.xyLabel.config(text = "x="+str(round((event.x),2))+" y="+str(round(self.yGcode(event.y),2))+" Ty="+str(round((event.y),2)))
-        self.elementNameLabel.config(text=self.getRectangleName(event.x,event.y))
-        self.drawAll()
-
-    def clear(self, event):
-        self.xyLabel.config(text = "")
-        self.elementNameLabel.config(text="")
-        self.drawAll()
-
     def drawAll(self):
         self.drawResourceAndChildrenImages(self.liquidHandler.deck)
-        # if self.firstDraw:
-        #     print("dump stored screen elements")
-        #     for screenElement in self.screenElements:
-        #         print("Stored screen element",screenElement.resource.name, " with x0=", screenElement.x0)
 
     # this takes the deck which is the top resource and visualize it and children on the screen  
     def drawResourceAndChildrenImages(self, r:Resource):
@@ -67,14 +53,15 @@ class UiWindow:
         # if self.firstDraw:
         #     print ("child:",r.name)
         #print(r.category)
+        z=self.zoom
         if isinstance(r,Deck):
             self.createResourceShapes(r, theFillCol="orange")            
             # draw deck and slots
             for i in range(len(self.liquidHandler.deck.slot_locations)):
                 slot=self.liquidHandler.deck.slot_locations[i]
-                self.createRectangle(slot.x, slot.y, self.slotSizeX, self.slotSizeY, fillCol="slate grey", outlineCol="black")
-                self.createRectangle(slot.x, slot.y, self.slotPocketSizeX, self.slotPocketSizeY, fillCol="light grey", outlineCol="light grey")
-                self.canvas.create_text(slot.x+8, self.ym(slot.y)-8, text=str(i+1), fill="black", font=('Helvetica 10'))            
+                self.createRectangle(z*slot.x, z*slot.y, z*self.slotSizeX, z*self.slotSizeY, fillCol="slate grey", outlineCol="black")
+                self.createRectangle(z*slot.x, z*slot.y, z*self.slotPocketSizeX, z*self.slotPocketSizeY, fillCol="light grey", outlineCol="light grey")
+                self.canvas.create_text(z*slot.x+8, z*self.ym(slot.y)-8, text=str(i+1), fill="black", font=('Helvetica 10'))            
         elif isinstance(r,Trash):
             self.createResourceShapes(r, theFillCol="gray40")                      
         elif isinstance(r,TipRack):
@@ -96,7 +83,7 @@ class UiWindow:
         elif isinstance(r,Resource) and r.name=="trash_container":
                 self.createResourceShapes(r, theFillCol="black")     
         else:
-            print("!!!!!!!!!!!!!!!!!!! found unknown type", type(r), r)
+            messagebox.showinfo("Found unknown type", type(r), r)
 
     def createResourceShapes(self,r:Resource, addCircle=False, theFillCol="peach puff",theOutlineCol="peach puff"):
         absX=r.get_absolute_location().x
@@ -136,6 +123,7 @@ class UiWindow:
     def __init__(self, rootWindow, liquidHandler):
         self.stack = deque(maxlen = 10)
         self.stackcursor = 0
+        self.zoom = 1
         self.liquidHandler:LiquidHandler=liquidHandler
         # some calculations
         for col in range(1,len(self.liquidHandler.deck.slot_locations)):
@@ -145,6 +133,7 @@ class UiWindow:
         self.slotSizeY=self.liquidHandler.deck.slot_locations[col+1].y
         justTempVariableToDetermineSlotSize = opentrons_96_tiprack_1000ul(name="testIgnore") # needed for calculation slot sizes
         self.slotPocketSizeX, self.slotPocketSizeY=UiWindow.getSlotPocketDimensions()
+        print("stockSize:",self.slotPocketSizeX, self.slotPocketSizeY)
         self.firstDraw:bool=True
         self.screenElements:list[ResourceCoordinates]=list()
         # UI
@@ -174,75 +163,39 @@ class UiWindow:
         self.canvas.config()#cursor="pencil")
         # END UI
         # Event Binding
-        self.canvas.bind("<Motion>", self.paint)
-        self.frameLabelHolder.bind("<Motion>", self.clear)
+        self.canvas.bind("<Motion>", self.showCursorCoordinates)
+        self.canvas.bind("<Button-1>", self.zoomButtonAction)        
+        #self.frameLabelHolder.bind("<Motion>", self.clear)
         # self.canvas.bind("<ButtonRelease-1>", self.paint)
-        # self.canvas.bind("<Button-1>", self.paint)        
         # self.frameLabelHolder.pack(padx = 5, pady = 5, fill= BOTH)
         self.drawAll()
         self.firstDraw=False # so we don't over collect screenElements
-   
- 
-    def display(self):
-        print(self.sequenceTextBox.get("1.0", "end"))     
+
+    def showCursorCoordinates(self, event):
+        self.xyLabel.config(text = "x="+str(round((event.x),2))+" y="+str(round(self.yGcode(event.y),2))+" Ty="+str(round((event.y),2)))
+        self.elementNameLabel.config(text=self.getRectangleName(event.x,event.y))
+
+    def zoomButtonAction(self, event):
+        print("zoom")
+        self.zoom=2
+        self.drawAll()
+    # def clear(self, event):
+    #     self.xyLabel.config(text = "")
+    #     self.elementNameLabel.config(text="")
+    #     self.drawAll()
 
     def stackify(self):
         None
- 
-    def undo(self):
-        if self.stackcursor != 0:
-            self.clear()
-            if self.stackcursor > 0: self.stackcursor -= 1
-            self.sequenceTextBox.insert("0.0", self.stack[self.stackcursor])
- 
-    def redo(self):
-        if len(self.stack) > self.stackcursor + 1:
-            self.clear()
-            if self.stackcursor < 9: self.stackcursor += 1
-            self.sequenceTextBox.insert("0.0", self.stack[self.stackcursor])
- 
+
     def debug(self):
-        # print("Model")
+        print("LiquidHandler", self.liquidHandler)
         # print(Controller.model.dump())
         # messagebox.showinfo("Model", Controller.model.dump())
-        messagebox.showinfo("Model", "TADA ADRIAN")
 
-    def printStack(self):
-        i = 0
-        for stack in self.stack:
-            print(str(i) + " " + stack)
-            i += 1
-
-    def update(self):
-        print("update called")
-        line = self.canvas.create_line(100, 20, 50, 100, fill="red", width=2) 
-
-    
-# Clear Screen
-    def clearScreen(self):
-        self.canvas.delete("all")
-
-    # def showForbiddenListFromFile(self):
-    #     listString=""
-    #     for line in Controller.model.forbiddenList:
-    #         listString+=line
-    #     messagebox.showinfo("Forbidden list", listString+"                    ")
-
-    # def debug(self):
-    #     print("Model")
-    #     print(Controller.model.dump())
-    #     messagebox.showinfo("Model", Controller.model.dump())
-        
-    # end class    
-
-def onExit():
-     #messagebox.showinfo("bye", "bye")
-    #  UtilFileIO.saveModelToFile()
-     #os.path.dirname(os.path.abspath(__file__))+"\\..\\default.fa"
-     quit()
 
 class UiBootUp:
-     def __init__(self, liquidHandler):
+
+    def __init__(self, liquidHandler):
         rootWindow = Tk()
         rootWindow.title('text')
         rootWindow.geometry(str(rootWindow.winfo_screenwidth())+"x"+str( int(rootWindow.winfo_screenheight()*.7)))
@@ -254,7 +207,12 @@ class UiBootUp:
         rootWindow.protocol( "WM_DELETE_WINDOW", onExit )
         rootWindow.mainloop()
 
-  
+
+def onExit():
+    #messagebox.showinfo("bye", "bye")
+    #  UtilFileIO.saveModelToFile()
+    #os.path.dirname(os.path.abspath(__file__))+"\\..\\default.fa"
+    quit()
 
 
 

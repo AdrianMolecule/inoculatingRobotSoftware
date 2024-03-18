@@ -11,13 +11,10 @@ Z_PROTECTION=10
 
 gCode=list()
 gCode.append("G90 G21; G90 means absolute")
-gCode.append("Z10; go higher")
+gCode.append("Z20; go to 20")
 gCode.append("X0 Y0; go to X Y origin")
 
 def appendGCode(operation):
-    # print("Operation resource", operation.resource, "operation.offset",operation.offset,
-    #       "operation.offset - operation.resource.center()",operation.offset - operation.resource.center(),"resource center",
-    #         operation.resource.center())
     operationType=str(type(operation).__name__)
     resource:Resource=operation.resource
     gCode.append("Z"+str(resource.get_size_z()+Z_PROTECTION)+"; "+"lift for move to go to "+resource.name)
@@ -25,8 +22,8 @@ def appendGCode(operation):
     # .offset is changed fromthe relative offset to the center to an absolute value from the left corner of the object so we need to add resource.
     if isinstance(operation, Dispense) and operation.offset!=None: #offset is changed to middle +sent offset TODO check forjust one offfsets
         if(operation.offset.z!=0):
-            raise "!!!!!!!!!!!!!!!! offset with Z!=0 is not supported" # NOTE: this is almost equivalent to bare `raise`   
-        else:           #todo add teh sizeof drops
+            raise "!!!!!!!!!!!!!!!! offset with Z!=0 is not supported"   
+        else:           #todo add the size of drops
             gCode.append("X"+str(round(resourceStartCoords.x+operation.offset.x,2))+ " "+"Y"+str(round(resourceStartCoords.y+operation.offset.y,2))+"; using "+operationType+" in "+resource.name+
                           " and an offset:"+str(operation.offset)+" so real coords inside labware:"+str(round(resourceStartCoords.x+operation.offset.x,2)))
             if not hasattr(resource,"drops"):
@@ -61,9 +58,9 @@ def printl(resource:Resource):
 
 def createOtPetriDishPetriHolder(name: str) -> PetriDishHolder:
   slotSizeX, slotSizeY=UiWindow.getSlotPocketDimensions()
-  petriHolder = PetriDishHolder(name=f"{name}_holder", size_x=slotSizeX, size_y=slotSizeY, size_z=14.5)
-  diameter = 85.6
-  dish = PetriDish(name=f"{name}_dish", diameter=diameter, height=14.5)
+  petriHolder = PetriDishHolder(name=f"{name}_holder", size_x=slotSizeX, size_y=slotSizeY, size_z=4)
+  diameter = 84.8
+  dish = PetriDish(name=f"{name}_dish", diameter=diameter, height=3)
   #lower left corner
-  petriHolder.assign_child_resource(dish, location=Coordinate( x=slotSizeX/2 - diameter/2,  y=slotSizeY/2 - diameter/2, z=0))
+  petriHolder.assign_child_resource(dish, location=Coordinate( x=slotSizeX/2 - diameter/2,  y=slotSizeY/2 - diameter/2, z=3))
   return petriHolder
