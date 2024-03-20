@@ -147,7 +147,8 @@ class UiWindow:
         # xyLabel.grid(row=0, column=0)             
         self.elementNameLabel:Label = Label(frameLabelHolder, text = "Element Name")
         self.elementNameLabel.place_configure(relwidth=0.5, relheight=.05, relx=0, rely=.05, bordermode =OUTSIDE)
-        self.canvas = Canvas(frameCanvasAndScrollBarsHolder, width=self.liquidHandler.deck._size_x, height= self.liquidHandler.deck._size_y, bd=0,bg="red", cursor="crosshair",highlightthickness=0, highlightbackground="white")
+        self.canvas = Canvas(frameCanvasAndScrollBarsHolder,yscrollcommand=Scrollbar.set, width=self.liquidHandler.deck._size_x, height= self.liquidHandler.deck._size_y, bd=0,bg="red", cursor="crosshair",highlightthickness=0, highlightbackground="white")
+        #xscrollcommand will be set to Scrollbar.set
         sbHorizontalScrollBar = Scrollbar(frameCanvasAndScrollBarsHolder)
         sbVerticalScrollBar = Scrollbar(frameCanvasAndScrollBarsHolder)
         # Sets up the Canvas, Frame, and scrollbars for scrolling based on https://www.joehutch.com/posts/tkinter-dynamic-scroll-area/
@@ -156,7 +157,8 @@ class UiWindow:
         sbVerticalScrollBar.config(orient=VERTICAL, command=self.canvas.yview)
         sbHorizontalScrollBar.pack(fill=X, side=BOTTOM, expand=FALSE)
         sbVerticalScrollBar.pack(fill=Y, side=RIGHT, expand=FALSE)
-        self.canvas.pack_configure(fill=BOTH, anchor="center", side=LEFT, expand=TRUE)
+
+        self.canvas.pack_configure(fill=NONE, anchor="s", side=BOTTOM, expand=TRUE)
         # scrollbarWidth=sbVerticalScrollBar.winfo_depth()
         self.canvas.update_idletasks()
         # canvas.config(scrollregion=(0,0,canvasW+scrollbarWidth,canvasD+scrollbarWidth))
@@ -175,9 +177,11 @@ class UiWindow:
         print("zoom")
         if self.zoom==1:
             self.zoom=2
+            halfYDeckSize=self.liquidHandler.deck._size_y*self.zoom/2
+            self.canvas.config(scrollregion=(0,-halfYDeckSize,self.liquidHandler.deck._size_x*self.zoom,halfYDeckSize))
         else:
             self.zoom=1
-        self.canvas.config(scrollregion=(0,0,self.canvas.winfo_width()*self.zoom,self.canvas.winfo_depth()*self.zoom+1000))# or use zoom*liquidHandler.deck._size_x
+            self.canvas.config(scrollregion=(0,0,self.liquidHandler.deck._size_x,self.liquidHandler.deck._size_y))
         self.drawAll()
 
     def stackify(self):
