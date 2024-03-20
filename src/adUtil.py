@@ -32,7 +32,7 @@ def appendGCode(operation):
             resource.drops.append(tou)
     else:
         gCode.append("X"+str(round(resourceStartCoords.x,2))+ " "+"Y"+str(round(resourceStartCoords.y,2))+"; using "+operationType+", "+resource.name)
-    gCode.append("Z"+str(resourceStartCoords.z)+"; "+operationType+", plunge to tube")
+    gCode.append("Z"+str(resourceStartCoords.z-1)+"; "+operationType+", plunge to tube")
     
 def printGCode():
     for i in range(len(gCode)):

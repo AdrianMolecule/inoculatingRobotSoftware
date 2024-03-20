@@ -29,10 +29,17 @@ import os
 from pprint import pprint
 from adUtil import createOtPetriDishPetriHolder
 
-backend=CncLabBackend()
+opentronsIp=None
+if opentronsIp != None:
+    print("using an Opentrons server")
+    #backend = OpentronsBackend(host=opentronsIp, port=31950)
+else:
+    backend=CncLabBackend()
+
 #backend=ChatterBoxBackend()
 deck:OTDeck=OTDeck()
 liquidHandler = LiquidHandler(backend, deck)
+opentronsIp=None
 
 async def main():
     print("current execution directory",os.getcwd())   # Create a new file path new_file_path = os.path.join(current_directory, 'new_file.txt')
@@ -45,9 +52,9 @@ async def main():
 
     set_tip_tracking(True)
     #set_volume_tracking(True)
-    tipsSlot=5
     petriSlot=1
-    sourceSlot=2 # label not the 0 indexed
+    sourceSlot=10 # label not the 0 indexed
+    tipsSlot=5 # my fourth one
     destinationSlot=2    
     
     tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
@@ -67,7 +74,7 @@ async def main():
     #     print("x",x)
     #    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=x, y=0, z=0))
     #await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=0, z=0))
-    off=42
+    off=40
     print("calling disperse with offset",off)
 
     await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=0, z=0)])

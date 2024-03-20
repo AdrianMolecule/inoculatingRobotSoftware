@@ -86,33 +86,35 @@ class UiWindow:
             messagebox.showinfo("Found unknown type", type(r), r)
 
     def createResourceShapes(self,r:Resource, addCircle=False, theFillCol="peach puff",theOutlineCol="peach puff"):
-        absX=r.get_absolute_location().x
-        absY=r.get_absolute_location().y
+        absX=r.get_absolute_location().x*self.zoom
+        absY=r.get_absolute_location().y*self.zoom
+        sx=r.get_size_x()*self.zoom
+        sy=r.get_size_y()*self.zoom
         typeName=type(r).__name__
         if addCircle:
-            self.canvas.create_oval(absX, self.ym(absY), r.get_absolute_location().x+r.get_size_x(), self.ym(absY)-r.get_size_y(), fill="white", outline=theOutlineCol)
+            self.canvas.create_oval(absX, self.ym(absY), absX+sx, self.ym(absY)-sy, fill="white", outline=theOutlineCol)
         else:
-            self.createRectangle(absX, absY, r.get_size_x(), r.get_size_y(), fillCol=theFillCol, outlineCol=theOutlineCol)
+            self.createRectangle(absX, absY, sx, sy, fillCol=theFillCol, outlineCol=theOutlineCol)
         if(self.firstDraw):
-            self.screenElements.insert(0,ResourceCoordinates(absX,absY, r.get_size_x(), r.get_size_y(),r))
+            self.screenElements.insert(0,ResourceCoordinates(absX,absY, sx, sy,r))
         if  isinstance(r,Plate) or isinstance(r,TipRack) or isinstance(r,Trash):
-            self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+6), text=r.name, fill="black", font=('Arial 8'))
+            self.canvas.create_text(absX+sx/2, self.ym( absY+6), text=r.name, fill="black", font=('Arial 8'))
             #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))
         if isinstance(r,PetriDish):
-            self.canvas.create_text(r.get_absolute_location().x+2, self.ym( r.get_absolute_location().y+6), text=r.name, fill="black", font=('Arial 8'))
+            self.canvas.create_text(absX+2, self.ym( absY+6), text=r.name, fill="black", font=('Arial 8'))
             #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))                
             if hasattr(r,"drops"):
-                for drop in r.drops:
-                    self.canvas.create_oval(drop[0]-1, self.ym(drop[1]-1), drop[0]+1, self.ym(drop[1]+1), fill="green", outline=theOutlineCol)
-                
+                for drop in r.drops: #todo adrian check if the +1 etc are needed
+                    self.canvas.create_oval((drop[0]*self.zoom-1), self.ym(drop[1]*self.zoom-1), drop[0]*self.zoom+1, self.ym(drop[1]*self.zoom+1), fill="green", outline=theOutlineCol)
+    
+    # the zoom adjusted coordinates should be calculater in advance and fed here           
     def createRectangle(self, x0,y0,xSize,ySize, fillCol, outlineCol, widthBorder=0):
-        #print("create rectangle at",x0, self.ym(y0), x0+xSize, self.ym(y0)-ySize,"of sizes:",xSize,ySize)
         self.canvas.create_rectangle(x0, self.ym(y0), x0+xSize, self.ym(y0)-ySize, fill=fillCol, outline=outlineCol, width=widthBorder)
 
     def getRectangleName(self, x, y):# y is tk style and so are the elements
         for screenElement in self.screenElements:
-            if screenElement.contains(x,self.ym(y)):
-                return screenElement.resource.name# todo can also type(resource).__name__
+            if screenElement.contains(x,self.ym(y), self.zoom):
+                return screenElement.resource.name  #todo can also add type(resource).__name__
         return "empty"
          
     @staticmethod
@@ -129,45 +131,39 @@ class UiWindow:
         for col in range(1,len(self.liquidHandler.deck.slot_locations)):
             if self.liquidHandler.deck.slot_locations[col].x==0:
                  break
-        self.slotSizeX=self.liquidHandler.deck.slot_locations[1].x # assume slots go  right first and then up
+        self.slotSizeX=self.liquidHandler.deck.slot_locations[1].x # assume slots go firstly right and then up
         self.slotSizeY=self.liquidHandler.deck.slot_locations[col+1].y
-        justTempVariableToDetermineSlotSize = opentrons_96_tiprack_1000ul(name="testIgnore") # needed for calculation slot sizes
         self.slotPocketSizeX, self.slotPocketSizeY=UiWindow.getSlotPocketDimensions()
         print("stockSize:",self.slotPocketSizeX, self.slotPocketSizeY)
         self.firstDraw:bool=True
         self.screenElements:list[ResourceCoordinates]=list()
-        # UI
-        self.root = rootWindow
-        self.frameLabelHolder = Frame(self.root)
-        self.frameLabelHolder.place(relx=0.5, rely=0.05, anchor=CENTER, bordermode =OUTSIDE)        
-        self.xyLabel:Label = Label(self.frameLabelHolder, text = "Coordinates")
-        self.xyLabel.grid(row=0, column=0)             
-        self.elementNameLabel:Label = Label(self.frameLabelHolder, text = "Element Name")
-        self.elementNameLabel.grid(row=1, column=0)             
-        # self.xyLabel.pack(padx = 5, pady = 5)
-        # self.elementNameLabel.pack(padx = 5, pady = 5)
-         # Add a Scrollbar (horizontal)
-        # scrollbar=Scrollbar(self.frameLabelHolder, orient='horizontal')
-        # self.menu = Menu(self.frameLabelHolder)-
-        # self.menu.add_command(label = "Debug", command = self.debug)
-        # CANVAS
-        # self.canvasFrameHolder = Frame(self.root)
-
-        # self.canvasFrameHolder.grid(row=1, column=1, sticky="NESW")
-        # self.canvasFrameHolder.grid_rowconfigure(0, weight=1)
-        # Making a Canvas https://www.tutorialspoint.com/python/tk_place.htm
-        self.canvas = Canvas(self.root, width= liquidHandler.deck._size_x, height= liquidHandler.deck._size_y, bd=0,bg="white", cursor="crosshair",
-                              highlightthickness=0, highlightbackground="blue")
-        #self.canvas.grid(row=1, column=1,sticky='')
-        self.canvas.place(relx=0.5, rely=0.5, anchor=CENTER, bordermode =OUTSIDE)
-        self.canvas.config()#cursor="pencil")
+        # UI starts
+        frameLabelHolder = Frame(rootWindow, bg= "green")
+        frameLabelHolder.place_configure(relwidth=0.5, relheight=1, relx=.5, bordermode =OUTSIDE)        
+        frameCanvasAndScrollBarsHolder = Frame(rootWindow, bg= "yellow")
+        frameCanvasAndScrollBarsHolder.place_configure(relwidth=0.5, relheight=1, relx=0, bordermode =OUTSIDE)       
+        self.xyLabel = Label(frameLabelHolder, text = "Coordinates")
+        self.xyLabel.place_configure(relwidth=0.5, relheight=.05, rely=0,  relx=0, bordermode =OUTSIDE)   
+        # xyLabel.grid(row=0, column=0)             
+        self.elementNameLabel:Label = Label(frameLabelHolder, text = "Element Name")
+        self.elementNameLabel.place_configure(relwidth=0.5, relheight=.05, relx=0, rely=.05, bordermode =OUTSIDE)
+        self.canvas = Canvas(frameCanvasAndScrollBarsHolder, width=self.liquidHandler.deck._size_x, height= self.liquidHandler.deck._size_y, bd=0,bg="red", cursor="crosshair",highlightthickness=0, highlightbackground="white")
+        sbHorizontalScrollBar = Scrollbar(frameCanvasAndScrollBarsHolder)
+        sbVerticalScrollBar = Scrollbar(frameCanvasAndScrollBarsHolder)
+        # Sets up the Canvas, Frame, and scrollbars for scrolling based on https://www.joehutch.com/posts/tkinter-dynamic-scroll-area/
+        self.canvas.config(xscrollcommand=sbHorizontalScrollBar.set,yscrollcommand=sbVerticalScrollBar.set, highlightthickness=0)
+        sbHorizontalScrollBar.config(orient=HORIZONTAL, command=self.canvas.xview)
+        sbVerticalScrollBar.config(orient=VERTICAL, command=self.canvas.yview)
+        sbHorizontalScrollBar.pack(fill=X, side=BOTTOM, expand=FALSE)
+        sbVerticalScrollBar.pack(fill=Y, side=RIGHT, expand=FALSE)
+        self.canvas.pack_configure(fill=BOTH, anchor="center", side=LEFT, expand=TRUE)
+        # scrollbarWidth=sbVerticalScrollBar.winfo_depth()
+        self.canvas.update_idletasks()
+        # canvas.config(scrollregion=(0,0,canvasW+scrollbarWidth,canvasD+scrollbarWidth))
         # END UI
         # Event Binding
         self.canvas.bind("<Motion>", self.showCursorCoordinates)
         self.canvas.bind("<Button-1>", self.zoomButtonAction)        
-        #self.frameLabelHolder.bind("<Motion>", self.clear)
-        # self.canvas.bind("<ButtonRelease-1>", self.paint)
-        # self.frameLabelHolder.pack(padx = 5, pady = 5, fill= BOTH)
         self.drawAll()
         self.firstDraw=False # so we don't over collect screenElements
 
@@ -177,32 +173,31 @@ class UiWindow:
 
     def zoomButtonAction(self, event):
         print("zoom")
-        self.zoom=2
+        if self.zoom==1:
+            self.zoom=2
+        else:
+            self.zoom=1
+        self.canvas.config(scrollregion=(0,0,self.canvas.winfo_width()*self.zoom,self.canvas.winfo_depth()*self.zoom+1000))# or use zoom*liquidHandler.deck._size_x
         self.drawAll()
-    # def clear(self, event):
-    #     self.xyLabel.config(text = "")
-    #     self.elementNameLabel.config(text="")
-    #     self.drawAll()
 
     def stackify(self):
         None
 
     def debug(self):
         print("LiquidHandler", self.liquidHandler)
-        # print(Controller.model.dump())
         # messagebox.showinfo("Model", Controller.model.dump())
-
 
 class UiBootUp:
 
     def __init__(self, liquidHandler):
+        # really here is where the UI starts being built
         rootWindow = Tk()
-        rootWindow.title('text')
-        rootWindow.geometry(str(rootWindow.winfo_screenwidth())+"x"+str( int(rootWindow.winfo_screenheight()*.7)))
+        spreadOnX=.95;spreadOnY=.8
+        rootWindow.title('LabRobot')
+        rootWindow.geometry(str(int(rootWindow.winfo_screenwidth()*spreadOnX))+"x"+str( int(rootWindow.winfo_screenheight()*spreadOnY))+"+"+str( int(rootWindow.winfo_screenwidth()*(1-spreadOnX)/2))+"+"+str( int(rootWindow.winfo_screenheight()*(1-spreadOnY)/2)))
+        rootWindow.configure(background='blue') 
         rootWindow.state('zoomed')
         window = UiWindow(rootWindow, liquidHandler)
-        #rootWindow.attributes('-fullscreen', True)
-        #screen_width = win.winfo_screenwidth()
         rootWindow.bind("<Key>", lambda event: window.stackify())
         rootWindow.protocol( "WM_DELETE_WINDOW", onExit )
         rootWindow.mainloop()

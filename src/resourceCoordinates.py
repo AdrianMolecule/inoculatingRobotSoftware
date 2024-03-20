@@ -13,6 +13,6 @@ class ResourceCoordinates:
             self.ySize= yS
             self.resource=resource
 
-    def contains(self, x:float, y:float)->bool: #uses Gcode coordinates not tk coords
-        if  x>=self.x0 and x<=self.x0+self.xSize and y>=self.y0 and y<=self.y0+self.ySize:
+    def contains(self, x:float, y:float, zoom)->bool: #uses Gcode coordinates not tk coords
+        if  x>=self.x0*zoom and x<=self.x0*zoom+self.xSize*zoom and y>=self.y0*zoom and y<=self.y0*zoom+self.ySize*zoom:
              return self.resource

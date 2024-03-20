@@ -2,20 +2,20 @@ G90 G21; G90 means absolute
 Z20; go to 20
 X0 Y0; go to X Y origin
 Z20.67; lift for move to go to source_plate_A1
-X146.88 Y74.24; using Aspiration, source_plate_A1
-Z3.55; Aspiration, plunge to tube
+X14.38 Y345.74; using Aspiration, source_plate_A1
+Z2.55; Aspiration, plunge to tube
 Z13; lift for move to go to petri_dish
 X63.88 Y42.74; using Dispense in petri_dish and an offset:(042.400, 042.400, 000.000) so real coords inside labware:63.88
-Z3; Dispense, plunge to tube
+Z2; Dispense, plunge to tube
 Z13; lift for move to go to petri_dish
-X21.88 Y42.74; using Dispense in petri_dish and an offset:(000.400, 042.400, 000.000) so real coords inside labware:21.88
-Z3; Dispense, plunge to tube
+X23.88 Y42.74; using Dispense in petri_dish and an offset:(002.400, 042.400, 000.000) so real coords inside labware:23.88
+Z2; Dispense, plunge to tube
 Z13; lift for move to go to petri_dish
-X105.88 Y42.74; using Dispense in petri_dish and an offset:(084.400, 042.400, 000.000) so real coords inside labware:105.88
-Z3; Dispense, plunge to tube
+X103.88 Y42.74; using Dispense in petri_dish and an offset:(082.400, 042.400, 000.000) so real coords inside labware:103.88
+Z2; Dispense, plunge to tube
 Z13; lift for move to go to petri_dish
-X63.88 Y0.74; using Dispense in petri_dish and an offset:(042.400, 000.400, 000.000) so real coords inside labware:63.88
-Z3; Dispense, plunge to tube
+X63.88 Y2.74; using Dispense in petri_dish and an offset:(042.400, 002.400, 000.000) so real coords inside labware:63.88
+Z2; Dispense, plunge to tube
 Z13; lift for move to go to petri_dish
-X63.88 Y84.74; using Dispense in petri_dish and an offset:(042.400, 084.400, 000.000) so real coords inside labware:63.88
-Z3; Dispense, plunge to tube
+X63.88 Y82.74; using Dispense in petri_dish and an offset:(042.400, 082.400, 000.000) so real coords inside labware:63.88
+Z2; Dispense, plunge to tube
