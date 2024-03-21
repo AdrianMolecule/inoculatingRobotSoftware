@@ -57,7 +57,7 @@ def printl(resource:Resource):
 
 
 def createOtPetriDishPetriHolder(name: str) -> PetriDishHolder:
-  slotSizeX, slotSizeY=UiWindow.getSlotPocketDimensions()
+  slotSizeX=127.76; slotSizeY=85.48
   petriHolder = PetriDishHolder(name=f"{name}_holder", size_x=slotSizeX, size_y=slotSizeY, size_z=4)
   diameter = 84.8
   dish = PetriDish(name=f"{name}_dish", diameter=diameter, height=3)

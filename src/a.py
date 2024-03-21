@@ -37,7 +37,7 @@ else:
     backend=CncLabBackend()
 
 #backend=ChatterBoxBackend()
-deck:OTDeck=OTDeck()
+deck:OTDeck=OTDeck(); deck._size_x=437.86;deck._size_y=437.36
 liquidHandler = LiquidHandler(backend, deck)
 opentronsIp=None
 

@@ -27,6 +27,8 @@ from pylabrobot.resources.tube_rack import Tube
 from pylabrobot.resources.tube_rack import TubeRack
 
 from resourceCoordinates import ResourceCoordinates
+uiDebug=True; frameLabelHolderBackgroundCol="red";frameCanvasAndScrollBarsHolderBackgroundCol="yellow"; canvasBackgroundCol="red"
+deckCol="peach puff" if uiDebug else "gray10"
 
 class UiWindow:
 
@@ -37,6 +39,7 @@ class UiWindow:
          return -y+self.liquidHandler.deck._size_y
 
     def drawAll(self):
+        # self.screenElements.clear()
         self.drawResourceAndChildrenImages(self.liquidHandler.deck)
 
     # this takes the deck which is the top resource and visualize it and children on the screen  
@@ -50,18 +53,15 @@ class UiWindow:
                     self.drawResourceAndChildrenImages(child)
 
     def createResourceImage(self, r:Resource):
-        # if self.firstDraw:
-        #     print ("child:",r.name)
-        #print(r.category)
         z=self.zoom
         if isinstance(r,Deck):
-            self.createResourceShapes(r, theFillCol="orange")            
+            self.createResourceShapes(r, theFillCol=deckCol)            
             # draw deck and slots
             for i in range(len(self.liquidHandler.deck.slot_locations)):
                 slot=self.liquidHandler.deck.slot_locations[i]
-                self.createRectangle(z*slot.x, z*slot.y, z*self.slotSizeX, z*self.slotSizeY, fillCol="slate grey", outlineCol="black")
-                self.createRectangle(z*slot.x, z*slot.y, z*self.slotPocketSizeX, z*self.slotPocketSizeY, fillCol="light grey", outlineCol="light grey")
-                self.canvas.create_text(z*slot.x+8, z*self.ym(slot.y)-8, text=str(i+1), fill="black", font=('Helvetica 10'))            
+                self.createRectangle(slot.x*z, slot.y*z, z*self.slotSizeX, z*self.slotSizeY, fillCol="slate grey", outlineCol="black")
+                self.createRectangle(slot.x*z, slot.y*z, z*self.slotPocketSizeX, z*self.slotPocketSizeY, fillCol="light grey", outlineCol="light grey")
+                self.canvas.create_text(slot.x*z+8, z*self.ym(slot.y)-8, text=str(i+1), fill="black", font=('Helvetica 10'))            
         elif isinstance(r,Trash):
             self.createResourceShapes(r, theFillCol="gray40")                      
         elif isinstance(r,TipRack):
@@ -113,15 +113,17 @@ class UiWindow:
 
     def getRectangleName(self, x, y):# y is tk style and so are the elements
         for screenElement in self.screenElements:
-            if screenElement.contains(x,self.ym(y), self.zoom):
+            if self.zoom==1 and screenElement.contains(x,self.ym(y), self.zoom):
                 return screenElement.resource.name  #todo can also add type(resource).__name__
+            elif self.zoom==2 and screenElement.contains(x,self.ym(y), self.zoom):
+                return screenElement.resource.name
         return "empty"
          
     @staticmethod
     def getSlotPocketDimensions(): 
         justTempVariableToDetermineSlotSize = opentrons_96_tiprack_1000ul(name="testIgnore") # needed for calculation slot sizes
-        return justTempVariableToDetermineSlotSize.get_size_x(),justTempVariableToDetermineSlotSize.get_size_y()
-    
+        return justTempVariableToDetermineSlotSize.get_size_x(), justTempVariableToDetermineSlotSize.get_size_y()
+
     def __init__(self, rootWindow, liquidHandler):
         self.stack = deque(maxlen = 10)
         self.stackcursor = 0
@@ -134,20 +136,23 @@ class UiWindow:
         self.slotSizeX=self.liquidHandler.deck.slot_locations[1].x # assume slots go firstly right and then up
         self.slotSizeY=self.liquidHandler.deck.slot_locations[col+1].y
         self.slotPocketSizeX, self.slotPocketSizeY=UiWindow.getSlotPocketDimensions()
-        print("stockSize:",self.slotPocketSizeX, self.slotPocketSizeY)
+        print("pocketSizes:",self.slotPocketSizeX, self.slotPocketSizeY)
         self.firstDraw:bool=True
         self.screenElements:list[ResourceCoordinates]=list()
         # UI starts
-        frameLabelHolder = Frame(rootWindow, bg= "green")
-        frameLabelHolder.place_configure(relwidth=0.5, relheight=1, relx=.5, bordermode =OUTSIDE)        
-        frameCanvasAndScrollBarsHolder = Frame(rootWindow, bg= "yellow")
+        frameLabelHolderBackground=frameLabelHolderBackgroundCol if uiDebug else "gray"
+        frameLabelHolder = Frame(rootWindow, bg=frameLabelHolderBackground)
+        frameLabelHolder.place_configure(relwidth=0.5, relheight=1, relx=.5, bordermode =OUTSIDE)   
+        frameCanvasAndScrollBarsHolderBackground=frameCanvasAndScrollBarsHolderBackgroundCol if uiDebug else "gray"     
+        frameCanvasAndScrollBarsHolder = Frame(rootWindow, bg= frameCanvasAndScrollBarsHolderBackground)
         frameCanvasAndScrollBarsHolder.place_configure(relwidth=0.5, relheight=1, relx=0, bordermode =OUTSIDE)       
         self.xyLabel = Label(frameLabelHolder, text = "Coordinates")
         self.xyLabel.place_configure(relwidth=0.5, relheight=.05, rely=0,  relx=0, bordermode =OUTSIDE)   
         # xyLabel.grid(row=0, column=0)             
         self.elementNameLabel:Label = Label(frameLabelHolder, text = "Element Name")
         self.elementNameLabel.place_configure(relwidth=0.5, relheight=.05, relx=0, rely=.05, bordermode =OUTSIDE)
-        self.canvas = Canvas(frameCanvasAndScrollBarsHolder,yscrollcommand=Scrollbar.set, width=self.liquidHandler.deck._size_x, height= self.liquidHandler.deck._size_y, bd=0,bg="red", cursor="crosshair",highlightthickness=0, highlightbackground="white")
+        canvasBackground=canvasBackgroundCol if uiDebug else "gray"
+        self.canvas = Canvas(frameCanvasAndScrollBarsHolder,yscrollcommand=Scrollbar.set, width=self.liquidHandler.deck._size_x, height= self.liquidHandler.deck._size_y, bd=0,bg=canvasBackground, cursor="crosshair",highlightthickness=0, highlightbackground="white")
         #xscrollcommand will be set to Scrollbar.set
         sbHorizontalScrollBar = Scrollbar(frameCanvasAndScrollBarsHolder)
         sbVerticalScrollBar = Scrollbar(frameCanvasAndScrollBarsHolder)
@@ -174,18 +179,19 @@ class UiWindow:
         self.elementNameLabel.config(text=self.getRectangleName(event.x,event.y))
 
     def zoomButtonAction(self, event):
-        print("zoom")
         if self.zoom==1:
             self.zoom=2
-            halfYDeckSize=self.liquidHandler.deck._size_y*self.zoom/2
-            self.canvas.config(scrollregion=(0,-halfYDeckSize,self.liquidHandler.deck._size_x*self.zoom,halfYDeckSize))
+            self.canvas.config(width=self.liquidHandler.deck._size_x*self.zoom, height=self.liquidHandler.deck._size_y*self.zoom)
+            halfYDeckSize=self.liquidHandler.deck._size_y
+            self.canvas.config(scrollregion=(0,-halfYDeckSize,self.liquidHandler.deck._size_x*self.zoom, halfYDeckSize))
         else:
             self.zoom=1
-            self.canvas.config(scrollregion=(0,0,self.liquidHandler.deck._size_x,self.liquidHandler.deck._size_y))
+            self.canvas.config(width=self.liquidHandler.deck._size_x, height=self.liquidHandler.deck._size_y,
+                               scrollregion=(0,0,self.liquidHandler.deck._size_x,self.liquidHandler.deck._size_y))
         self.drawAll()
 
     def stackify(self):
-        None
+        None,
 
     def debug(self):
         print("LiquidHandler", self.liquidHandler)
