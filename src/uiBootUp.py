@@ -33,9 +33,9 @@ deckCol="peach puff" if uiDebug else "gray10"
 class UiWindow:
 
     def ym(self, y:float)->float:
-         return self.liquidHandler.deck._size_y-y
+         return self.liquidHandler.deck._size_y-y # adrian here
     
-    def yGcode(self, y:float)->float:
+    def yGcode(self, y:float)->float:   #adrian maybe here
          return -y+self.liquidHandler.deck._size_y
 
     def drawAll(self):
@@ -175,15 +175,32 @@ class UiWindow:
         self.firstDraw=False # so we don't over collect screenElements
 
     def showCursorCoordinates(self, event):
-        self.xyLabel.config(text = "x="+str(round((event.x),2))+" y="+str(round(self.yGcode(event.y),2))+" Ty="+str(round((event.y),2)))
-        self.elementNameLabel.config(text=self.getRectangleName(event.x,event.y))
+        self.xyLabel.config(text = "x="+str(round((event.x),2))+" y="+str(round(self.yGcode(event.y),2))+" Ty="+str(round((event.y),2))+", self.canvas.winfo_y()+machineY"+str(self.yGcode(event.y)+self.canvas.winfo_y()))        
+        self.elementNameLabel.config(text=self.getRectangleName(event.x,event.y)) #adrian here
+
+    # self.canvas.winfo_y() 251
+    # self.canvas.winfo_depth() 32
+    def dumpCanvas(self):
+        print("**********************")
+        print("self.canvas.winfo_y()", self.canvas.winfo_y())
+        print("self.canvas.winfo_depth()", self.canvas.winfo_depth())
+        print("self.canvas.winfo_geometry()", self.canvas.winfo_geometry())
+        print("self.canvas.winfo_rooty()", self.canvas.winfo_rooty())
+        print("self.canvas.winfo_screenheight()", self.canvas.winfo_screenheight())
+        print("self.canvas.winfo_screenmmheight()", self.canvas.winfo_screenmmheight())
+        print("self.canvas.winfo_vrootheight()", self.canvas.winfo_vrootheight())
+        print("self.canvas.winfo_vrooty()", self.canvas.winfo_vrooty())
 
     def zoomButtonAction(self, event):
         if self.zoom==1:
-            self.zoom=2
+            self.zoom=2 #adrian here
             self.canvas.config(width=self.liquidHandler.deck._size_x*self.zoom, height=self.liquidHandler.deck._size_y*self.zoom)
             halfYDeckSize=self.liquidHandler.deck._size_y
-            self.canvas.config(scrollregion=(0,-halfYDeckSize,self.liquidHandler.deck._size_x*self.zoom, halfYDeckSize))
+            scrollRegBeginPointY=-self.canvas.winfo_y() ;scrollRegEndPointY=self.canvas.winfo_y()
+            #self.canvas.config(scrollregion=(0,-halfYDeckSize,self.liquidHandler.deck._size_x*self.zoom, halfYDeckSize))# adrian here
+            print(" using ScrollRegion scrollRegBeginPointY, end", scrollRegBeginPointY, scrollRegEndPointY)
+            self.dumpCanvas()
+            self.canvas.config(scrollregion=(0,scrollRegBeginPointY,self.liquidHandler.deck._size_x*self.zoom, scrollRegEndPointY))
         else:
             self.zoom=1
             self.canvas.config(width=self.liquidHandler.deck._size_x, height=self.liquidHandler.deck._size_y,
