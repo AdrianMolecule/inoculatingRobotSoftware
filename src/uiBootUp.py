@@ -115,7 +115,7 @@ class UiWindow:
         for screenElement in self.screenElements:
             if self.zoom==1 and screenElement.contains(x,self.ym(y), self.zoom):
                 return screenElement.resource.name  #todo can also add type(resource).__name__
-            elif self.zoom==2 and screenElement.contains(x,self.ym(y-430), self.zoom,430):
+            elif self.zoom==2 and screenElement.contains(x,self.ym(y-self.liquidHandler.deck._size_y/2), self.zoom):
                 return screenElement.resource.name
         return "empty"
          
