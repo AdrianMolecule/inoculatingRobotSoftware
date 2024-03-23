@@ -196,6 +196,7 @@ class UiWindow:
             self.zoom=2 #adrian here
             self.canvas.config(width=self.liquidHandler.deck._size_x*self.zoom, height=self.liquidHandler.deck._size_y*self.zoom)
             halfYDeckSize=self.liquidHandler.deck._size_y
+            # deck/2=218.68
             #scrollRegBeginPointY=-250 ;scrollRegEndPointY=250
             scrollRegBeginPointY=-(halfYDeckSize+32) ;scrollRegEndPointY=(halfYDeckSize+32) #@this amounts to 469.36
             #scrollRegBeginPointY=-self.canvas.winfo_y() ;scrollRegEndPointY=self.canvas.winfo_y()

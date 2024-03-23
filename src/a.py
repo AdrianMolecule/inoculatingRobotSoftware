@@ -53,7 +53,7 @@ async def main():
     set_tip_tracking(True)
     #set_volume_tracking(True)
     petriSlot=1
-    sourceSlot=10 # label not the 0 indexed
+    sourceSlot=2 # label not the 0 indexed
     tipsSlot=5 # my fourth one
     destinationSlot=2    
     
@@ -65,7 +65,7 @@ async def main():
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
     #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
     sourceWells.set_well_liquids((Liquid.WATER, 200))
-    await liquidHandler.aspirate(sourceWells["A1"][0], vols=[100.0])
+    await liquidHandler.aspirate(sourceWells["A12"][0], vols=[100.0])
     print("loading petriHolder")
     petriHolder = createOtPetriDishPetriHolder("petri")
     dish = petriHolder.dish
@@ -74,14 +74,14 @@ async def main():
     #     print("x",x)
     #    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=x, y=0, z=0))
     #await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=0, z=0))
-    off=40
-    print("calling disperse with offset",off)
-
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=0, z=0)])
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=-off, y=0, z=0)])
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=off, y=0, z=0)])
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=-off, z=0)])
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=off, z=0)])
+    off=38
+    print("calling disperse with offsets",off)
+    calibrationMediaHeight=7
+    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=0, z=calibrationMediaHeight)])
+    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=-off, y=0, z=calibrationMediaHeight)])
+    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=off, y=0, z=calibrationMediaHeight)])
+    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=-off, z=calibrationMediaHeight)])
+    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=off, z=calibrationMediaHeight)])
     # for y in range(-40, 40, 10): # 8 dots
     #     await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=y, z=0))
     #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
@@ -116,7 +116,7 @@ async def main():
     #await asyncio.sleep(3)
 
 asyncio.run(main())
-UiBootUp(liquidHandler)
+#UiBootUp(liquidHandler)
 
 
     # https://docs.pylabrobot.org/installation.html change pip install -e ".[dev]"

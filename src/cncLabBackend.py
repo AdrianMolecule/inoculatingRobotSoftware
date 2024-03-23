@@ -46,7 +46,7 @@ class CncLabBackend(LiquidHandlerBackend):
     #print(f"Aspirating {ops}.")
     adUtil.printl(ops[0].resource)
     # todo add the volume
-    adUtil.appendGCode(ops[0])
+    adUtil.appendGCodeAndDropLocations(ops[0])
 
   async def dispense(self, ops: List[Dispense], use_channels: List[int], **backend_kwargs):
     #print(f"Dispensing {ops}.")
@@ -65,7 +65,7 @@ class CncLabBackend(LiquidHandlerBackend):
     # if(resource.drops==None
     #    resource.drops=list()
     #    drops.append()
-    adUtil.appendGCode(ops[0])
+    adUtil.appendGCodeAndDropLocations(ops[0])
 
   async def pick_up_tips96(self, pickup: PickupTipRack, **backend_kwargs):
     print(f"Picking up tips from {pickup.resource.name}.")

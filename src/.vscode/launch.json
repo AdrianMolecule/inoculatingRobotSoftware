@@ -3,8 +3,8 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
-    
+    "configurations": [     
+        
         {
             "name": "Python Debugger: Current File",
             "type": "debugpy",
@@ -12,12 +12,22 @@
             "program": "${file}",
             "console": "integratedTerminal"
         },
+
         {
             "name": "Python Debugger: Adrian Module",
             "type": "debugpy",
             "request": "launch",
             "module": "a",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "justMyCode": false            
+        },
+        {
+            "name": "Python Debugger: Adrian Image processing Module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "toBlackAndCsvPoints",
+            "console": "integratedTerminal",
+            "justMyCode": false
         },
         {
             "name": "Python: Adrian File",
