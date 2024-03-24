@@ -1,11 +1,10 @@
 import cv2 
 import numpy as np 
 import matplotlib.pyplot as plt
-  
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+from PIL import Image
 
 # Now we define a function to create a 32x32 dot pattern image using OpenCV
-def create_dot_image_opencv(image, block_size, threshold=128):
+def create_dot_image_opencv(image:Image, block_size, threshold=128)->Image:
 #def create_dot_image_opencv(image, block_size=(26, 26), threshold=128):
     # Get the dimensions of the image
     h, w = image.shape[:2]
@@ -24,11 +23,7 @@ def create_dot_image_opencv(image, block_size, threshold=128):
             # If the average brightness is lower than the threshold, set the corresponding dot to black
             if block_brightness < threshold:
                  dot_imageArray[int(y / block_size[1]), int(x / block_size[0])] = 0 # Set to '0' for black )
-    # Save the dot image using OpenCV
-    path="C:/a/diy/pythonProjects/labRobot/src/image/"
-    dot_image_path = path+"dot_image.png"
-    cv2.imwrite(dot_image_path, dot_imageArray)
-    return  dot_image_path
+    return  dot_imageArray
 
 def find_centers_of_black_sections(image, block_size=(1, 1), threshold=128):
     # Get the dimensions of the image
@@ -62,9 +57,7 @@ def find_centers_of_black_sections(image, block_size=(1, 1), threshold=128):
 
 def main():
     # Let's load a simple image with 3 black squares 
-    path="C:/a/diy/pythonProjects/labRobot/src/image/"
-    image_path =path +"leaf.png"
-    image = cv2.imread(image_path) 
+    image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") 
     adrian_block_size=(6,6)
     cv2.waitKey(0) 
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale 
@@ -75,24 +68,16 @@ def main():
     cv2.waitKey(0) 
     print("Number of Contours found = " + str(len(contours))) # Draw all contours # -1 signifies drawing all contours # cv2.drawContours(image, contours, -1, (0, 255, 0), 3) 
     # cv2.imshow('Contours', image) # cv2.waitKey(0) 
-    contourImagePath = path+"contour.png"
     h, w = image.shape[:2]
     contourArray = np.full((h,w),255, dtype=np.uint8) #255 is white empty image just anarray of numbers
-    cv2.drawContours(contourArray, contours, -1, (0, 255, 0), 3) 
-    cv2.imshow('Just Cont', contourArray)
-    cv2.imwrite(contourImagePath, contourArray)
-    # cv2.waitKey(0) 
-    # cv2.destroyAllWindows()     
-    contourImage = cv2.imread(path +"contour.png") # Load the image using OpenCV 
-    dot_image_path = create_dot_image_opencv(contourImage, adrian_block_size)# Call the function to create and save the dot image
-    image = cv2.imread(dot_image_path, cv2.IMREAD_COLOR)
-    grayDotsImage = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)# Convert the image to grayscale using OpenCV
-    black_centers = find_centers_of_black_sections(grayDotsImage)# Call the function to find centers of black sections
+    cv2.drawContours(contourArray, contours, -1, (0, 255, 0), 3)    
+    dotArray = create_dot_image_opencv(contourArray, adrian_block_size)# Call the function to create and save the dot image
+    black_centers = find_centers_of_black_sections(dotArray)# Call the function to find centers of black sections
     x_coords = [point[0] for point in black_centers]# Extract the x and y coordinates from the list of centers
     y_coords = [point[1] for point in black_centers]
     plt.figure(figsize=(8, 8))# Plot the points using plt.scatter
     plt.scatter(x_coords, y_coords, c="black")
-    h, w = grayDotsImage.shape[:2] # Set the axis limits to the size of the image
+    h, w = dotArray.shape[:2] # Set the axis limits to the size of the image
     plt.xlim(-w, w)
     plt.ylim(-h, h)
     plt.gca().set_aspect("equal", adjustable="box")# Set the aspect of the plot to be equal
