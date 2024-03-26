@@ -2,8 +2,9 @@ import cv2
 import numpy as np 
 import matplotlib.pyplot as plt
 from PIL import Image
+import pickle 
 
-# Now we define a function to create a 32x32 dot pattern image using OpenCV
+# Now we define a function to create a ?x? dot pattern image using OpenCV
 def create_dot_image_opencv(image:Image, block_size, threshold=128)->Image:
 #def create_dot_image_opencv(image, block_size=(26, 26), threshold=128):
     # Get the dimensions of the image
@@ -25,6 +26,15 @@ def create_dot_image_opencv(image:Image, block_size, threshold=128)->Image:
                  dot_imageArray[int(y / block_size[1]), int(x / block_size[0])] = 0 # Set to '0' for black )
     return  dot_imageArray
 
+def findLimits(array):
+    maxX=0;maxY=0;minX=0;minY=0
+    for p in array:
+        if p[0]>maxX: maxX= p[0]
+        if p[1]>maxY: maxY= p[1]
+        if p[0]<minX: minX= p[0]
+        if p[1]<minY: minY= p[1]
+    return maxX, maxY, minX, minY
+
 def find_centers_of_black_sections(image, block_size=(1, 1), threshold=128):
     # Get the dimensions of the image
     h, w = image.shape[:2]
@@ -45,27 +55,23 @@ def find_centers_of_black_sections(image, block_size=(1, 1), threshold=128):
                 center_x *= 2
                 center_y *= 2
                 black_centers.append((center_x, center_y))
-    maxX=0;maxY=0;minX=0;minY=0
-    for p in black_centers:
-        if p[0]>maxX: maxX= p[0]
-        if p[1]>maxY: maxY= p[1]
-        if p[0]<minX: minX= p[0]
-        if p[1]<minY: minY= p[1]
+    maxX,maxY,minX,minY=findLimits(black_centers)
+
     print(" number of points:",len(black_centers))
     print(" maxX:",maxX, " maxY:",maxY," minX:",minX, " minY:",minY, " rangeX:",maxX+abs(minX), " rangeY:",maxY+abs(minY))
     return black_centers
 
 def main():
     # Let's load a simple image with 3 black squares 
-    image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") 
-    adrian_block_size=(6,6)
-    cv2.waitKey(0) 
+    
+    filaName="mam.png"#change here for new files
+    image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/"+filaName) ;    blockDim=5 #change here for higher/lower number of points
+    #image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") ;    blockDim=6#12
+    adrian_block_size=(blockDim,blockDim) #6 and 6 is teh best but image is 2 pixel too large
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale 
     edged = cv2.Canny(gray, 30, 200) # Find Canny edges
-    cv2.waitKey(0) 
     # Finding Contours # Use a copy of the image e.g. edged.copy() # since findContours alters the image 
     contours, hierarchy = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) ##cv2.imshow('Canny Edges After Contouring', edged) 
-    cv2.waitKey(0) 
     print("Number of Contours found = " + str(len(contours))) # Draw all contours # -1 signifies drawing all contours # cv2.drawContours(image, contours, -1, (0, 255, 0), 3) 
     # cv2.imshow('Contours', image) # cv2.waitKey(0) 
     h, w = image.shape[:2]
@@ -73,6 +79,8 @@ def main():
     cv2.drawContours(contourArray, contours, -1, (0, 255, 0), 3)    
     dotArray = create_dot_image_opencv(contourArray, adrian_block_size)# Call the function to create and save the dot image
     black_centers = find_centers_of_black_sections(dotArray)# Call the function to find centers of black sections
+    if   filaName=="mam.png":
+        black_centers.append((-12, 17))
     x_coords = [point[0] for point in black_centers]# Extract the x and y coordinates from the list of centers
     y_coords = [point[1] for point in black_centers]
     plt.figure(figsize=(8, 8))# Plot the points using plt.scatter
@@ -81,6 +89,10 @@ def main():
     plt.xlim(-w, w)
     plt.ylim(-h, h)
     plt.gca().set_aspect("equal", adjustable="box")# Set the aspect of the plot to be equal
+    print (findLimits(black_centers))
+    np.save("C:/a/diy/pythonProjects/labRobot/src/image/dotarray",black_centers)
+    arr=np.load("C:/a/diy/pythonProjects/labRobot/src/image/dotarray.npy")
+    print (findLimits(arr))
     plt.show()# Display the plot
 
 main()

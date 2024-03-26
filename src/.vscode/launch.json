@@ -17,7 +17,7 @@
             "name": "Python Debugger: Adrian Module",
             "type": "debugpy",
             "request": "launch",
-            "module": "a",
+            "module": "start",
             "console": "integratedTerminal",
             "justMyCode": false            
         },
@@ -33,7 +33,7 @@
             "name": "Python: Adrian File",
             "type": "python",
             "request": "launch",
-            "program": "./a.py",
+            "program": "./start.py",
             "console": "integratedTerminal",
             "justMyCode": true
         }

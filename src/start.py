@@ -1,13 +1,13 @@
 import sys
 import os
+import numpy
 
 from pylabrobot.liquid_handling import LiquidHandler
-from pylabrobot.visualizer.visualizer import Visualizer
+#from pylabrobot.visualizer.visualizer import Visualizer
 from pylabrobot.liquid_handling import LiquidHandler
 from pylabrobot.resources.opentrons.deck import OTDeck
 from pylabrobot.resources import set_tip_tracking, set_volume_tracking
 from pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul, opentrons_96_tiprack_1000ul
-from pylabrobot.resources import ( PLT_CAR_L5AC_A00, Cos_96_DW_1mL, HTF_L)
 from pylabrobot.resources.opentrons import corning_96_wellplate_360ul_flat
 from pylabrobot.resources.coordinate import Coordinate
 from pylabrobot.resources.plate import Plate
@@ -15,9 +15,9 @@ from pylabrobot.resources.resource import Resource
 from pylabrobot.resources.liquid import Liquid
 from pylabrobot.resources.well import Well
 from pylabrobot.resources.tip_rack import TipSpot, TipRack
-from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
+#from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
 #
-from uiBootUp import UiBootUp, UiWindow
+from uiBootup import UiBootup, UiWindow
 #
 #from opentrons import robot, labware, instruments
 from pylabrobot.liquid_handling.backends import ChatterBoxBackend
@@ -28,6 +28,10 @@ import asyncio
 import os
 from pprint import pprint
 from adUtil import createOtPetriDishPetriHolder
+from adUtil import drawBigPlusSign
+from adUtil import findLimits
+from adUtil import configureZ
+
 
 opentronsIp=None
 if opentronsIp != None:
@@ -41,6 +45,9 @@ deck:OTDeck=OTDeck(); deck._size_x=437.86;deck._size_y=437.36
 liquidHandler = LiquidHandler(backend, deck)
 opentronsIp=None
 
+
+
+
 async def main():
     print("current execution directory",os.getcwd())   # Create a new file path new_file_path = os.path.join(current_directory, 'new_file.txt')
     await liquidHandler.setup()
@@ -51,64 +58,35 @@ async def main():
     # await asyncio.sleep(1)    
 
     set_tip_tracking(True)
+    configureZ(22)# will set clearance Z for this session.If not it will go the z_max for machine
     #set_volume_tracking(True)
     petriSlot=1
-    sourceSlot=2 # label not the 0 indexed
+    sourceSlot=4 # label not the 0 indexed
     tipsSlot=5 # my fourth one
     destinationSlot=2    
     
     tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
-    #tips.fill()
+   
     deck.assign_child_at_slot(tips, tipsSlot)
-    await liquidHandler.pick_up_tips(tips["A1"])
+    await liquidHandler.pick_up_tips(tips["A1"]) #tips.fill()
     sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
-    #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
     sourceWells.set_well_liquids((Liquid.WATER, 200))
-    await liquidHandler.aspirate(sourceWells["A12"][0], vols=[100.0])
+    await liquidHandler.aspirate(sourceWells["H6"][0], vols=[100.0])
     print("loading petriHolder")
     petriHolder = createOtPetriDishPetriHolder("petri")
     dish = petriHolder.dish
     liquidHandler.deck.assign_child_at_slot(petriHolder, petriSlot)
-    # for x in range(-40, 41, 40): # 3 dots from -40 to 40 incrementing by 10
-    #     print("x",x)
-    #    await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=x, y=0, z=0))
-    #await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=0, z=0))
-    off=38
-    print("calling disperse with offsets",off)
-    calibrationMediaHeight=7
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=0, z=calibrationMediaHeight)])
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=-off, y=0, z=calibrationMediaHeight)])
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=off, y=0, z=calibrationMediaHeight)])
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=-off, z=calibrationMediaHeight)])
-    await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=0, y=off, z=calibrationMediaHeight)])
-    # for y in range(-40, 40, 10): # 8 dots
-    #     await liquidHandler.dispense(dish, vols=[1], offset=Coordinate(x=0, y=y, z=0))
-    #liquids:list=[(Liquid.WATER, 10)] #GLYCERIN
-
-    # # plate = liquidHandler.deck.get_resource("source_plate")
-    # sourceA1:Well = sourceWells["A1"][0]
-    # adUtil.printl(sourceA1)
-
-    # destinationWells = corning_96_wellplate_360ul_flat(name='destination_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
-    # deck.assign_child_at_slot(destinationWells, slot=destinationSlot)
-    # #movement starts
-
-    # await liquidHandler.aspirate(sourceA1, vols=[100.0])
-    # await liquidHandler.dispense(sourceWells["C1"][0], vols=[100.0])   
-    # await  liquidHandler.discard_tips()
-    # #await liquidHandler.drop_tips(tips["A1"]) will put them back
-    # await liquidHandler.pick_up_tips(tips["A3"])  
-
-    # await liquidHandler.aspirate(sourceA1, vols=[100.0])
-    # await liquidHandler.dispense(sourceWells["B3"][0], vols=[10.0])    
-    # await liquidHandler.aspirate(sourceWells["H3"][0], vols=[10.0])
-    # await liquidHandler.dispense(sourceWells["H12"][0], vols=[10.0])    
+    print("calling disperse with offsets")
+    calibrationMediaHeight=7.7 #change here and replace with the z of the top of your agar plate calculated as distance from the bed
+    #await drawBigPlusSign(liquidHandler,dish,calibrationMediaHeight) # change here if you want to test with big plus sign
+    points=numpy.load("C:/a/diy/pythonProjects/labRobot/src/image/dotarray.npy") #change here for gettig your points from a saved file
+    print ("limits for Petri disperse: ",findLimits(points))
+    for point in points:
+        print("disperse offset:",point)
+        await liquidHandler.aspirate(sourceWells["H6"][0], vols=[100.0])        
+        await liquidHandler.dispense(dish, vols=[1], offsets=[Coordinate(x=point[0], y=point[1], z=calibrationMediaHeight)])
     # #await asyncio.sleep(3)
-
-    # # destinationA5 = destinationWells["A5"][0]
-    # # adUtil.printl(destinationA5)
-    # # await liquidHandler.dispense(destinationA5, vols=[100.0])    # await liquidHandler.return_tips()
     # #liquidHandler.summary()
     adUtil.saveGCode()
     # I can get pylabrobot.machine.Machine and then get all children
@@ -116,7 +94,7 @@ async def main():
     #await asyncio.sleep(3)
 
 asyncio.run(main())
-#UiBootUp(liquidHandler)
+UiBootup(liquidHandler) #all done in the constructor
 
 
     # https://docs.pylabrobot.org/installation.html change pip install -e ".[dev]"
@@ -128,7 +106,7 @@ asyncio.run(main())
     # https://docs.opentrons.com/v1/hardware_control.html from Jupiter#monkey https://stackoverflow.com/questions/17985216/simpler-way-to-draw-a-circle-with-tkinter
 
 
-#https://colab.research.google.com/drive/1PoEZYIjggdnXQNGiKdnMmrJGTUg9xrPY#scrollTo=1cp3Mp8C4tQt HTGAA Ricks big code
+#https://colab.research.google.com/drive/1PoEZYIjggdnXQNGiKdnMmrJGTUg9xrPY#scrollTo=1cp3Mp8C4tQt HTGAA Rick's big code
 
     #my cnc max y160 x=285
 # SCRIPT_DIR = os.path.dirname(os.path.abspath("C:/a/diy/pythonProjects/pylabrobot/pylabrobot/gui"))
@@ -146,5 +124,14 @@ asyncio.run(main())
 #         diameter=5,         # diameter (mm) of each well
 #         depth=10,           # depth (mm) of each well
 #         volume=200)         # volume (µL) of each well
+
+# if plate_name not in labware.list():
+#     labware.create(
+#         PetriDish,  # name of you labware
+#         grid=(1, 1),        # number of (columns, rows)
+#         spacing=(100, 100),   # distances (mm) between each (column, row)
+#         diameter=84.8,         # diameter (mm) of each well
+#         depth=10,           # depth (mm) of each well
+#         volume=1000)         # volume (µL) of each well
 
 # custom_plate = labware.load(custom_plate_name, slot="3")

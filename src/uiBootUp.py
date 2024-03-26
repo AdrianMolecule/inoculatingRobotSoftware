@@ -27,6 +27,7 @@ from pylabrobot.resources.tube_rack import Tube
 from pylabrobot.resources.tube_rack import TubeRack
 
 from resourceCoordinates import ResourceCoordinates
+# change here,  set uiDebug to False if you don't want phycho colors for your deck.
 uiDebug=True; frameLabelHolderBackgroundCol="red";frameCanvasAndScrollBarsHolderBackgroundCol="yellow"; canvasBackgroundCol="red"
 deckCol="peach puff" if uiDebug else "gray10"
 
@@ -105,7 +106,9 @@ class UiWindow:
             #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))                
             if hasattr(r,"drops"):
                 for drop in r.drops: #todo adrian check if the +1 etc are needed
-                    self.canvas.create_oval((drop[0]*self.zoom-1), self.ym(drop[1]*self.zoom-1), drop[0]*self.zoom+1, self.ym(drop[1]*self.zoom+1), fill="green", outline=theOutlineCol)
+                    self.canvas.create_oval((
+                        (absX+drop[0])*self.zoom-1, self.ym(absY+drop[1])*self.zoom-1,
+                    (absX+drop[0])*self.zoom+1, self.ym((absY+drop[1]))*self.zoom+1), fill="green", outline=theOutlineCol)
     
     # the zoom adjusted coordinates should be calculater in advance and fed here           
     def createRectangle(self, x0,y0,xSize,ySize, fillCol, outlineCol, widthBorder=0):
@@ -175,7 +178,7 @@ class UiWindow:
         self.firstDraw=False # so we don't over collect screenElements
 
     def showCursorCoordinates(self, event):
-        self.xyLabel.config(text = "x="+str(round((event.x),2))+" y="+str(round(self.yGcode(event.y),2))+" Ty="+str(round((event.y),2))+", self.canvas.winfo_y()+machineY"+str(self.yGcode(event.y)+self.canvas.winfo_y()))        
+        self.xyLabel.config(text = "x="+str(round((event.x),2))+" y="+str(round(self.yGcode(event.y),2))+" Ty="+str(round((event.y),2))+", self.canvas.winfo_y()+machineY:"+str(self.yGcode(event.y)+self.canvas.winfo_y()))        
         self.elementNameLabel.config(text=self.getRectangleName(event.x,event.y)) #adrian here
 
     # self.canvas.winfo_y() 251
@@ -217,7 +220,7 @@ class UiWindow:
         print("LiquidHandler", self.liquidHandler)
         # messagebox.showinfo("Model", Controller.model.dump())
 
-class UiBootUp:
+class UiBootup:
 
     def __init__(self, liquidHandler):
         # really here is where the UI starts being built
