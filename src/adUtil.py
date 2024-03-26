@@ -21,7 +21,7 @@ def configureZ(zClear):
 
 gCode=list()
 gCode.append("G90 G21; G90 means absolute")
-gCode.append("Z"+str(Z_CLEAR)+"; initial lift to top")
+gCode.append("Z"+str(Z_CLEAR)+"; initial lift to safelevel")
 gCode.append("X0 Y0; go to X Y origin")
 
 def appendGCodeAndDropLocations(operation):
@@ -49,6 +49,7 @@ def appendGCodeAndDropLocations(operation):
         gCode.append("X"+str(resourceRoundedAbsoluteCoords.x)+ " Y"+str(resourceRoundedAbsoluteCoords.y)+"; "+operationType+"; go to "+resource.name)
         clearanceFromWellBottom=1
         gCode.append("Z"+str(resourceRoundedAbsoluteCoords.z+clearanceFromWellBottom)+"; "+operationType+", plunge to "+resource.name+" at "+str(clearanceFromWellBottom)+" mm above bottom")
+    gCode.append("Z"+str(Z_CLEAR)+"; final lift to safe level")
 
 def roundedCoords(rawCoordinate:Coordinate)->Coordinate:
     return Coordinate(round(rawCoordinate.x,2),round(rawCoordinate.y,2), round(rawCoordinate.z,2))
