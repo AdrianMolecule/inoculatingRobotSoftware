@@ -46,8 +46,7 @@ liquidHandler = LiquidHandler(backend, deck)
 opentronsIp=None
 
 
-
-
+# all docs at https://github.com/AdrianMolecule/inoculatingRobot
 async def main():
     print("current execution directory",os.getcwd())   # Create a new file path new_file_path = os.path.join(current_directory, 'new_file.txt')
     await liquidHandler.setup()
