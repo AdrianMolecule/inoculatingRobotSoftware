@@ -61,7 +61,7 @@ def printGCode():
     for i in range(len(gCode)):
         print(gCode[i])
 
-SAVE_FILE_NAME="gcode.txt"
+SAVE_FILE_NAME="gcode.txt" #change here if you don't like the file name for the gcode 
 SAVE_FILE_PATH="../"
 def saveGCode():
     print("\n******** GCode********")

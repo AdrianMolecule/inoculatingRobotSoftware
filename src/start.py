@@ -61,7 +61,7 @@ async def main():
     configureZ(22)# will set clearance Z for this session.If not it will go the z_max for machine
     #set_volume_tracking(True)
     petriSlot=1
-    sourceSlot=4 # label not the 0 indexed
+    sourceSlot=4 # labeled style starts at 1 not the 0 indexed
     tipsSlot=5 # my fourth one
     destinationSlot=2    
     
@@ -107,6 +107,8 @@ UiBootup(liquidHandler) #all done in the constructor
 
 
 #https://colab.research.google.com/drive/1PoEZYIjggdnXQNGiKdnMmrJGTUg9xrPY#scrollTo=1cp3Mp8C4tQt HTGAA Rick's big code
+
+#C:\a\diy\pythonProjects\pylabrobot\pylabrobot\server\readme.md has interesting info for running and communication with the web server
 
     #my cnc max y160 x=285
 # SCRIPT_DIR = os.path.dirname(os.path.abspath("C:/a/diy/pythonProjects/pylabrobot/pylabrobot/gui"))
