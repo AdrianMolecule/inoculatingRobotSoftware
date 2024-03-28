@@ -2,7 +2,6 @@ import cv2
 import numpy as np 
 import matplotlib.pyplot as plt
 from PIL import Image
-import pickle 
 
 # Now we define a function to create a ?x? dot pattern image using OpenCV
 def create_dot_image_opencv(image:Image, block_size, threshold=128)->Image:
@@ -64,11 +63,13 @@ def find_centers_of_black_sections(image, block_size=(1, 1), threshold=128):
 def main():
     # Let's load a simple image with 3 black squares 
     
-    filaName="mam.png"#change here for new files
-    image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/"+filaName) ;    blockDim=5 #change here for higher/lower number of points
+    fileName="obs.png"#change here for new files
+    blockDim=1 # 5 change here for higher/lower number of points
+    image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/"+fileName) ;   
     #image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") ;    blockDim=6#12
-    adrian_block_size=(blockDim,blockDim) #6 and 6 is teh best but image is 2 pixel too large
-    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale 
+    adrian_block_size=(blockDim,blockDim) #6 and 6 is the best but image is 2 pixel too large
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale Maybe ConvertColor?
+
     edged = cv2.Canny(gray, 30, 200) # Find Canny edges
     # Finding Contours # Use a copy of the image e.g. edged.copy() # since findContours alters the image 
     contours, hierarchy = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) ##cv2.imshow('Canny Edges After Contouring', edged) 
@@ -79,7 +80,7 @@ def main():
     cv2.drawContours(contourArray, contours, -1, (0, 255, 0), 3)    
     dotArray = create_dot_image_opencv(contourArray, adrian_block_size)# Call the function to create and save the dot image
     black_centers = find_centers_of_black_sections(dotArray)# Call the function to find centers of black sections
-    if   filaName=="mam.png":
+    if   fileName=="mam.png":
         black_centers.append((-12, 17))
     x_coords = [point[0] for point in black_centers]# Extract the x and y coordinates from the list of centers
     y_coords = [point[1] for point in black_centers]
