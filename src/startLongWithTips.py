@@ -6,14 +6,16 @@ from pylabrobot.liquid_handling import LiquidHandler
 #from pylabrobot.visualizer.visualizer import Visualizer
 from pylabrobot.liquid_handling import LiquidHandler
 from pylabrobot.resources.opentrons.deck import OTDeck
-from pylabrobot.resources import set_volume_tracking
+from pylabrobot.resources import set_tip_tracking, set_volume_tracking
+from pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul, opentrons_96_tiprack_1000ul
 from pylabrobot.resources.opentrons import corning_96_wellplate_360ul_flat
 from pylabrobot.resources.coordinate import Coordinate
 from pylabrobot.resources.plate import Plate
 from pylabrobot.resources.resource import Resource
 from pylabrobot.resources.liquid import Liquid
 from pylabrobot.resources.well import Well
-from pylabrobot.resources.opentrons import opentrons_96_tiprack_20ul, opentrons_96_tiprack_1000ul
+from pylabrobot.resources.tip_rack import TipSpot, TipRack
+#from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
 #
 from uiBootup import UiBootup, UiWindow
 #
@@ -30,31 +32,41 @@ from adUtil import drawBigPlusSign
 from adUtil import findLimits
 from adUtil import configureZ
 
+
 opentronsIp=None
 if opentronsIp != None:
     print("using an Opentrons server")
     #backend = OpentronsBackend(host=opentronsIp, port=31950)
 else:
     backend=CncLabBackend()
-deck:OTDeck=OTDeck(); deck._size_x=437.86;deck._size_y=437.36 # adjusted deck dimensions
+
+#backend=ChatterBoxBackend()
+deck:OTDeck=OTDeck(); deck._size_x=437.86;deck._size_y=437.36
 liquidHandler = LiquidHandler(backend, deck)
+opentronsIp=None
 
 
 # all docs at https://github.com/AdrianMolecule/inoculatingRobot and source at 
 async def main():
     print("current execution directory",os.getcwd())   # Create a new file path new_file_path = os.path.join(current_directory, 'new_file.txt')
     await liquidHandler.setup()
+    await asyncio.sleep(1)
+    # vis = Visualizer(resource=liquidHandler)    # await vis.setup()
+    set_tip_tracking(True)
     configureZ(22)# will set clearance Z for this session.If not it will go the z_max for machine
     #set_volume_tracking(True)
     petriSlot=1
     sourceSlot=4 # labeled style starts at 1 not the 0 indexed
     tipsSlot=5 # my fourth one
-    tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") ;    deck.assign_child_at_slot(tips, tipsSlot);    await liquidHandler.pick_up_tips(tips["A1"]) #should not be necessary   
+    tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") #opentrons_96_tiprack_20ul
+    deck.assign_child_at_slot(tips, tipsSlot)
+    await liquidHandler.pick_up_tips(tips["A1"]) #tips.fill()
     sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
-    sourceWells.set_well_liquids((Liquid.WATER, 200))
     deck.assign_child_at_slot(sourceWells, slot=sourceSlot)
+    sourceWells.set_well_liquids((Liquid.WATER, 200))
+    await liquidHandler.aspirate(sourceWells["H6"][0], vols=[100.0])
     print("loading petriHolder")
-    petriHolder = createOtPetriDishPetriHolder("Petri Canvas")
+    petriHolder = createOtPetriDishPetriHolder("petri")
     dish = petriHolder.dish
     liquidHandler.deck.assign_child_at_slot(petriHolder, petriSlot)
     print("calling disperse with offsets")
@@ -62,16 +74,18 @@ async def main():
     #await drawBigPlusSign(liquidHandler,dish,calibrationMediaHeight) # change here if you want to test with big plus sign
     points=numpy.load("C:/a/diy/pythonProjects/labRobot/src/image/dotarray.npy") #change here for gettig your points from a saved file
     print ("limits for Petri disperse: ",findLimits(points))
-    await liquidHandler.aspirate(sourceWells["H6"][0], vols=[100.0])#pre-wet, kind of redundant but better be safe
     for point in points:
         print("disperse offset:",point)
         await liquidHandler.aspirate(sourceWells["H6"][0], vols=[1.0])        
         await liquidHandler.dispense(dish, vols=[1.0], offsets=[Coordinate(x=point[0], y=point[1], z=calibrationMediaHeight)])
+    # #liquidHandler.summary()
     adUtil.saveGCode()
+    # I can get pylabrobot.machine.Machine and then get all children
     await liquidHandler.stop()
 
 asyncio.run(main())
 UiBootup(liquidHandler) #all done in the constructor
+
 
     # https://docs.pylabrobot.org/installation.html change pip install -e ".[dev]"
     # https://docs.pylabrobot.org/basic.html
