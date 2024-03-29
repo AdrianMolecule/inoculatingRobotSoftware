@@ -69,7 +69,7 @@ def saveGCode():
     for i in range(len(gCode)):
         file.write(gCode[i]+"\n")
     file.close()
-    printGCode()
+    #printGCode()
     print("saved gcode as "+os.path.abspath(file.name))
 
 

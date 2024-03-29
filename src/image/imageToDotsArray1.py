@@ -62,40 +62,16 @@ path="C:/a/diy/pythonProjects/labRobot/src/image/"
 image_path =path +"tinyobs.png"
 image = cv2.imread(image_path)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-#cv2.imshow('gray', gray)
 imageInfo(gray, "gray")
 cv2.waitKey(0) 
 edged = cv2.Canny(gray, 30, 200) # Find Canny edges
 cnts,h = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-#cnts = cnts[0] if len(cnts) == 1 else cnts[1]
-#outline= np.ones(gray.shape, dtype=np.uint8) * 255
 outline = np.full(gray.shape,255, dtype=np.uint8)
-
-# for c in cnts:
-# cv2.drawContours(outline, [c], -1, (0, 0, 0), thickness=1)
 cv2.drawContours(outline, cnts, -1, (0, 0, 255), 1)
 cv2.imwrite(path+"outline.png", outline)
-imageInfo(outline,"outline")
-# cv2.imshow('outline', outline)
-# cv2.waitKey(0) 
-
-# contourImage = cv2.imread(path +"outline.png") # Load the image using OpenCV 
-# # cv2.imshow('outline', contourImage)
-# #dot_image = create_dot_image_opencv(contourImage, (1,1))# Call the function to create the dot image
-# dot_image = outline
-# # Save the dot image using OpenCV
-# dot_image_path = path+"dot_image.png"
-# cv2.imwrite(dot_image_path, dot_image)
-# imageInfo(dot_image,"dot_image")
-# # cv2.imshow('dot_image', dot_image)
-# # cv2.waitKey(0) 
-# image = cv2.imread(dot_image_path, cv2.COLOR_BGR2GRAY)
-#black_centers = find_centers_of_black_sections(image, block_size=(1,1))# Call the function to find centers of black sections
-imageInfo(outline,"outline")
-
-
-resizedImage =outline
+(thresh, blackAndWhiteImage) = cv2.threshold(outline, 254, 255, cv2.THRESH_BINARY)
+imageInfo(blackAndWhiteImage,"blackAndWhiteImage")
+resizedImage =blackAndWhiteImage
 #resize does not seem to get great results
 # h,w=outline.shape[:2]
 # r=80/h if h>w else 80/w
