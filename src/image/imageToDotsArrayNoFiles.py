@@ -63,8 +63,8 @@ def find_centers_of_black_sections(image, block_size=(1, 1), threshold=128):
 def main():
     # Let's load a simple image with 3 black squares 
     
-    fileName="obs.png"#change here for new files
-    blockDim=1 # 5 change here for higher/lower number of points
+    fileName="leaf1.png"#change here for new files
+    blockDim=5 #change here for higher/lower number of points
     image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/"+fileName) ;   
     #image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") ;    blockDim=6#12
     adrian_block_size=(blockDim,blockDim) #6 and 6 is the best but image is 2 pixel too large

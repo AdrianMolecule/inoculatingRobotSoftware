@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
 def create_dot_image_opencv(image, block_size, threshold=128):
     h, w = image.shape[:2] # Get the dimensions of the image
     # Calculate the number of blocks
@@ -23,13 +22,13 @@ def create_dot_image_opencv(image, block_size, threshold=128):
                  dot_image[int(y / block_size[1]), int(x / block_size[0])] = 0 # Set to '0' for black )
     return dot_image
 
-def createCenteredDotArray(image):
+def createPetriStyleArray(image):
     h, w = image.shape[:2]
     black_dots = []
     # Process each block
     for y in range(0, h):
         for x in range(0, w):
-            if image[y,x]==0:
+            if image[y,x]<255:
                 center_x = x + 1 / 2 - w / 2
                 center_y = h / 2 - (y +1 / 2)
                 black_dots.append((center_x, center_y))                
@@ -60,7 +59,7 @@ def findLimits(array):
     return maxX, maxY, minX, minY
 
 path="C:/a/diy/pythonProjects/labRobot/src/image/"
-image_path =path +"leaf.png"
+image_path =path +"tinyobs.png"
 image = cv2.imread(image_path)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 #cv2.imshow('gray', gray)
@@ -81,28 +80,35 @@ imageInfo(outline,"outline")
 # cv2.imshow('outline', outline)
 # cv2.waitKey(0) 
 
-contourImage = cv2.imread(path +"outline.png") # Load the image using OpenCV 
-# cv2.imshow('outline', contourImage)
-dot_image = create_dot_image_opencv(contourImage, (1,1))# Call the function to create the dot image
-# Save the dot image using OpenCV
-dot_image_path = path+"dot_image.png"
-cv2.imwrite(dot_image_path, dot_image)
-imageInfo(dot_image,"dot_image")
-# cv2.imshow('dot_image', dot_image)
-# cv2.waitKey(0) 
-image = cv2.imread(dot_image_path, cv2.COLOR_BGR2GRAY)
+# contourImage = cv2.imread(path +"outline.png") # Load the image using OpenCV 
+# # cv2.imshow('outline', contourImage)
+# #dot_image = create_dot_image_opencv(contourImage, (1,1))# Call the function to create the dot image
+# dot_image = outline
+# # Save the dot image using OpenCV
+# dot_image_path = path+"dot_image.png"
+# cv2.imwrite(dot_image_path, dot_image)
+# imageInfo(dot_image,"dot_image")
+# # cv2.imshow('dot_image', dot_image)
+# # cv2.waitKey(0) 
+# image = cv2.imread(dot_image_path, cv2.COLOR_BGR2GRAY)
 #black_centers = find_centers_of_black_sections(image, block_size=(1,1))# Call the function to find centers of black sections
-centeredDotArray=createCenteredDotArray(image)
+imageInfo(outline,"outline")
 
+
+resizedImage =outline
+#resize does not seem to get great results
+# h,w=outline.shape[:2]
 # r=80/h if h>w else 80/w
-# resizedImage = cv2.resize(image, (int(w*r), int(h*r))) #width/height
+# resizedImage = cv2.resize(outline, (int(w*r), int(h*r))) #width/height
 # imageInfo(resizedImage,"resizedImage")
 # cv2.imshow('resized_image', resizedImage)
 # cv2.waitKey(0)
 
+#final part
+centeredDotArray=createPetriStyleArray(resizedImage)
 print("Limits:",findLimits(centeredDotArray), "points", len(centeredDotArray))
 np.save("C:/a/diy/pythonProjects/labRobot/src/image/dotarray",centeredDotArray)
 #recover the image from the centeredArray
 petriStyleImageArray=np.load("C:/a/diy/pythonProjects/labRobot/src/image/dotarray.npy")
-height,width=image.shape[:2]
+height,width=resizedImage.shape[:2]
 showImageFromPetriStyleArray(petriStyleImageArray, height, width)

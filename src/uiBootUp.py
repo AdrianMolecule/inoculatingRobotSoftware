@@ -86,7 +86,7 @@ class UiWindow:
         else:
             messagebox.showinfo("Found unknown type", type(r), r)
 
-    def createResourceShapes(self,r:Resource, addCircle=False, theFillCol="peach puff",theOutlineCol="peach puff"):
+    def createResourceShapes(self,r:Resource, addCircle=False, theFillCol="peach puff",theOutlineCol="black"):
         absX=r.get_absolute_location().x*self.zoom
         absY=r.get_absolute_location().y*self.zoom
         sx=r.get_size_x()*self.zoom
@@ -106,11 +106,16 @@ class UiWindow:
             #self.canvas.create_text(r.get_absolute_location().x+r.get_size_x()/2, self.ym( r.get_absolute_location().y+8), text=r.name+str(type(r)), fill="red", font=('Helvetica 8'))                
             if hasattr(r,"drops"):
                 for drop in r.drops: #todo adrian check if the +1 etc are needed
-                    self.canvas.create_oval((
-                        (absX+drop[0])*self.zoom-1, self.ym(absY+drop[1])*self.zoom-1,
-                    (absX+drop[0])*self.zoom+1, self.ym((absY+drop[1]))*self.zoom+1), fill="green", outline=theOutlineCol)
-    
-    # the zoom adjusted coordinates should be calculater in advance and fed here           
+                    if self.zoom==1:
+                            self.canvas.create_oval((
+                                (absX+drop[0])-1, self.ym(absY+drop[1])-1,
+                            (absX+drop[0])*self.zoom+1, self.ym((absY+drop[1]))*self.zoom+1), fill="black", outline=theOutlineCol)
+                    else:# zoom==2
+                            self.canvas.create_oval((
+                                (absX+drop[0]*self.zoom)-1, self.ym(absY+drop[1]*self.zoom)-1,
+                            (absX+drop[0]*self.zoom)+1, self.ym((absY+drop[1]*self.zoom))+1), fill="black", outline=theOutlineCol)
+
+    # the zoom adjusted coordinates should be calculated in advance and fed here           
     def createRectangle(self, x0,y0,xSize,ySize, fillCol, outlineCol, widthBorder=0):
         self.canvas.create_rectangle(x0, self.ym(y0), x0+xSize, self.ym(y0)-ySize, fill=fillCol, outline=outlineCol, width=widthBorder)
 
