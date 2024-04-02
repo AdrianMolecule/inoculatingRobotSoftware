@@ -48,6 +48,7 @@ async def main():
     #set_volume_tracking(True)
     petriSlot=1
     sourceSlot=4 # labeled style starts at 1 not the 0 indexed
+    sourceWell="H7"
     tipsSlot=5 # my fourth one
     tips = opentrons_96_tiprack_1000ul(name="tip_rack_20") ;    deck.assign_child_at_slot(tips, tipsSlot);    await liquidHandler.pick_up_tips(tips["A1"]) #should not be necessary   
     sourceWells:Resource = corning_96_wellplate_360ul_flat(name='source_plate') #https://labware.opentrons.com/corning_96_wellplate_360ul_flat?category=wellPlate
@@ -58,14 +59,14 @@ async def main():
     dish = petriHolder.dish
     liquidHandler.deck.assign_child_at_slot(petriHolder, petriSlot)
     print("calling disperse with offsets")
-    calibrationMediaHeight=8.4 #change here and replace with the z of the top of your agar plate calculated as distance from the bed
+    calibrationMediaHeight=7.9 #change here and replace with the z of the top of your agar plate calculated as distance from the bed
     #await drawBigPlusSign(liquidHandler,dish,calibrationMediaHeight) # change here if you want to test with big plus sign
     points=numpy.load("C:/a/diy/pythonProjects/labRobot/src/image/dotarray.npy") #change here for gettig your points from a saved file
     print ("limits for Petri disperse: ",findLimits(points))
-    await liquidHandler.aspirate(sourceWells["H6"][0], vols=[100.0])#pre-wet, kind of redundant but better be safe
+    await liquidHandler.aspirate(sourceWells[sourceWell][0], vols=[100.0])#pre-wet, kind of redundant but better be safe
     for point in points:
         print("disperse offset:",point)
-        await liquidHandler.aspirate(sourceWells["H6"][0], vols=[1.0])        
+        await liquidHandler.aspirate(sourceWells[sourceWell][0], vols=[1.0])        
         await liquidHandler.dispense(dish, vols=[1.0], offsets=[Coordinate(x=point[0], y=point[1], z=calibrationMediaHeight)])
     adUtil.saveGCode()
     await liquidHandler.stop()
