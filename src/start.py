@@ -40,7 +40,7 @@ deck:OTDeck=OTDeck(); deck._size_x=437.86;deck._size_y=437.36 # adjusted deck di
 liquidHandler = LiquidHandler(backend, deck)
 
 
-# all docs at https://github.com/AdrianMolecule/inoculatingRobot and source at 
+# all docs at https://github.com/AdrianMolecule/inoculatingRobot  # if you want to clone pylabrobot too read about extraPaths at the end of this file
 async def main():
     print("current execution directory",os.getcwd())   # Create a new file path new_file_path = os.path.join(current_directory, 'new_file.txt')
     await liquidHandler.setup()
@@ -86,6 +86,14 @@ UiBootup(liquidHandler) #all done in the constructor
 #https://colab.research.google.com/drive/1PoEZYIjggdnXQNGiKdnMmrJGTUg9xrPY#scrollTo=1cp3Mp8C4tQt HTGAA Rick's big code
 
 #C:\a\diy\pythonProjects\pylabrobot\pylabrobot\server\readme.md has interesting info for running and communication with the web server
+
+
+# if you want to clone pylabrobot too one way to use it is to change the settings (change 'ad' to your name) in C:\Users\ad\AppData\Roaming\Code\User adn add teh extra paths
+    # "python.autoComplete.extraPaths": ["C:/a/diy/pythonProjects/pylabrobot"],  
+    # "python.analysis.extraPaths": ["C:/a/diy/pythonProjects/pylabrobot/"],
+    # "terminal.integrated.env.windows": {"PYTHONPATH": "${workspaceFolder};C:/a/diy/pythonProjects/pylabrobot" },
+
+
 
     #my cnc max y160 x=285
 # SCRIPT_DIR = os.path.dirname(os.path.abspath("C:/a/diy/pythonProjects/pylabrobot/pylabrobot/gui"))
