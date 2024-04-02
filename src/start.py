@@ -88,17 +88,19 @@ UiBootup(liquidHandler) #all done in the constructor
 #C:\a\diy\pythonProjects\pylabrobot\pylabrobot\server\readme.md has interesting info for running and communication with the web server
 
 
-# if you want to clone pylabrobot too one way to use it is to change the settings (change 'ad' to your name) in C:\Users\ad\AppData\Roaming\Code\User adn add teh extra paths
+# if you want to clone pylabrobot too one way to use it is to change the settings (change 'ad' to your name and allabsolute paths) in C:\Users\ad\AppData\Roaming\Code\User adn add teh extra paths
     # "python.autoComplete.extraPaths": ["C:/a/diy/pythonProjects/pylabrobot"],  
     # "python.analysis.extraPaths": ["C:/a/diy/pythonProjects/pylabrobot/"],
-    # "terminal.integrated.env.windows": {"PYTHONPATH": "${workspaceFolder};C:/a/diy/pythonProjects/pylabrobot" },
-
+    #This one in WORKSPACE SETTINGS # "terminal.integrated.env.windows": {"PYTHONPATH": "${workspaceFolder};C:/a/diy/pythonProjects/pylabrobot" },
+    # warning: for Microsoft the general User setting file is hidden under C:\Users\ad\AppData\Roaming\Code\User\settings.json
 
 
     #my cnc max y160 x=285
-# SCRIPT_DIR = os.path.dirname(os.path.abspath("C:/a/diy/pythonProjects/pylabrobot/pylabrobot/gui"))
-# print("SCRIPT_DIR:",SCRIPT_DIR,sys.path)
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
+
+    # one could also add the path to piRobot programatically like below
+    # SCRIPT_DIR = os.path.dirname(os.path.abspath("C:/a/diy/pythonProjects/pylabrobot/pylabrobot/gui"))
+    # print("SCRIPT_DIR:",SCRIPT_DIR,sys.path)
+    # sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 
 # custom_plate_name = "custom_18_wellplate_200ul"

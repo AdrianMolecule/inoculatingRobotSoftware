@@ -3,7 +3,7 @@
     "python.analysis.inlayHints.callArgumentNames": "all",
     "python.analysis.inlayHints.variableTypes": true,
     "python.analysis.autoImportCompletions": true,
-    "python.autoComplete.extraPaths": [
- 
-    ]
+    "python.autoComplete.extraPaths": ["C:/a/diy/pythonProjects/pylabrobot"],
+    "python.analysis.extraPaths": [ "C:/a/diy/pythonProjects/pylabrobot/" ],    
+    
 }
