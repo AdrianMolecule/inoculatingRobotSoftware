@@ -33,7 +33,7 @@ class UiApp:
         label = tk.Label(root, text="Sampling Block Size:")
         label.grid(row=0, column=0, sticky="e")     
         self.textbox = tk.Entry(root, width=10)
-        self.textbox.insert(0, "5") 
+        self.textbox.insert(0, "6") 
         self.textbox.grid(row=0, column=1, sticky="e")   
         label2 = tk.Label(root, text="Max points")
         label2.grid(row=0, column=2, sticky="e")             
