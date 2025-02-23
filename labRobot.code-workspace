@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"jupyter.debugJustMyCode": false,
+		"terminal.integrated.env.windows": {
+			"PYTHONPATH": "${workspaceFolder};C:/a/diy/pythonProjects/pylabrobot"
+		}
+	}
+}
