@@ -1,6 +1,6 @@
 import cv2 
 import numpy as np 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
 def create_dot_image_opencv(image, block_size, threshold=128):

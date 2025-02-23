@@ -65,7 +65,7 @@ def main():
     
     fileName="leaf1.png"#change here for new files
     blockDim=5 #change here for higher/lower number of points
-    image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/"+fileName) ;   
+    image = cv2.imread("C:/a/diy/pythonProjects/labRobot/image/"+fileName) ;   
     #image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") ;    blockDim=6#12
     adrian_block_size=(blockDim,blockDim) #6 and 6 is the best but image is 2 pixel too large
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale Maybe ConvertColor?
@@ -91,8 +91,8 @@ def main():
     plt.ylim(-h, h)
     plt.gca().set_aspect("equal", adjustable="box")# Set the aspect of the plot to be equal
     print (findLimits(black_centers))
-    np.save("C:/a/diy/pythonProjects/labRobot/src/image/dotarray",black_centers)
-    arr=np.load("C:/a/diy/pythonProjects/labRobot/src/image/dotarray.npy")
+    np.save("C:/a/diy/pythonProjects/labRobot/image/dotarray",black_centers)
+    arr=np.load("C:/a/diy/pythonProjects/labRobot/image/dotarray.npy")
     print (findLimits(arr))
     plt.show()# Display the plot
 

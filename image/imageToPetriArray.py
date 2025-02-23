@@ -1,6 +1,5 @@
 import cv2 
 import numpy as np 
-import matplotlib.pyplot as plt
 
 def createPetriStyleArray(image):
     h, w = image.shape[:2]
@@ -11,7 +10,7 @@ def createPetriStyleArray(image):
             if image[y,x]<255:
                 center_x = x + 1 / 2 - w / 2
                 center_y = h / 2 - (y +1 / 2)
-                black_dots.append((center_x, center_y))                
+                black_dots.append((center_x, center_y))    
     return black_dots
 
 def showImageFromPetriStyleArray(petriArray, height, width):
@@ -38,8 +37,10 @@ def findLimits(array):
         if p[1]<minY: minY= p[1]
     return maxX, maxY, minX, minY
 
+
+# main image to array converter
 def main():
-    path="C:/a/diy/pythonProjects/labRobot/src/image/"
+    path="C:/a/diy/pythonProjects/labRobot/image/"
     image_path =path +"leaf.png"
     #image_path =path +"tinyobs.png"
     image = cv2.imread(image_path)
@@ -65,9 +66,9 @@ def main():
     # final part
     centeredDotArray=createPetriStyleArray(resizedImage)
     print("Limits:",findLimits(centeredDotArray), "points", len(centeredDotArray))
-    np.save("C:/a/diy/pythonProjects/labRobot/src/image/dotarray",centeredDotArray)
+    np.save("C:/a/diy/pythonProjects/labRobot/image/dotarray",centeredDotArray)
     #recover the image from the centeredArray
-    petriStyleImageArray=np.load("C:/a/diy/pythonProjects/labRobot/src/image/dotarray.npy")
+    petriStyleImageArray=np.load("C:/a/diy/pythonProjects/labRobot/image/dotarray.npy")
     height,width=resizedImage.shape[:2]
     showImageFromPetriStyleArray(petriStyleImageArray, height, width)
 

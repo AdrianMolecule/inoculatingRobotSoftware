@@ -1,4 +1,3 @@
-import sys
 import os
 import numpy
 
@@ -61,7 +60,7 @@ async def main():
     print("calling disperse with offsets")
     calibrationMediaHeight=7.9 #change here and replace with the z of the top of your agar plate calculated as distance from the bed
     #await drawBigPlusSign(liquidHandler,dish,calibrationMediaHeight) # change here if you want to test with big plus sign
-    points=numpy.load("C:/a/diy/pythonProjects/labRobot/src/image/dotarray.npy") #change here for gettig your points from a saved file
+    points=numpy.load("C:/a/diy/pythonProjects/labRobot/image/dotarray.npy") #change here for gettig your points from a saved file
     print ("limits for Petri disperse: ",findLimits(points))
     await liquidHandler.aspirate(sourceWells[sourceWell][0], vols=[100.0])#pre-wet, kind of redundant but better be safe
     for point in points:

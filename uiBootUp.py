@@ -23,8 +23,8 @@ from pylabrobot.resources.plate import Plate
 from pylabrobot.resources.well import Well
 from pylabrobot.resources.tip_rack import TipRack, TipSpot
 from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
-from pylabrobot.resources.tube_rack import Tube
-from pylabrobot.resources.tube_rack import TubeRack
+from pylabrobot.resources.tube import Tube
+# from pylabrobot.resources.tube_rack import TubeRack
 
 from resourceCoordinates import ResourceCoordinates
 # change here,  set uiDebug to False if you don't want phycho colors for your deck.
@@ -73,8 +73,8 @@ class UiWindow:
             self.createResourceShapes(r, theFillCol="cyan4")            
         elif isinstance(r,Well):
             self.createResourceShapes(r, addCircle=True,theFillCol="blue")          
-        elif isinstance(r,TubeRack):
-            self.createResourceShapes(r, theFillCol="red")    
+        # elif isinstance(r,TubeRack):
+        #     self.createResourceShapes(r, theFillCol="red")    
         elif isinstance(r,Tube):
             self.createResourceShapes(r, addCircle=True,theFillCol="blue")    
         elif isinstance(r,PetriDishHolder):
