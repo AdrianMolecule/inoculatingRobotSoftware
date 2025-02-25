@@ -1,0 +1,1045 @@
+G90 G21; G90 means absolute
+Z42; initial lift to safelevel
+X0 Y0; go to X Y origin
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X61.88 Y78.74; Dispense; go to Petri Canvas_dish labware abs coords:40.4, 78.4, 7.9 and an offset:40.4, 78.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X63.88 Y78.74; Dispense; go to Petri Canvas_dish labware abs coords:42.4, 78.4, 7.9 and an offset:42.4, 78.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X61.88 Y76.74; Dispense; go to Petri Canvas_dish labware abs coords:40.4, 76.4, 7.9 and an offset:40.4, 76.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X63.88 Y76.74; Dispense; go to Petri Canvas_dish labware abs coords:42.4, 76.4, 7.9 and an offset:42.4, 76.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X65.88 Y76.74; Dispense; go to Petri Canvas_dish labware abs coords:44.4, 76.4, 7.9 and an offset:44.4, 76.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X59.88 Y74.74; Dispense; go to Petri Canvas_dish labware abs coords:38.4, 74.4, 7.9 and an offset:38.4, 74.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X61.88 Y74.74; Dispense; go to Petri Canvas_dish labware abs coords:40.4, 74.4, 7.9 and an offset:40.4, 74.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X65.88 Y74.74; Dispense; go to Petri Canvas_dish labware abs coords:44.4, 74.4, 7.9 and an offset:44.4, 74.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X59.88 Y72.74; Dispense; go to Petri Canvas_dish labware abs coords:38.4, 72.4, 7.9 and an offset:38.4, 72.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X65.88 Y72.74; Dispense; go to Petri Canvas_dish labware abs coords:44.4, 72.4, 7.9 and an offset:44.4, 72.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X67.88 Y72.74; Dispense; go to Petri Canvas_dish labware abs coords:46.4, 72.4, 7.9 and an offset:46.4, 72.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X59.88 Y70.74; Dispense; go to Petri Canvas_dish labware abs coords:38.4, 70.4, 7.9 and an offset:38.4, 70.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X67.88 Y70.74; Dispense; go to Petri Canvas_dish labware abs coords:46.4, 70.4, 7.9 and an offset:46.4, 70.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X47.88 Y68.74; Dispense; go to Petri Canvas_dish labware abs coords:26.4, 68.4, 7.9 and an offset:26.4, 68.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y68.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 68.4, 7.9 and an offset:28.4, 68.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X57.88 Y68.74; Dispense; go to Petri Canvas_dish labware abs coords:36.4, 68.4, 7.9 and an offset:36.4, 68.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X67.88 Y68.74; Dispense; go to Petri Canvas_dish labware abs coords:46.4, 68.4, 7.9 and an offset:46.4, 68.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X69.88 Y68.74; Dispense; go to Petri Canvas_dish labware abs coords:48.4, 68.4, 7.9 and an offset:48.4, 68.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y68.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 68.4, 7.9 and an offset:54.4, 68.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X77.88 Y68.74; Dispense; go to Petri Canvas_dish labware abs coords:56.4, 68.4, 7.9 and an offset:56.4, 68.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X47.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:26.4, 66.4, 7.9 and an offset:26.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 66.4, 7.9 and an offset:28.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X51.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:30.4, 66.4, 7.9 and an offset:30.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X53.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:32.4, 66.4, 7.9 and an offset:32.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X55.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:34.4, 66.4, 7.9 and an offset:34.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X57.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:36.4, 66.4, 7.9 and an offset:36.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X69.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:48.4, 66.4, 7.9 and an offset:48.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X73.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:52.4, 66.4, 7.9 and an offset:52.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 66.4, 7.9 and an offset:54.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X77.88 Y66.74; Dispense; go to Petri Canvas_dish labware abs coords:56.4, 66.4, 7.9 and an offset:56.4, 66.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y64.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 64.4, 7.9 and an offset:28.4, 64.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X55.88 Y64.74; Dispense; go to Petri Canvas_dish labware abs coords:34.4, 64.4, 7.9 and an offset:34.4, 64.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X71.88 Y64.74; Dispense; go to Petri Canvas_dish labware abs coords:50.4, 64.4, 7.9 and an offset:50.4, 64.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X77.88 Y64.74; Dispense; go to Petri Canvas_dish labware abs coords:56.4, 64.4, 7.9 and an offset:56.4, 64.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y62.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 62.4, 7.9 and an offset:28.4, 62.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X77.88 Y62.74; Dispense; go to Petri Canvas_dish labware abs coords:56.4, 62.4, 7.9 and an offset:56.4, 62.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y60.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 60.4, 7.9 and an offset:28.4, 60.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X77.88 Y60.74; Dispense; go to Petri Canvas_dish labware abs coords:56.4, 60.4, 7.9 and an offset:56.4, 60.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y58.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 58.4, 7.9 and an offset:28.4, 58.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y58.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 58.4, 7.9 and an offset:54.4, 58.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y56.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 56.4, 7.9 and an offset:28.4, 56.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y56.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 56.4, 7.9 and an offset:54.4, 56.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X39.88 Y54.74; Dispense; go to Petri Canvas_dish labware abs coords:18.4, 54.4, 7.9 and an offset:18.4, 54.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X41.88 Y54.74; Dispense; go to Petri Canvas_dish labware abs coords:20.4, 54.4, 7.9 and an offset:20.4, 54.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y54.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 54.4, 7.9 and an offset:28.4, 54.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X51.88 Y54.74; Dispense; go to Petri Canvas_dish labware abs coords:30.4, 54.4, 7.9 and an offset:30.4, 54.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y54.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 54.4, 7.9 and an offset:54.4, 54.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X83.88 Y54.74; Dispense; go to Petri Canvas_dish labware abs coords:62.4, 54.4, 7.9 and an offset:62.4, 54.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X85.88 Y54.74; Dispense; go to Petri Canvas_dish labware abs coords:64.4, 54.4, 7.9 and an offset:64.4, 54.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X27.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:6.4, 52.4, 7.9 and an offset:6.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X29.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:8.4, 52.4, 7.9 and an offset:8.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X39.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:18.4, 52.4, 7.9 and an offset:18.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X43.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:22.4, 52.4, 7.9 and an offset:22.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X51.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:30.4, 52.4, 7.9 and an offset:30.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 52.4, 7.9 and an offset:54.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X81.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:60.4, 52.4, 7.9 and an offset:60.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X83.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:62.4, 52.4, 7.9 and an offset:62.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X85.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:64.4, 52.4, 7.9 and an offset:64.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X87.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:66.4, 52.4, 7.9 and an offset:66.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X97.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:76.4, 52.4, 7.9 and an offset:76.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X99.88 Y52.74; Dispense; go to Petri Canvas_dish labware abs coords:78.4, 52.4, 7.9 and an offset:78.4, 52.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X27.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:6.4, 50.4, 7.9 and an offset:6.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X29.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:8.4, 50.4, 7.9 and an offset:8.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X31.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:10.4, 50.4, 7.9 and an offset:10.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X33.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:12.4, 50.4, 7.9 and an offset:12.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X35.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:14.4, 50.4, 7.9 and an offset:14.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X37.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:16.4, 50.4, 7.9 and an offset:16.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X39.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:18.4, 50.4, 7.9 and an offset:18.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X45.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:24.4, 50.4, 7.9 and an offset:24.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X51.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:30.4, 50.4, 7.9 and an offset:30.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 50.4, 7.9 and an offset:54.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X79.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:58.4, 50.4, 7.9 and an offset:58.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X81.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:60.4, 50.4, 7.9 and an offset:60.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X87.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:66.4, 50.4, 7.9 and an offset:66.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X89.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:68.4, 50.4, 7.9 and an offset:68.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X91.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:70.4, 50.4, 7.9 and an offset:70.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X93.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:72.4, 50.4, 7.9 and an offset:72.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X95.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:74.4, 50.4, 7.9 and an offset:74.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X97.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:76.4, 50.4, 7.9 and an offset:76.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X99.88 Y50.74; Dispense; go to Petri Canvas_dish labware abs coords:78.4, 50.4, 7.9 and an offset:78.4, 50.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X27.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:6.4, 48.4, 7.9 and an offset:6.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X47.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:26.4, 48.4, 7.9 and an offset:26.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X51.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:30.4, 48.4, 7.9 and an offset:30.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X73.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:52.4, 48.4, 7.9 and an offset:52.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 48.4, 7.9 and an offset:54.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X77.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:56.4, 48.4, 7.9 and an offset:56.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X79.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:58.4, 48.4, 7.9 and an offset:58.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X97.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:76.4, 48.4, 7.9 and an offset:76.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X99.88 Y48.74; Dispense; go to Petri Canvas_dish labware abs coords:78.4, 48.4, 7.9 and an offset:78.4, 48.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X27.88 Y46.74; Dispense; go to Petri Canvas_dish labware abs coords:6.4, 46.4, 7.9 and an offset:6.4, 46.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y46.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 46.4, 7.9 and an offset:28.4, 46.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X51.88 Y46.74; Dispense; go to Petri Canvas_dish labware abs coords:30.4, 46.4, 7.9 and an offset:30.4, 46.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X73.88 Y46.74; Dispense; go to Petri Canvas_dish labware abs coords:52.4, 46.4, 7.9 and an offset:52.4, 46.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y46.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 46.4, 7.9 and an offset:54.4, 46.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X77.88 Y46.74; Dispense; go to Petri Canvas_dish labware abs coords:56.4, 46.4, 7.9 and an offset:56.4, 46.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X97.88 Y46.74; Dispense; go to Petri Canvas_dish labware abs coords:76.4, 46.4, 7.9 and an offset:76.4, 46.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X29.88 Y44.74; Dispense; go to Petri Canvas_dish labware abs coords:8.4, 44.4, 7.9 and an offset:8.4, 44.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X97.88 Y44.74; Dispense; go to Petri Canvas_dish labware abs coords:76.4, 44.4, 7.9 and an offset:76.4, 44.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X29.88 Y42.74; Dispense; go to Petri Canvas_dish labware abs coords:8.4, 42.4, 7.9 and an offset:8.4, 42.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X95.88 Y42.74; Dispense; go to Petri Canvas_dish labware abs coords:74.4, 42.4, 7.9 and an offset:74.4, 42.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X97.88 Y42.74; Dispense; go to Petri Canvas_dish labware abs coords:76.4, 42.4, 7.9 and an offset:76.4, 42.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X29.88 Y40.74; Dispense; go to Petri Canvas_dish labware abs coords:8.4, 40.4, 7.9 and an offset:8.4, 40.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X95.88 Y40.74; Dispense; go to Petri Canvas_dish labware abs coords:74.4, 40.4, 7.9 and an offset:74.4, 40.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X27.88 Y38.74; Dispense; go to Petri Canvas_dish labware abs coords:6.4, 38.4, 7.9 and an offset:6.4, 38.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X29.88 Y38.74; Dispense; go to Petri Canvas_dish labware abs coords:8.4, 38.4, 7.9 and an offset:8.4, 38.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X97.88 Y38.74; Dispense; go to Petri Canvas_dish labware abs coords:76.4, 38.4, 7.9 and an offset:76.4, 38.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X99.88 Y38.74; Dispense; go to Petri Canvas_dish labware abs coords:78.4, 38.4, 7.9 and an offset:78.4, 38.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X25.88 Y36.74; Dispense; go to Petri Canvas_dish labware abs coords:4.4, 36.4, 7.9 and an offset:4.4, 36.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X27.88 Y36.74; Dispense; go to Petri Canvas_dish labware abs coords:6.4, 36.4, 7.9 and an offset:6.4, 36.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X99.88 Y36.74; Dispense; go to Petri Canvas_dish labware abs coords:78.4, 36.4, 7.9 and an offset:78.4, 36.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X101.88 Y36.74; Dispense; go to Petri Canvas_dish labware abs coords:80.4, 36.4, 7.9 and an offset:80.4, 36.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X27.88 Y34.74; Dispense; go to Petri Canvas_dish labware abs coords:6.4, 34.4, 7.9 and an offset:6.4, 34.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X29.88 Y34.74; Dispense; go to Petri Canvas_dish labware abs coords:8.4, 34.4, 7.9 and an offset:8.4, 34.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X97.88 Y34.74; Dispense; go to Petri Canvas_dish labware abs coords:76.4, 34.4, 7.9 and an offset:76.4, 34.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X99.88 Y34.74; Dispense; go to Petri Canvas_dish labware abs coords:78.4, 34.4, 7.9 and an offset:78.4, 34.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X29.88 Y32.74; Dispense; go to Petri Canvas_dish labware abs coords:8.4, 32.4, 7.9 and an offset:8.4, 32.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X31.88 Y32.74; Dispense; go to Petri Canvas_dish labware abs coords:10.4, 32.4, 7.9 and an offset:10.4, 32.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X95.88 Y32.74; Dispense; go to Petri Canvas_dish labware abs coords:74.4, 32.4, 7.9 and an offset:74.4, 32.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X31.88 Y30.74; Dispense; go to Petri Canvas_dish labware abs coords:10.4, 30.4, 7.9 and an offset:10.4, 30.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X33.88 Y30.74; Dispense; go to Petri Canvas_dish labware abs coords:12.4, 30.4, 7.9 and an offset:12.4, 30.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X93.88 Y30.74; Dispense; go to Petri Canvas_dish labware abs coords:72.4, 30.4, 7.9 and an offset:72.4, 30.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X35.88 Y28.74; Dispense; go to Petri Canvas_dish labware abs coords:14.4, 28.4, 7.9 and an offset:14.4, 28.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X89.88 Y28.74; Dispense; go to Petri Canvas_dish labware abs coords:68.4, 28.4, 7.9 and an offset:68.4, 28.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X91.88 Y28.74; Dispense; go to Petri Canvas_dish labware abs coords:70.4, 28.4, 7.9 and an offset:70.4, 28.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X37.88 Y26.74; Dispense; go to Petri Canvas_dish labware abs coords:16.4, 26.4, 7.9 and an offset:16.4, 26.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X39.88 Y26.74; Dispense; go to Petri Canvas_dish labware abs coords:18.4, 26.4, 7.9 and an offset:18.4, 26.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X87.88 Y26.74; Dispense; go to Petri Canvas_dish labware abs coords:66.4, 26.4, 7.9 and an offset:66.4, 26.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X89.88 Y26.74; Dispense; go to Petri Canvas_dish labware abs coords:68.4, 26.4, 7.9 and an offset:68.4, 26.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X39.88 Y24.74; Dispense; go to Petri Canvas_dish labware abs coords:18.4, 24.4, 7.9 and an offset:18.4, 24.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X41.88 Y24.74; Dispense; go to Petri Canvas_dish labware abs coords:20.4, 24.4, 7.9 and an offset:20.4, 24.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X85.88 Y24.74; Dispense; go to Petri Canvas_dish labware abs coords:64.4, 24.4, 7.9 and an offset:64.4, 24.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X41.88 Y22.74; Dispense; go to Petri Canvas_dish labware abs coords:20.4, 22.4, 7.9 and an offset:20.4, 22.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X43.88 Y22.74; Dispense; go to Petri Canvas_dish labware abs coords:22.4, 22.4, 7.9 and an offset:22.4, 22.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X83.88 Y22.74; Dispense; go to Petri Canvas_dish labware abs coords:62.4, 22.4, 7.9 and an offset:62.4, 22.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X43.88 Y20.74; Dispense; go to Petri Canvas_dish labware abs coords:22.4, 20.4, 7.9 and an offset:22.4, 20.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X45.88 Y20.74; Dispense; go to Petri Canvas_dish labware abs coords:24.4, 20.4, 7.9 and an offset:24.4, 20.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X81.88 Y20.74; Dispense; go to Petri Canvas_dish labware abs coords:60.4, 20.4, 7.9 and an offset:60.4, 20.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X43.88 Y18.74; Dispense; go to Petri Canvas_dish labware abs coords:22.4, 18.4, 7.9 and an offset:22.4, 18.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X45.88 Y18.74; Dispense; go to Petri Canvas_dish labware abs coords:24.4, 18.4, 7.9 and an offset:24.4, 18.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X81.88 Y18.74; Dispense; go to Petri Canvas_dish labware abs coords:60.4, 18.4, 7.9 and an offset:60.4, 18.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X43.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:22.4, 16.4, 7.9 and an offset:22.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X55.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:34.4, 16.4, 7.9 and an offset:34.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X57.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:36.4, 16.4, 7.9 and an offset:36.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X59.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:38.4, 16.4, 7.9 and an offset:38.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X61.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:40.4, 16.4, 7.9 and an offset:40.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X65.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:44.4, 16.4, 7.9 and an offset:44.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X67.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:46.4, 16.4, 7.9 and an offset:46.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X69.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:48.4, 16.4, 7.9 and an offset:48.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X71.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:50.4, 16.4, 7.9 and an offset:50.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X81.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:60.4, 16.4, 7.9 and an offset:60.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X83.88 Y16.74; Dispense; go to Petri Canvas_dish labware abs coords:62.4, 16.4, 7.9 and an offset:62.4, 16.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X43.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:22.4, 14.4, 7.9 and an offset:22.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X45.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:24.4, 14.4, 7.9 and an offset:24.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X47.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:26.4, 14.4, 7.9 and an offset:26.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X49.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:28.4, 14.4, 7.9 and an offset:28.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X51.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:30.4, 14.4, 7.9 and an offset:30.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X53.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:32.4, 14.4, 7.9 and an offset:32.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X55.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:34.4, 14.4, 7.9 and an offset:34.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X61.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:40.4, 14.4, 7.9 and an offset:40.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X63.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:42.4, 14.4, 7.9 and an offset:42.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X71.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:50.4, 14.4, 7.9 and an offset:50.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X73.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:52.4, 14.4, 7.9 and an offset:52.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X75.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:54.4, 14.4, 7.9 and an offset:54.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X77.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:56.4, 14.4, 7.9 and an offset:56.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X79.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:58.4, 14.4, 7.9 and an offset:58.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X81.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:60.4, 14.4, 7.9 and an offset:60.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X83.88 Y14.74; Dispense; go to Petri Canvas_dish labware abs coords:62.4, 14.4, 7.9 and an offset:62.4, 14.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X43.88 Y12.74; Dispense; go to Petri Canvas_dish labware abs coords:22.4, 12.4, 7.9 and an offset:22.4, 12.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X61.88 Y12.74; Dispense; go to Petri Canvas_dish labware abs coords:40.4, 12.4, 7.9 and an offset:40.4, 12.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X63.88 Y12.74; Dispense; go to Petri Canvas_dish labware abs coords:42.4, 12.4, 7.9 and an offset:42.4, 12.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X81.88 Y12.74; Dispense; go to Petri Canvas_dish labware abs coords:60.4, 12.4, 7.9 and an offset:60.4, 12.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X61.88 Y10.74; Dispense; go to Petri Canvas_dish labware abs coords:40.4, 10.4, 7.9 and an offset:40.4, 10.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; Z Z_CLEAR lift for move to source_plate_H7
+X68.38 Y101.74; Aspiration; go to source_plate_H7
+Z4.55; Aspiration, plunge to source_plate_H7 at 1 mm above bottom
+Z22; Z Z_CLEAR lift for move to Petri Canvas_dish
+X63.88 Y10.74; Dispense; go to Petri Canvas_dish labware abs coords:42.4, 10.4, 7.9 and an offset:42.4, 10.4, 7.9
+Z7.9; Dispense, plunge to Agar
+Z22; final lift to safe level

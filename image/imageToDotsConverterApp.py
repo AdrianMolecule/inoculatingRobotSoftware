@@ -110,10 +110,10 @@ class UiApp:
                 print (findLimits(arr))
                 fig = plt.gcf()
                 fig.canvas.manager.window.title(dotArrayPath)            
-                plt.show()# Display the plot 
-                # Call the center window function after plotting
                 centerWindowHorizontally(fig)    
+                plt.show()# Display the plot 
                 messagebox.showinfo("dotArrany.npy saved", f"The dotArrany.npy file containing all the coordinates of the points relative to the center of the image was saved   as {dotArrayPath}")            
+                # Call the center window function after plotting
             except Exception as e:
                 messagebox.showerror("Error", f"An error occurred while reading the file: {e}")
         return None,None

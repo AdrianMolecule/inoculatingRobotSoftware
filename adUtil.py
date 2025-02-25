@@ -5,6 +5,7 @@ from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
 from pylabrobot.liquid_handling.standard import (  Pickup,  PickupTipRack,  Drop,  DropTipRack,  Aspiration,  AspirationPlate,  Dispense,  DispensePlate,  Move)
 #
 from uiBootup import UiBootup, UiWindow
+from tkinter import filedialog, messagebox
 import inspect, os
 import asyncio
 
@@ -62,16 +63,15 @@ def printGCode():
         print(gCode[i])
 
 SAVE_FILE_NAME="gcode.txt" #change here if you don't like the file name for the gcode 
-SAVE_FILE_PATH="../"
-def saveGCode():
+def saveGCode(rootPath):
     gCode.append("Z"+str(Z_CLEAR)+"; final lift to safe level")
     print("\n******** GCode********")
-    file =open(os.path.join(SAVE_FILE_PATH, SAVE_FILE_NAME), 'w+')
+    file =open(os.path.join(rootPath, SAVE_FILE_NAME), 'w+')
     for i in range(len(gCode)):
         file.write(gCode[i]+"\n")
     file.close()
     #printGCode()
-    print("saved gcode as "+os.path.abspath(file.name))
+    messagebox.showinfo(" gcode file saved", f"the gcode was saved as {os.path.abspath(file.name)}")            
 
 
 def printl(resource:Resource):

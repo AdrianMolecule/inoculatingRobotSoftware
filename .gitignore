@@ -163,5 +163,6 @@ cython_debug/
 
 #adrian added
 *.log
-*.txt
-image/dist/ImageConverter.exe
+
+image/dist
+dist
