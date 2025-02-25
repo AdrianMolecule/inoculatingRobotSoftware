@@ -53,9 +53,12 @@ from a DOS prompt change to the image directory
 pyinstaller --noconfirm --name ImageConverter --onefile imageToDotsConverterApp.py --console
 
 pyinstaller --noconfirm --name labRobot --onefile labRobot.py --console
+
+I used this because it keep the files unpacked so I can add the files that were missing
 pyinstaller --noconfirm --name labRobot labRobot.py --console
+Go to the virtual environment .venv directory and under C:\a\diy\pythonProjects\labRobot\.venv\Lib\site-packages copy the full OPENTRONS_SHARED_DATA DIRECORY under the _internal directory in the packaged executable
 
-
+TO UPDLOAD LARGER FILES LIKE THE EXE FILES TO GITHUB
 for large Files https://stackoverflow.com/questions/65820300/pushing-files-over-100mb-to-github
 git lfs install	
 git lfs track '*.exe'	
