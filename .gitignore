@@ -51,6 +51,7 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+*.exe
 
 # Translations
 *.mo
@@ -163,3 +164,4 @@ cython_debug/
 #adrian added
 *.log
 *.txt
+image/dist/ImageConverter.exe
