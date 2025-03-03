@@ -9,4 +9,8 @@ You can use that to load an image file and convert it to an .npy file that conta
 
 
 You sould really use create a real development environment for the main part because after all you want to change the code.
-Just in case you just want to just use inoculate the image as produced by the imageConverter you can download just dist/labRobot folder and click on the labrobot.exe afterwards in Windows. Please be aware that at the start a message box appears and you need to press OK for the main window to appear. Sometimes the messagebox appears under the main window and unless you switch to it and press OK you are stuck. That is annoying so I will fix that but I need to repack so it's not high on my list now.
+Just in case you just want to inoculate the image as produced by the imageConverter you can download the dist/labRobot folder and click on the labrobot.exe afterwards in Windows. Please be aware that at the start a message box appears and you need to press OK for the main window to appear. Sometimes the messagebox appears under the main window and unless you switch to it and press OK you are stuck. That is annoying so I will fix that but I need to repack so it's not high on my list now.
+
+
+For an example of how this we used in a lab for (MIT-HTGAA2025 https://2025.htgaa.org/) please use this document below
+https://docs.google.com/document/d/1dSk5jPiO8d7NHl10SIn5xxS07HtXvoc7e2chjyo0toI/edit?tab=t.0
