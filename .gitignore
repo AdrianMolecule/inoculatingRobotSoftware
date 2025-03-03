@@ -163,6 +163,10 @@ cython_debug/
 
 #adrian added
 *.log
+gcode.txt
+#image/dist
 
-image/dist
+labRobot.exe
+image/dist/*.*
+dist/*.*
 

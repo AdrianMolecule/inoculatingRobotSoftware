@@ -61,6 +61,8 @@ Go to the virtual environment .venv directory and under C:\a\diy\pythonProjects\
 TO UPDLOAD LARGER FILES LIKE THE EXE FILES TO GITHUB
 for large Files https://stackoverflow.com/questions/65820300/pushing-files-over-100mb-to-github
 git lfs install	
+
+AND THEN
 git lfs track '*.exe'	
 git lfs push --all origin main
 

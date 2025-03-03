@@ -4,15 +4,17 @@ from pprint import pprint
 from pylabrobot.resources.petri_dish import PetriDish, PetriDishHolder
 from pylabrobot.liquid_handling.standard import (  Pickup,  PickupTipRack,  Drop,  DropTipRack,  Aspiration,  AspirationPlate,  Dispense,  DispensePlate,  Move)
 #
-from uiBootup import UiBootup, UiWindow
+from uiBootup import UiBootup, UiWindow, savedFile
 from tkinter import filedialog, messagebox
 import inspect, os
 import asyncio
 
+import uiBootup
+
 
 Z_MAX=42 # good for 18x40 CNC change here for other machines
 Z_CLEAR=Z_MAX
-Z_LABWARE_MAX=30
+Z_LABWARE_MAX=30      
 
 def configureZ(zClear):
     global Z_MAX
@@ -70,8 +72,10 @@ def saveGCode(rootPath):
     for i in range(len(gCode)):
         file.write(gCode[i]+"\n")
     file.close()
+    print("the gcode was saved as",os.path.abspath(file.name))
+    uiBootup.savedFile=f"the gcode was saved as {os.path.abspath(file.name)}"           
     #printGCode()
-    messagebox.showinfo(" gcode file saved", f"the gcode was saved as {os.path.abspath(file.name)}")            
+    
 
 
 def printl(resource:Resource):

@@ -30,7 +30,7 @@ from resourceCoordinates import ResourceCoordinates
 # change here,  set uiDebug to False if you don't want phycho colors for your deck.
 uiDebug=True; frameLabelHolderBackgroundCol="red";frameCanvasAndScrollBarsHolderBackgroundCol="yellow"; canvasBackgroundCol="red"
 deckCol="peach puff" if uiDebug else "gray10"
-
+savedFile=None
 class UiWindow:
 
     def ym(self, y:float)->float:
@@ -231,7 +231,7 @@ class UiBootup:
         # really here is where the UI starts being built
         rootWindow = Tk()
         spreadOnX=.95;spreadOnY=.8
-        rootWindow.title('LabRobot')
+        rootWindow.title('LabRobot '+savedFile)
         rootWindow.geometry(str(int(rootWindow.winfo_screenwidth()*spreadOnX))+"x"+str( int(rootWindow.winfo_screenheight()*spreadOnY))+"+"+str( int(rootWindow.winfo_screenwidth()*(1-spreadOnX)/2))+"+"+str( int(rootWindow.winfo_screenheight()*(1-spreadOnY)/2)))
         rootWindow.configure(background='blue') 
         rootWindow.state('zoomed')
