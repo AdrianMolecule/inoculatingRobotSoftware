@@ -71,3 +71,4 @@ maybe useful:
 # set Python version, and confirm
 pyenv local 3.10.13
 python --version
+c:\a\diy\pythonProjects\labRobot
