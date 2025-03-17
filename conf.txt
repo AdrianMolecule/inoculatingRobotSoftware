@@ -3,7 +3,7 @@ https://code.visualstudio.com/docs/python/environments
 ctrl shift P and the select create virtual environments
 
 then:
-.venv\Scripts\activate
+.venv\Scripts\activate  
 
 then  python --version
 
