@@ -6,7 +6,6 @@ from pathlib import Path
 from tkinter import filedialog, messagebox
 import cv2 
 import numpy as np 
-import cv2 
 import numpy as np 
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -77,8 +76,10 @@ class UiApp:
                 #image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") ;    blockDim=6#12
                 adrian_block_size=(blockDim,blockDim) #6 and 6 is the best but image is 2 pixel too large
                 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale Maybe ConvertColor?
+                threshold = 30 #127 
+                _, blackAndWhiteImage=cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)  # Threshold the image              
                 if self.checkboxVar.get():
-                    edged = cv2.Canny(gray, 30, 200) # Find Canny edges
+                    edged = cv2.Canny(blackAndWhiteImage, 30, 200) # Find Canny edges
                     # Finding Contours # Use a copy of the image e.g. edged.copy() # since findContours alters the image 
                     contours, hierarchy = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) ##cv2.imshow('Canny Edges After Contouring', edged) 
                     print("Number of Contours found = " + str(len(contours))) # Draw all contours # -1 signifies drawing all contours # cv2.drawContours(image, contours, -1, (0, 255, 0), 3) 
@@ -88,7 +89,7 @@ class UiApp:
                     cv2.drawContours(contourArray, contours, -1, (0, 255, 0), 3)    
                     dotArray = createDotImageOpencv(contourArray, adrian_block_size)# Call the function to create and save the dot image
                 else:
-                    dotArray = createDotImageOpencv(gray, adrian_block_size)# Call the function to create and save the dot image
+                    dotArray = createDotImageOpencv(blackAndWhiteImage, adrian_block_size)# Call the function to create and save the dot image
                 black_centers = find_centers_of_black_sections(dotArray)# Call the function to find centers of black sections
                 self.textboxPointsNumber.config(state="normal")
                 self.textboxPointsNumber.delete(0, tk.END)
