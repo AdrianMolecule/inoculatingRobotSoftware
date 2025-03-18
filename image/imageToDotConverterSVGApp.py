@@ -10,11 +10,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import math
+from lxml import etree
+from collections import OrderedDict
 
 #  CTRL SHIFT P indent  
 canvas=None
 PETRI_DIAMETER=int(90)
+HOP=2
 PETRI_RADIUS=int(PETRI_DIAMETER/2)
+REMOVE_SHORT_LINES=True
 
 class UiApp:
 
@@ -65,94 +69,123 @@ class UiApp:
         self.menuBar.add_cascade(label="File", menu=fileMenu)
         fileMenu.add_command(label="Load File", command=lambda:self.loadSourceImage())
         root.config(menu=self.menuBar)   
-
-
+    
     def loadSourceImage(self):
         self.textboxPointsNumber.config(state="normal")
         self.textboxPointsNumber.delete(0, tk.END)
         self.textboxPointsNumber.config(state="readonly")  
         rootPath=getInitialPath()
         print("rootPath",rootPath)
-        po:list=createPoints()
-        def scaleAndCenter(po):
-            maxX,maxY,minX,minY=findLimits(po)
-            translateX=int((maxX-minX)/2)
-            print("translateX",translateX)
-            translateY=int((maxY-minY)/2)
-            newP=[]
-            for p in po:
-                newX=p[0]-translateX
-                newY=p[1]-translateY
-                newP.append((newX,newY))
-            scale=PETRI_DIAMETER/max(maxX,maxY)
-            return newP        
-        po=scaleAndCenter(po)
-        print("scaleAndCenter: ", po)
-        blackCentersPath=rootPath+"/BlackCenters.npy"
-        np.save(blackCentersPath,po)
-        createPlot(po, rootPath, blackCentersPath)
-
-        return None,None
-        fast=False
+        svg=True
+        fast=True
         if fast:
-            filePath=""
+            filePath="C:\\a\\diy\\pythonProjects\\labRobot\\image/m1.svg"
         else:
             filePath = filedialog.askopenfilename(title="Open Image", initialdir=rootPath, filetypes=[("Png file", "*.png"), ("All Files", "*.*")])  	
-        if filePath:
-            try:
-                print("loading",filePath)
-            except Exception as e:
-                messagebox.showerror("Error", f"An error occurred while reading the file: {e}")        
-                return None, None        
-        blockDim=int(self.textbox.get()) #change here for higher/lower number of points
-        image = cv2.imread(filePath) ;   
-        #image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") ;    blockDim=6#12
-        adrian_block_size=(blockDim,blockDim) #6 and 6 is the best but image is 2 pixel too large
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale Maybe ConvertColor?
-        threshold = 30 #127 
-        _, blackAndWhiteImage=cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)  # Threshold the image              
-        if self.checkboxVar.get():
-            edged = cv2.Canny(blackAndWhiteImage, 30, 200) # Find Canny edges
-            # Finding Contours # Use a copy of the image e.g. edged.copy() # since findContours alters the image 
-            contours, hierarchy = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) ##cv2.imshow('Canny Edges After Contouring', edged) 
-            print("Number of Contours found = " + str(len(contours))) # Draw all contours # -1 signifies drawing all contours # cv2.drawContours(image, contours, -1, (0, 255, 0), 3) 
-            # cv2.imshow('Contours', image) # cv2.waitKey(0) 
-            h, w = image.shape[:2]
-            contourArray = np.full((h,w),255, dtype=np.uint8) #255 is white empty image just an array of numbers
-            cv2.drawContours(contourArray, contours, -1, (0, 255, 0), 3)    
-            dotArray = createDotImageOpencv(contourArray, adrian_block_size)# Call the function to create and save the dot image
-        else:
-            dotArray = createDotImageOpencv(blackAndWhiteImage, adrian_block_size)# Call the function to create and save the dot image
-        black_centers = find_centers_of_black_sections(dotArray)# Call the function to find centers of black sections
-        self.textboxPointsNumber.config(state="normal")
-        self.textboxPointsNumber.delete(0, tk.END)
-        self.textboxPointsNumber.insert(tk.END, str(len(black_centers)))    
-        self.textboxPointsNumber.config(state="readonly")                  
-        createPlot(black_centers, "Black Sections", "black")# Call the function to create the plot
-        messagebox.showinfo("dotArrany.npy saved", f"The dotArrany.npy file containing all the coordinates of the points relative to the center of the image was saved   as {dotArrayPath}")            
+            if filePath:
+                try:
+                    print("loading",filePath)
+                except Exception as e:
+                    messagebox.showerror("Error", f"An error occurred while reading the file: {e}")        
+                    return None, None  
+        if svg:              
+            polygonPointsList:list=createPoints(filePath)            
+            scaledPolygonPointsList=scaleAndCenter(polygonPointsList)
+            print("scaledAndCenter: ", scaledPolygonPointsList)
+            allPoints =list()
+            for poly in scaledPolygonPointsList:
+                polygon(poly,HOP,allPoints)
+            # circle(0, 0, 3, hop, centerLocation, points)
+            blackCentersPath=rootPath+"/BlackCenters.npy"   
+            np.save(blackCentersPath,arr=allPoints)
+        else:#image
+            blockDim=int(self.textbox.get()) #change here for higher/lower number of points
+            image = cv2.imread(filePath) ;   
+            #image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") ;    blockDim=6#12
+            adrian_block_size=(blockDim,blockDim) #6 and 6 is the best but image is 2 pixel too large
+            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale Maybe ConvertColor?
+            threshold = 30 #127 
+            _, blackAndWhiteImage=cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)  # Threshold the image              
+            if self.checkboxVar.get():
+                edged = cv2.Canny(blackAndWhiteImage, 30, 200) # Find Canny edges
+                # Finding Contours # Use a copy of the image e.g. edged.copy() # since findContours alters the image 
+                contours, hierarchy = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE) ##cv2.imshow('Canny Edges After Contouring', edged) 
+                print("Number of Contours found = " + str(len(contours))) # Draw all contours # -1 signifies drawing all contours # cv2.drawContours(image, contours, -1, (0, 255, 0), 3) 
+                # cv2.imshow('Contours', image) # cv2.waitKey(0) 
+                h, w = image.shape[:2]
+                contourArray = np.full((h,w),255, dtype=np.uint8) #255 is white empty image just an array of numbers
+                cv2.drawContours(contourArray, contours, -1, (0, 255, 0), 3)    
+                dotArray = createDotImageOpencv(contourArray, adrian_block_size)# Call the function to create and save the dot image
+            else:
+                dotArray = createDotImageOpencv(blackAndWhiteImage, adrian_block_size)# Call the function to create and save the dot image
+            allPoints = find_centers_of_black_sections(dotArray)# Call the function to find centers of black sections
+            self.textboxPointsNumber.config(state="normal")
+            self.textboxPointsNumber.delete(0, tk.END)
+            self.textboxPointsNumber.insert(tk.END, str(len(allPoints)))    
+            self.textboxPointsNumber.config(state="readonly")  
+        createPlot(allPoints, rootPath, blackCentersPath)                            
+        messagebox.showinfo("dotArrany.npy saved", f"The dotArrany.npy file containing all the coordinates of the points relative to the center of the image was saved   as {blackCentersPath}")            
         # Call the center window function after plotting
         return None,None
 
-def createPoints():
-    p =list()
-    hop=3
-    # line(0, 0, 10, 5, hop,p)    
-    # line(0, 0, 10, 0, hop,p)    
-    #line(0, 0, 0, 10, hop,p)    
-    # line(0, 0, 60, 0, hop,p)    
-    # line(0, 60, 60, 60, hop,p)   
-    # 
-    poliPoints=[(0,0),(60,0),(60, 60),(0,60),(0,0)]
-    polygon(poliPoints,hop,p)
-    # circle(0, 0, 3, hop, centerLocation, points)
+def scaleAndCenter(po):
+        BORDER=5 # 5 mm border
+        allPointsArray = list()
+        for i, points in enumerate(po):
+            # print(f"Raw Polygon {i+1}: {points}")   
+            allPointsArray.extend(points) 
+        maxX,maxY,minX,minY=findLimits(allPointsArray)        
+        print ("Raw maxX:",maxX, " maxY:",maxY," minX:",minX, " minY:",minY, " rangeX:",maxX-(minX), " rangeY:",maxY-(minY))
+        scale=(PETRI_DIAMETER-BORDER)/max(maxX-minX,maxY-minY)
+        allScaledPointsArray = list()     
+        maxX=None
+        maxY=None
+        minX=None
+        minY=None
+        for points in po:  
+            newScaledPoly=[]                
+            for p in points:
+                newX=p[0]*scale
+                newY=p[1]*scale
+                newScaledPoly.append((newX,newY))
+                if maxX==None or newX>maxX: maxX=newX
+                if maxY==None or newY>maxY: maxY=newY
+                if minX==None or newX<minX: minX=newX
+                if minY==None or newY<minY: minY=newY
+            allScaledPointsArray.append(newScaledPoly)
+        print ("Scaled maxX:",maxX, " maxY:",maxY," minX:",minX, " minY:",minY, " rangeX:",maxX+abs(minX), " rangeY:",maxY+abs(minY))
+        translateX=(maxX-minX)/2+minX
+        translateY=(maxY-minY)/2+minY
+        allTranslatedPointsArray = list()            
+        for points in allScaledPointsArray:           
+            newTranslatedPoly=[]
+            for p in points:
+                newX=p[0]-translateX
+                newY=-(p[1]-translateY)# adrian in here I switch y with -y to have the y axis go up
+                newTranslatedPoly.append((round(newX,1),round(newY,1)))
+            allTranslatedPointsArray.append(newTranslatedPoly)
+        return allTranslatedPointsArray     
 
-    return p
+def createPoints(filePath):
+    tree = etree.parse(filePath)
+    polygons = tree.findall(".//{http://www.w3.org/2000/svg}polygon")
+    # Extract points for each polygon
+    polygonPointsList = []
+    for polygon in polygons:
+        points_string = polygon.get("points")
+        points: list[tuple[float, ...]] = [tuple(map(float, point.split(","))) for point in points_string.split()]
+        polygonPointsList.append(points)
+        
+    # Print the points for each polygon
+    for i, points in enumerate(polygonPointsList):
+        print(f"Raw Polygon {i+1}: {points}")       
+    return polygonPointsList
 
 def createPlot(blackCenters, rootPath, blackCentersPath):
         x_coords = [point[0] for point in blackCenters]# Extract the x and y coordinates from the list of centers
         y_coords = [point[1] for point in blackCenters]
-        plt.figure(figsize=(8, 8))# Plot the points using plt.scatter
-        plt.scatter(x_coords, y_coords, c="black")        
+        plt.figure(figsize=(6, 6))# Plot the points using plt.scatter
+        plt.scatter(x_coords, y_coords, s=4, c="black")        
         plt.xlim(-PETRI_RADIUS, PETRI_RADIUS) # for Petri dish that is 
         plt.ylim(-PETRI_RADIUS,PETRI_RADIUS)
         plt.title(f"There are {len(blackCenters)} points. Adjust the blocksize up if you want less points.")
@@ -163,11 +196,13 @@ def createPlot(blackCenters, rootPath, blackCentersPath):
         plt.show()# Display the plot     
 
 
-def polygon(  po:list,hop, points:list):
+def polygon(  poWithDuplicates:list,hop, points:list):
+    po=list(OrderedDict.fromkeys(poWithDuplicates))
     previous=po[0]
     for p in po[1:]:
         line(previous[0], previous[1], p[0],p[1], hop, points)
         previous=p
+    line(previous[0], previous[1], po[0][0],po[0][1], hop, points)
 
 def createPointsSmiley():
     centerLocation=(0,0)
@@ -188,12 +223,14 @@ def line(x1, y1, x2, y2, hop, points:list):
     y_distance = y2 - y1
     lineLen=math.sqrt(x_distance**2 + y_distance**2)
     steps=int(lineLen/hop)
+    if steps==0: 
+        if REMOVE_SHORT_LINES: return
+        steps=1
     x_separation = x_distance / steps
     y_separation = y_distance / steps
     for i in range(steps+1):
-        # points.append(center_location.move(x=x1+i*x_separation, y=y1+i*y_separation))
-        points.append((x1+i*x_separation, y1+i*y_separation))
-    print("points",points)
+        points.append((round(x1+i*x_separation,1),round(y1+i*y_separation,1)))
+    print("\nline points",points)
 
 def circle(center_x, center_y, radius, steps,points:list):
   for i in range(steps):
@@ -226,12 +263,12 @@ def createDotImageOpencv(image:Image, block_size, threshold=128)->Image:
     return  dot_imageArray
 
 def findLimits(array):
-    maxX=0;maxY=0;minX=0;minY=0
+    maxX=None;maxY=None;minX=None;minY=None
     for p in array:
-        if p[0]>maxX: maxX= p[0]
-        if p[1]>maxY: maxY= p[1]
-        if p[0]<minX: minX= p[0]
-        if p[1]<minY: minY= p[1]
+        if maxX==None or p[0]>maxX: maxX= p[0]
+        if maxY==None or p[1]>maxY: maxY= p[1]
+        if minX==None or p[0]<minX: minX= p[0]
+        if minY==None or p[1]<minY: minY= p[1]
     return maxX, maxY, minX, minY
 
 def find_centers_of_black_sections(image, block_size=(1, 1), threshold=128):
@@ -298,15 +335,6 @@ def showImageFromPetriStyleArray(petriArray, height, width):
 def imageInfo(image, imageName=""):
     h,w=image.shape[:2]
     print("image "+imageName+ " dimensions",h,w, " black pixels",h*w-cv2.countNonZero(image)) # Get the dimensions of the image
-
-def findLimits(array):
-    maxX=0;maxY=0;minX=0;minY=0
-    for p in array:
-        if p[0]>maxX: maxX= p[0]
-        if p[1]>maxY: maxY= p[1]
-        if p[0]<minX: minX= p[0]
-        if p[1]<minY: minY= p[1]
-    return maxX, maxY, minX, minY
 
 def centerWindowHorizontally(fig):
     # Get the Tkinter canvas associated with the plot

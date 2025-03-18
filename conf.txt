@@ -17,6 +17,7 @@ python -m pip install numpy
 python -m pip install matplotlib 
 python -m pip install --upgrade opencv-python
 python -m pip install pillow
+pip install lxml
 
 also python -m pip install pyinstaller  if you want to install
 
