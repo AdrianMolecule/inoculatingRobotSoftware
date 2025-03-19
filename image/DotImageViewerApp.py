@@ -75,9 +75,12 @@ class UiApp:
 
     def saveFileHandler(self):
         fileName: str = os.path.splitext(os.path.basename(self.filePath))[0]
-        dotArrayPath=rootPath=getInitialPath()+"/"+fileName+"Edited.npy"            
+        dotArrayPath=rootPath=getInitialPath()+"/"+fileName+"Edited.npy"       
+        print("points before deduplication",len(self.points))
+        self.points = np.unique(self.points, axis=0)
+        print("points after deduplication",len(self.points))
         np.save(dotArrayPath,arr=self.points)
-        messagebox.showinfo("Info", f"File saved as {dotArrayPath}")    
+        messagebox.showinfo("Info", f"File saved as {dotArrayPath} of size {len(self.points)}")    
 
     def readFileHandler(self):
         self.textboxPointsNumber.config(state="normal")
@@ -101,7 +104,7 @@ class UiApp:
             plt.title(f"There are {len(self.points)} points")
             plt.gca().set_aspect("equal", adjustable="box")#     Set the aspect of the plot to be equal
             fig = plt.gcf()
-            fig.canvas.mpl_connect('button_press_event', self.onclick) 
+            fig.canvas.mpl_connect('button_press_event', self.onClick) 
             fig.canvas.manager.window.title(f"{path} self.points {len(self.points)} points")# Set the title of the window to the path of the image)       
             centerWindowHorizontally(fig)   
             self.redrawPlot(path)  
@@ -113,19 +116,30 @@ class UiApp:
             plt.show()# Display the plot    
 
     # Function to remove points on click
-    def onclick(self, event):
-        print("in onclick self.points[0]",self.points[0])         
-        if event.inaxes:  # Check if the click is inside the axes
-            x_click, y_click = event.xdata, event.ydata
-            distances = ((self.scatter.get_offsets()[:, 0] - x_click) ** 2 + 
-                        (self.scatter.get_offsets()[:, 1] - y_click) ** 2)
-            closest_index = distances.argmin()            
-            if distances[closest_index] < 0.7:  # Adjust the threshold as needed
-                print("removing",self.points[closest_index])
-                self.points=np.delete(self.points, closest_index,axis=0)
+    def onClick(self, event):
+        print("in onclick self.points[0]",self.points[0])   
+        if event.button == 1 and event.inaxes:    # LEFT click Check if the click is inside the axes  
+                xClick, yClick = event.xdata, event.ydata
+                distances = ((self.scatter.get_offsets()[:, 0] - xClick) ** 2 + 
+                            (self.scatter.get_offsets()[:, 1] - yClick) ** 2)
+                closest_index = distances.argmin()            
+                print("adding",self.points[closest_index])
+                self.points=np.insert(self.points, closest_index,(xClick, yClick),axis=0)
                 print("new points len",len(self.points))
                 plt.cla()
                 self.redrawPlot( self.filePath)   
+        if event.button == 3 and event.inaxes:    # Check if the click is inside the axes  
+                xClick, yClick = event.xdata, event.ydata
+                distances = ((self.scatter.get_offsets()[:, 0] - xClick) ** 2 + 
+                            (self.scatter.get_offsets()[:, 1] - yClick) ** 2)
+                closest_index = distances.argmin()            
+                if distances[closest_index] < 0.7:  # Adjust the threshold as needed
+                    print("removing",self.points[closest_index])
+                    self.points=np.delete(self.points, closest_index,axis=0)
+                    print("new points len",len(self.points))
+                    plt.cla()
+                    self.redrawPlot( self.filePath)   
+ 
 
 def getInitialPath():
     base=None
