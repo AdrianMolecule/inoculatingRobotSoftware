@@ -12,6 +12,7 @@ from PIL import Image
 import math
 from lxml import etree
 from collections import OrderedDict
+from svgpathtools import parse_path
 
 #  CTRL SHIFT P indent  
 canvas=None
@@ -19,6 +20,8 @@ PETRI_DIAMETER=int(90)
 HOP=2
 PETRI_RADIUS=int(PETRI_DIAMETER/2)
 REMOVE_SHORT_LINES=True
+JUST_FILE_NAME="students/m1.svg" #"students/path.svg"
+fast=False#True will bypass file selection and go witht eh hardcoded on
 
 class UiApp:
 
@@ -77,9 +80,8 @@ class UiApp:
         rootPath=getInitialPath()
         print("rootPath",rootPath)
         svg=True
-        fast=True
         if fast:
-            filePath="C:\\a\\diy\\pythonProjects\\labRobot\\image/m1.svg"
+            filePath="C:\\a\\diy\\pythonProjects\\labRobot\\image/"+JUST_FILE_NAME
         else:
             filePath = filedialog.askopenfilename(title="Open Image", initialdir=rootPath, filetypes=[("Png file", "*.png"), ("All Files", "*.*")])  	
             if filePath:
@@ -96,8 +98,9 @@ class UiApp:
             for poly in scaledPolygonPointsList:
                 polygon(poly,HOP,allPoints)
             # circle(0, 0, 3, hop, centerLocation, points)
-            blackCentersPath=rootPath+"/BlackCenters.npy"   
-            np.save(blackCentersPath,arr=allPoints)
+            fileName: str = os.path.splitext(os.path.basename(filePath))[0]
+            dotArrayPath=rootPath+"/"+fileName+"DotArray.npy"            
+            np.save(dotArrayPath,arr=allPoints)
         else:#image
             blockDim=int(self.textbox.get()) #change here for higher/lower number of points
             image = cv2.imread(filePath) ;   
@@ -123,8 +126,8 @@ class UiApp:
             self.textboxPointsNumber.delete(0, tk.END)
             self.textboxPointsNumber.insert(tk.END, str(len(allPoints)))    
             self.textboxPointsNumber.config(state="readonly")  
-        createPlot(allPoints, rootPath, blackCentersPath)                            
-        messagebox.showinfo("dotArrany.npy saved", f"The dotArrany.npy file containing all the coordinates of the points relative to the center of the image was saved   as {blackCentersPath}")            
+        createPlot(allPoints, rootPath, dotArrayPath)                            
+        messagebox.showinfo("dotArrany.npy saved", f"The dotArrany.npy file containing all the coordinates of the points relative to the center of the image was saved   as {dotArrayPath}")            
         # Call the center window function after plotting
         return None,None
 
@@ -175,7 +178,31 @@ def createPoints(filePath):
         points_string = polygon.get("points")
         points: list[tuple[float, ...]] = [tuple(map(float, point.split(","))) for point in points_string.split()]
         polygonPointsList.append(points)
-        
+
+    #PATHS
+    pathPointsList = []
+    paths = tree.findall(".//{http://www.w3.org/2000/svg}path")
+    if(len(paths)>0):
+        for path in paths:
+            pathString = path.get("d")
+            path = parse_path(pathString)
+            # Extract points
+            for segment in path:
+                pathPointsList.append((segment.start.real, segment.start.imag))
+                pathPointsList.append((segment.end.real, segment.end.imag))
+
+        print("Extracted Points:", pathPointsList)
+        # Convert to a list of x and y coordinates
+        x, y = zip(*pathPointsList)
+        plt.figure(figsize=(8, 6))
+        plt.plot(x, y, marker='o', linestyle='-', color='b')  # 'o' for points, '-' for lines
+        plt.title('SVG Path Points')
+        plt.xlabel('X Coordinates')
+        plt.ylabel('Y Coordinates')
+        plt.grid()
+        plt.axis('equal')  # Keep the aspect ratio square
+        plt.show()
+
     # Print the points for each polygon
     for i, points in enumerate(polygonPointsList):
         print(f"Raw Polygon {i+1}: {points}")       

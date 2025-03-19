@@ -9,6 +9,7 @@ import numpy as np
 import numpy as np 
 import matplotlib.pyplot as plt
 from PIL import Image
+import math
 
 #  CTRL SHIFT P indent  
 canvas=None
@@ -76,7 +77,7 @@ class UiApp:
                 #image = cv2.imread("C:/a/diy/pythonProjects/labRobot/src/image/leaf.png") ;    blockDim=6#12
                 adrian_block_size=(blockDim,blockDim) #6 and 6 is the best but image is 2 pixel too large
                 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) # Grayscale Maybe ConvertColor?
-                threshold = 30 #127 
+                threshold = 127 #127 30
                 _, blackAndWhiteImage=cv2.threshold(gray, threshold, 255, cv2.THRESH_BINARY)  # Threshold the image              
                 if self.checkboxVar.get():
                     edged = cv2.Canny(blackAndWhiteImage, 30, 200) # Find Canny edges
@@ -105,7 +106,8 @@ class UiApp:
                 plt.title(f"There are {len(black_centers)} points. Adjust the blocksize up if you want less points.")
                 plt.gca().set_aspect("equal", adjustable="box")# Set the aspect of the plot to be equal
                 print (findLimits(black_centers))
-                dotArrayPath=rootPath+"/dotarray.npy"
+                fileName: str = os.path.splitext(os.path.basename(filePath))[0]
+                dotArrayPath=rootPath+"/"+fileName+"DotArray.npy"
                 np.save(dotArrayPath,black_centers)
                 arr=np.load(dotArrayPath)
                 print (findLimits(arr))
@@ -113,7 +115,7 @@ class UiApp:
                 fig.canvas.manager.window.title(dotArrayPath)            
                 centerWindowHorizontally(fig)    
                 plt.show()# Display the plot 
-                messagebox.showinfo("dotArrany.npy saved", f"The dotArrany.npy file containing all the coordinates of the points relative to the center of the image was saved   as {dotArrayPath}")            
+                messagebox.showinfo(dotArrayPath+" saved", f"The file containing all the coordinates of the points relative to the center of the image was saved as {dotArrayPath}")            
                 # Call the center window function after plotting
             except Exception as e:
                 messagebox.showerror("Error", f"An error occurred while reading the file: {e}")
