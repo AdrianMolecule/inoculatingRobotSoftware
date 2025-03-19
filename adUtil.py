@@ -64,16 +64,17 @@ def printGCode():
     for i in range(len(gCode)):
         print(gCode[i])
 
-SAVE_FILE_NAME="gcode.txt" #change here if you don't like the file name for the gcode 
-def saveGCode(rootPath):
+SAVE_FILE_NAME="Gcode" #change here if you don't like the file name for the gcode 
+def saveGCode(rootPath, originalFileName=""):
     gCode.append("Z"+str(Z_CLEAR)+"; final lift to safe level")
     print("\n******** GCode********")
-    file =open(os.path.join(rootPath, SAVE_FILE_NAME), 'w+')
+    fullSavedFileName=os.path.join(rootPath, originalFileName+ SAVE_FILE_NAME+".txt")
+    file =open(fullSavedFileName, 'w+')
     for i in range(len(gCode)):
         file.write(gCode[i]+"\n")
     file.close()
-    print("the gcode was saved as",os.path.abspath(file.name))
-    uiBootup.savedFile=f"the gcode was saved as {os.path.abspath(file.name)}"           
+    print(f"the gcode was saved as {fullSavedFileName}")
+    uiBootup.savedFile=f"the gcode was saved as {fullSavedFileName}"
     #printGCode()
     
 

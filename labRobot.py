@@ -89,7 +89,7 @@ async def main():
         print("disperse offset:",point)
         await liquidHandler.aspirate(sourceWells[sourceWell][0], vols=[1.0])        
         await liquidHandler.dispense(dish, vols=[1.0], offsets=[Coordinate(x=point[0], y=point[1], z=calibrationMediaHeight)])
-    adUtil.saveGCode(rootPath)
+    adUtil.saveGCode(rootPath, originalFileName=os.path.splitext(os.path.basename(filePath))[0])
     await liquidHandler.stop()
 
 asyncio.run(main())
